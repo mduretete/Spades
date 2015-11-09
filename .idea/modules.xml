@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/EmptyGameFramework-cef2c4ad495872528d5cd32cc6fefbbadb42bd7b.iml" filepath="$PROJECT_DIR$/EmptyGameFramework-cef2c4ad495872528d5cd32cc6fefbbadb42bd7b.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpadesFramework.iml" filepath="$PROJECT_DIR$/SpadesFramework.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
