@@ -57,26 +57,41 @@ public class Card {
         }
     }
 
+    /**
+     * setSuit(): setter for the rank of a Card object, checks for validity
+     * @param s string that sets the suit for a Card object
+     */
     public void setSuit(String s){
         if(suitCheck(s)) {
             this.suit = s;
         }
     }
 
+    /**
+     * rankCheck(): checks to see if the rank proposed is valid
+     * @param r int that is proposed to be the rank of a Card object
+     * @return boolean, false if the rank is not valid (2-14 inclusive is valid)
+     */
     public boolean rankCheck(int r){
-        if(r < 2 || r > 13){
-            Log.d("RANK ERROR", "Rank out of range: "+ r);
+        if(r < 2 || r > 14){
+            //Log.d("RANK ERROR", "Rank out of range: "+ r);
             return false;
         }
         return true;
     }
 
+    /**
+     * suitCheck(): checks to see if the suit proposed is valid
+     * @param s string that is proposed to be the suit of a Card object
+     * @return boolean, false if the suit is not valid (equal to one of our
+     *          string constants is valid)
+     */
     public boolean suitCheck(String s){
         if(!s.equals(DIAMONDS) ||
                 !s.equals(HEARTS) ||
                 !s.equals(CLUBS) ||
                 !s.equals(SPADES)){
-            Log.d("SUIT ERROR", "Suit invalid: " + s);
+            //Log.d("SUIT ERROR", "Suit invalid: " + s);
             return false;
         }
         return true;

@@ -84,7 +84,7 @@ public class SpadesState {
         playerBags = new int[]{0, 0, 0, 0};
         playerBids = new int[]{0, 0, 0, 0};
 
-        userTeammate = rand.nextInt(3) + 1;
+        userTeammate = 2; //player across from user will always be their teammate
     }
 
     public SpadesState(SpadesState copy){
@@ -176,7 +176,7 @@ public class SpadesState {
     }
 
     public int getPlayerBids(int player){
-        return playerBags[player];
+        return playerBids[player];
     }
 
     public int getUserTeammate(){
@@ -248,7 +248,7 @@ public class SpadesState {
     /**
      * helper method for the constructor
      */
-    private void initDeck(){
+    public void initDeck(){
         int i;
         for(i=2;i<15;i++)
             deck.add(new Card(i,Card.CLUBS));
