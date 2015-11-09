@@ -7,11 +7,11 @@ import android.util.Log;
  */
 public class Card {
     //constants that have no reason to ever be changed, corresponding with suit
-    private final String SPADES = "S";
-    private final String CLUBS = "C";
-    private final String HEARTS = "H";
-    private final String DIAMONDS = "D";
-    private final String DEFAULT = "S"; //defaults to spades upon programmer error
+    public static final String SPADES = "S";
+    public static final String CLUBS = "C";
+    public static final String HEARTS = "H";
+    public static final String DIAMONDS = "D";
+    public static final String DEFAULT = "S"; //defaults to spades upon programmer error
 
     //rank and suit variables for the Card ctor
     private int rank;
