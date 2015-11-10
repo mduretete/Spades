@@ -3,8 +3,12 @@ package edu.up.cs301.spadestest;
 import android.util.Log;
 
 /**
- * Created by duretete16 on 11/8/2015.
+ * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
+ * @version Nov. 2015
+ *
+ * Class defines a Card object
  */
+
 public class Card {
     //constants that have no reason to ever be changed, corresponding with suit
     public static final String SPADES = "S";
@@ -13,12 +17,12 @@ public class Card {
     public static final String DIAMONDS = "D";
     public static final String DEFAULT = "S"; //defaults to spades upon programmer error
 
-    //rank and suit variables for the Card ctor
+    //rank and suit variables
     private int rank;
     private String suit;
 
     /**
-     * Card(): ctor for Card object
+     * Card(): initialize new Card object
      * @param r int that holds the rank of a Card object, 2-13
      * @param s string that holds the suit of a Card object
      */
@@ -29,7 +33,7 @@ public class Card {
         if(suitCheck(s)){
             suit = s;
         }
-    }
+    }//ctor
 
     /**
      * getRank(): getter for the rank of a Card object

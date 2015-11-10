@@ -3,7 +3,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by morrisor17 on 11/8/2015.
+ * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
+ * @version Nov. 2015
+ *
+ * Framework
  */
 public class SpadesState {
 
@@ -44,35 +47,33 @@ public class SpadesState {
 
         trickCards = new Card[4];
 
-        initDeck();
+        initDeck(); //fill deck
 
         Random rand = new Random();
 
-        player1Hand = new Card[13];
+        player1Hand = new Card[13]; //give players hands of cards
         player2Hand = new Card[13];
         player3Hand = new Card[13];
         player4Hand = new Card[13];
 
         int i;
         int cardNo;
+        // shuffle and deal
         for(i=0;i<13;i++) {
             cardNo = rand.nextInt(deck.size());
             player1Hand[i] = deck.get(cardNo);
             deck.remove(cardNo);
         }
-
         for(i=0;i<13;i++) {
             cardNo = rand.nextInt(deck.size());
             player2Hand[i] = deck.get(cardNo);
             deck.remove(cardNo);
         }
-
         for(i=0;i<13;i++) {
             cardNo = rand.nextInt(deck.size());
             player3Hand[i] = deck.get(cardNo);
             deck.remove(cardNo);
         }
-
         for(i=0;i<13;i++) {
             cardNo = rand.nextInt(deck.size());
             player4Hand[i] = deck.get(cardNo);
@@ -127,6 +128,7 @@ public class SpadesState {
 
     }
 
+    //getters
     public int getCurrentPlayer(){
         return currentPlayer;
     }
@@ -246,9 +248,10 @@ public class SpadesState {
     }
 
     /**
-     * helper method for the constructor
+     * helper method for the constructor. Fills "deck", an arraylist of Cards
+     *
      */
-    public void initDeck(){
+    private void initDeck(){
         int i;
         for(i=2;i<15;i++)
             deck.add(new Card(i,Card.CLUBS));
@@ -258,5 +261,6 @@ public class SpadesState {
             deck.add(new Card(i,Card.SPADES));
         for(i=2;i<15;i++)
             deck.add(new Card(i,Card.HEARTS));
+
     }
 }
