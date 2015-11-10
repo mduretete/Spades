@@ -251,7 +251,7 @@ public class SpadesState {
      * helper method for the constructor. Fills "deck", an arraylist of Cards
      *
      */
-    private void initDeck(){
+    public void initDeck(){
         int i;
         for(i=2;i<15;i++)
             deck.add(new Card(i,Card.CLUBS));
