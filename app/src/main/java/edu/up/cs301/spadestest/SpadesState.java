@@ -89,6 +89,21 @@ public class SpadesState {
     }
 
     public SpadesState(SpadesState copy){
+        //declare all the empty array definitions so there is something to copy to
+        trickCards = new Card[4];
+
+        playerScores = new int[]{0, 0, 0, 0};
+        playerTricks = new int[]{0, 0, 0, 0};
+
+        player1Hand = new Card[13]; //give players hands of cards
+        player2Hand = new Card[13];
+        player3Hand = new Card[13];
+        player4Hand = new Card[13];
+
+        playerBags = new int[]{0, 0, 0, 0};
+        playerBids = new int[]{0, 0, 0, 0};
+
+        //begin the copy process
         this.currentPlayer = copy.getCurrentPlayer();
         this.cardsPlayed = copy.getCardsPlayed();
 
@@ -125,6 +140,8 @@ public class SpadesState {
         }
 
         this.userTeammate = copy.getUserTeammate();
+
+        this.deck = new ArrayList<Card>(copy.deck);
 
     }
 
@@ -252,7 +269,7 @@ public class SpadesState {
      *
      */
     public void initDeck(){
-        int i;
+                int i;
         for(i=2;i<15;i++)
             deck.add(new Card(i,Card.CLUBS));
         for(i=2;i<15;i++)

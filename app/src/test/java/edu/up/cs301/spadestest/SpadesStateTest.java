@@ -45,6 +45,23 @@ public class SpadesStateTest {
     }
 
     /**
+     * testSpadesStateCopy(): tests that objects in SpadesState are correctly copied
+     *                      to the copy constructor
+     * @throws Exception
+     */
+    @Test
+    public void testSpadesStateCopy() throws Exception {
+        SpadesState test = new SpadesState(); //creates test state
+
+        test.placeBid(4); //places a bid of 4 into current player (index 0)
+        test.initDeck();
+
+        SpadesState testCopy = new SpadesState(test); //copy updated test to a copy
+        assertEquals(test.getPlayerBids(0), testCopy.getPlayerBids(0)); //test the copy has the updated value
+        assertEquals(test.deck.get(5), testCopy.deck.get(5)); //test the copy has it's deck init'd
+    }
+
+    /**
      * testPlaceBid(): tests that a bid is correctly placed into playerBids[]
      *                   using placeBid()
      * @throws Exception
@@ -78,5 +95,11 @@ public class SpadesStateTest {
         SpadesState temp = new SpadesState();
         test.initDeck();
         assertNotEquals(test.deck, temp.deck);
+    }
+
+    @Test
+    public void testGetUserTeammate() throws Exception {
+        SpadesState test = new SpadesState();
+        assertNotNull(test.getUserTeammate());
     }
 }
