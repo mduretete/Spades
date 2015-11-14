@@ -6,7 +6,7 @@ import java.util.Random;
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
  * @version Nov. 2015
  *
- * Framework
+ * Holds all the values contingent with the current gameState
  */
 public class SpadesState {
 

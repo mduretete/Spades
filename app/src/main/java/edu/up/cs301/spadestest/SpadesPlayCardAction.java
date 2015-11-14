@@ -6,9 +6,15 @@ import edu.up.cs301.game.actionMsg.GameAction;
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
  * @version Nov. 2015
+ *
+ * Class that allows the playCard action to be recognized
  */
 public class SpadesPlayCardAction extends GameAction {
 
+    /**
+     * SpadesPlayCardAction(): calls parent player object making the action
+     * @param player
+     */
     public SpadesPlayCardAction(GamePlayer player){
         super(player);
     }
