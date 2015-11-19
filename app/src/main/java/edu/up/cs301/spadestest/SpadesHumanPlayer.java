@@ -1,8 +1,11 @@
 package edu.up.cs301.spadestest;
 
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Space;
 import android.widget.TextView;
 
@@ -21,7 +24,7 @@ import edu.up.cs301.game.infoMsg.GameState;
  *      the player can make and values that the player object
  *      holds
  */
-public class SpadesHumanPlayer extends GameHumanPlayer{
+public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
 
     // Widgets to be used and modified during play
     private TextView playerScoreTextView;
@@ -32,19 +35,19 @@ public class SpadesHumanPlayer extends GameHumanPlayer{
     private TextView partnerTrickTextView;
     private TextView LTrickTextView;
     private TextView RTrickTextView;
-    private Button card0;
-    private Button card1;
-    private Button card2;
-    private Button card3;
-    private Button card4;
-    private Button card5;
-    private Button card6;
-    private Button card7;
-    private Button card8;
-    private Button card9;
-    private Button card10;
-    private Button card11;
-    private Button card12;
+    private ImageButton c0;
+    private ImageButton c1;
+    private ImageButton c2;
+    private ImageButton c3;
+    private ImageButton c4;
+    private ImageButton c5;
+    private ImageButton c6;
+    private ImageButton c7;
+    private ImageButton c8;
+    private ImageButton c9;
+    private ImageButton c10;
+    private ImageButton c11;
+    private ImageButton c12;
     private Space dropSpace;
 
     private GameMainActivity myActivity;
@@ -86,6 +89,58 @@ public class SpadesHumanPlayer extends GameHumanPlayer{
      */
     @Override
     public void setAsGui(GameMainActivity activity) {
+        myActivity = activity;
+        activity.setContentView(R.layout.activity_main);
+
+        c0 = (ImageButton) activity.findViewById(R.id.c0);
+        c1 = (ImageButton) activity.findViewById(R.id.c1);
+        c2 = (ImageButton) activity.findViewById(R.id.c2);
+        c3 = (ImageButton) activity.findViewById(R.id.c3);
+        c4 = (ImageButton) activity.findViewById(R.id.c4);
+        c5 = (ImageButton) activity.findViewById(R.id.c5);
+        c6 = (ImageButton) activity.findViewById(R.id.c6);
+        c7 = (ImageButton) activity.findViewById(R.id.c7);
+        c8 = (ImageButton) activity.findViewById(R.id.c8);
+        c9 = (ImageButton) activity.findViewById(R.id.c9);
+        c10= (ImageButton) activity.findViewById(R.id.c10);
+        c11= (ImageButton) activity.findViewById(R.id.c11);
+        c12= (ImageButton) activity.findViewById(R.id.c12);
+    }
+
+    /**
+     * onClick(): handles buttons being clicked
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+
+        if (v==c0){
+
+        }else if (v==c1){
+
+        }else if (v==c2){
+
+        }else if (v==c3){
+
+        }else if (v==c4){
+
+        }else if (v==c5){
+
+        }else if (v==c6){
+
+        }else if (v==c7){
+
+        }else if (v==c8){
+
+        }else if (v==c9){
+
+        }else if (v==c10){
+
+        }else if (v==c11){
+
+        }else if (v==c12){
+
+        }
 
     }
 }

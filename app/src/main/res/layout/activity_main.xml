@@ -440,7 +440,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/c13"
+            android:id="@+id/c12"
             android:src="@mipmap/card_kd"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
