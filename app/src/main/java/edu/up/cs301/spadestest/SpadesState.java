@@ -2,13 +2,15 @@ package edu.up.cs301.spadestest;
 import java.util.ArrayList;
 import java.util.Random;
 
+import edu.up.cs301.game.infoMsg.GameState;
+
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
  * @version Nov. 2015
  *
  * Holds all the values contingent with the current gameState
  */
-public class SpadesState {
+public class SpadesState extends GameState{
 
     int currentPlayer;
 
@@ -31,6 +33,9 @@ public class SpadesState {
     int[] playerBids; //1-d array for player bids for the round
 
     int userTeammate; //player number of user's teammate
+
+    int selectedCard;
+    int selectedBid;
 
     ArrayList<Card> deck = new ArrayList<>();
 
@@ -279,5 +284,19 @@ public class SpadesState {
         for(i=2;i<15;i++)
             deck.add(new Card(i,Card.HEARTS));
 
+    }
+
+    /**
+     * call playCard with card currently selected by the player
+     */
+    public void playCard(){
+        playCard(this.selectedCard);
+    }
+
+    /**
+     * call placeBid with the bid currently entered by the player
+     */
+    public void placeBid(){
+        placeBid(this.selectedBid);
     }
 }

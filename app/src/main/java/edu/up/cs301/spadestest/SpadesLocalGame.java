@@ -34,7 +34,8 @@ public class SpadesLocalGame extends LocalGame {
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        return;
+        SpadesState copy = new SpadesState(spadesGameState);
+        p.sendInfo(copy);
     }
 
     /**
@@ -45,7 +46,7 @@ public class SpadesLocalGame extends LocalGame {
      */
     @Override
     public boolean canMove(int playerIdx) {
-        return false;
+        return playerIdx == spadesGameState.getCurrentPlayer();
     }
 
     /**
@@ -65,7 +66,17 @@ public class SpadesLocalGame extends LocalGame {
      */
     @Override
     public boolean makeMove(GameAction action) {
-        return false;
+        if(!canMove(getPlayerIdx(action.getPlayer()))){
+            return false;
+        }
+        if(action instanceof SpadesBidAction){
+            spadesGameState.placeBid();
+        }
+        else if(action instanceof SpadesPlayCardAction){
+            spadesGameState.playCard();
+        }
+
+        return true;
     }
 
     /**
