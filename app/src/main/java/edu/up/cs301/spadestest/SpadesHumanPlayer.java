@@ -2,6 +2,9 @@ package edu.up.cs301.spadestest;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +13,8 @@ import android.widget.Space;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
@@ -52,6 +57,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 
     private GameMainActivity myActivity;
 
+    private String[] cardNames;
+    private ArrayList<Bitmap> deck;
+
 
 
     /**
@@ -78,7 +86,15 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
     public void receiveInfo(GameInfo info) {
         if (info instanceof SpadesState) {
             SpadesState myGameState = (SpadesState) info;
-            playerScoreTextView.setText("" + myGameState.getPlayerScore(0) );
+            playerScoreTextView.setText("" + myGameState.getPlayerScore(0));
+            LScoreTextView.setText("" + myGameState.getPlayerScore(1));
+            partnerScoreTextView.setText("" + myGameState.getPlayerScore(2));
+            RScoreTextView.setText("" + myGameState.getPlayerScore(3));
+            playerTrickTextView.setText("" + myGameState.getPlayerTricks(0));
+            LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
+            partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
+            RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
+            // c1.setImageResource();
         }
     }
 
@@ -158,5 +174,17 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 
         }
 
+        // create arrayList to hold the deck
+        cardNames = activity.getResources().getStringArray(R.array.card_names);
+        deck = new ArrayList<Bitmap>();
+        TypedArray cardIds = activity.getResources().obtainTypedArray(R.array.cardIdArray); //don't use "activity?"
+        for (int i = 0; i < cardNames.length; i++) {
+            // determine the index; use 0 if out of bounds
+            int id = cardIds.getResourceId(i, 0);
+            if (id == 0) id = cardIds.getResourceId(0, 0);
+            // load the image; add to arraylist
+            Bitmap img = BitmapFactory.decodeResource(activity.getResources(), id);
+            deck.add(img);
+        }
     }
 }
