@@ -120,6 +120,22 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         c7 = (ImageButton) activity.findViewById(R.id.c7);
         c8 = (ImageButton) activity.findViewById(R.id.c8);
         c9 = (ImageButton) activity.findViewById(R.id.c9);
+        c10 = (ImageButton) activity.findViewById(R.id.c10);
+        c11 = (ImageButton) activity.findViewById(R.id.c11);
+        c12 = (ImageButton) activity.findViewById(R.id.c12);
+
+        // create arrayList to hold the deck
+        cardNames = activity.getResources().getStringArray(R.array.card_names);
+        deck = new ArrayList<Bitmap>();
+        TypedArray cardIds = activity.getResources().obtainTypedArray(R.array.cardIdArray); //don't use "activity?"
+        for (int i = 0; i < cardNames.length; i++) {
+            // determine the index; use 0 if out of bounds
+            int id = cardIds.getResourceId(i, 0);
+            if (id == 0) id = cardIds.getResourceId(0, 0);
+            // load the image; add to arraylist
+            Bitmap img = BitmapFactory.decodeResource(activity.getResources(), id);
+            deck.add(img);
+        }
         c10= (ImageButton) activity.findViewById(R.id.c10);
         c11= (ImageButton) activity.findViewById(R.id.c11);
         c12= (ImageButton) activity.findViewById(R.id.c12);
@@ -174,17 +190,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 
         }
 
-        // create arrayList to hold the deck
-        cardNames = activity.getResources().getStringArray(R.array.card_names);
-        deck = new ArrayList<Bitmap>();
-        TypedArray cardIds = activity.getResources().obtainTypedArray(R.array.cardIdArray); //don't use "activity?"
-        for (int i = 0; i < cardNames.length; i++) {
-            // determine the index; use 0 if out of bounds
-            int id = cardIds.getResourceId(i, 0);
-            if (id == 0) id = cardIds.getResourceId(0, 0);
-            // load the image; add to arraylist
-            Bitmap img = BitmapFactory.decodeResource(activity.getResources(), id);
-            deck.add(img);
+
         }
     }
-}
