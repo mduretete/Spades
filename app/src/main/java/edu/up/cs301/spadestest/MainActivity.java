@@ -7,6 +7,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
+import edu.up.cs301.game.GameMainActivity;
+import edu.up.cs301.game.GamePlayer;
+import edu.up.cs301.game.LocalGame;
+import edu.up.cs301.game.config.GameConfig;
+import edu.up.cs301.game.config.GamePlayerType;
+
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
  * @version Nov. 2015
@@ -14,114 +22,46 @@ import android.widget.ImageButton;
  * Main Activity, primarily to handle onClicks and background process's
  */
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener{
+public class MainActivity extends GameMainActivity {
 
-    ImageButton c0;
-    ImageButton c1;
-    ImageButton c2;
-    ImageButton c3;
-    ImageButton c4;
-    ImageButton c5;
-    ImageButton c6;
-    ImageButton c7;
-    ImageButton c8;
-    ImageButton c9;
-    ImageButton c10;
-    ImageButton c11;
-    ImageButton c12;
+    private static final int PORT_NUMBER = 5555;
 
     /**
-     * onCreate(): creates the layout and holds button listeners
-     * @param savedInstanceState
+     * Create the default configuration for this game:
+     * - one human player vs. thtee computer players
+     *
+     * @return the new configuration object, representing the default configuration
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public GameConfig createDefaultConfig() {
+        // Define the allowed player types
+        ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
-        c0 = (ImageButton) findViewById(R.id.c0);
-        c1 = (ImageButton) findViewById(R.id.c1);
-        c2 = (ImageButton) findViewById(R.id.c2);
-        c3 = (ImageButton) findViewById(R.id.c3);
-        c4 = (ImageButton) findViewById(R.id.c4);
-        c5 = (ImageButton) findViewById(R.id.c5);
-        c6 = (ImageButton) findViewById(R.id.c6);
-        c7 = (ImageButton) findViewById(R.id.c7);
-        c8 = (ImageButton) findViewById(R.id.c8);
-        c9 = (ImageButton) findViewById(R.id.c9);
-        c10= (ImageButton) findViewById(R.id.c10);
-        c11= (ImageButton) findViewById(R.id.c11);
-        c12= (ImageButton) findViewById(R.id.c12);
+        // Spades has two player types:  human and computer
+        playerTypes.add(new GamePlayerType("Local Human Player") {
+            public GamePlayer createPlayer(String name) { return new SpadesHumanPlayer(name);}});
 
+        playerTypes.add(new GamePlayerType("Local Computer Player") {
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
+
+        playerTypes.add(new GamePlayerType("Local Computer Player") {
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
+
+        playerTypes.add(new GamePlayerType("Local Computer Player") {
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
+
+        GameConfig defaultConfig = new GameConfig(playerTypes,4,4,"Spades",PORT_NUMBER);
+        defaultConfig.addPlayer("Human", 0); // player 1: a human player
+        defaultConfig.addPlayer("Computer", 1); // player 2: a computer player
+        defaultConfig.addPlayer("Computer", 2); // player 2: a computer player
+        defaultConfig.addPlayer("Computer", 3); // player 2: a computer player
+        defaultConfig.setRemoteData("Remote Player", "", 0);
+
+        return defaultConfig;
     }
 
-    /**
-     * onCreateOptionsMenu(): handles the default menu options given by android
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public LocalGame createLocalGame() {
+        return new SpadesLocalGame();
     }
 
-    /**
-     * onOptionsItemSelected(): handles the action bar item in the options menu
-     *                          being clicked
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * onClick(): handles buttons being clicked
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-
-        if (v==c0){
-            c0.setAlpha(0);
-        }else if (v==c1){
-
-        }else if (v==c2){
-
-        }else if (v==c3){
-
-        }else if (v==c4){
-
-        }else if (v==c5){
-
-        }else if (v==c6){
-
-        }else if (v==c7){
-
-        }else if (v==c8){
-
-        }else if (v==c9){
-
-        }else if (v==c10){
-
-        }else if (v==c11){
-
-        }else if (v==c12){
-
-        }
-
-    }
 }

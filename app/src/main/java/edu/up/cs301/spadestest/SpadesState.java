@@ -35,8 +35,8 @@ public class SpadesState extends GameState{
 
     int userTeammate; //player number of user's teammate
 
-    int selectedCard;
-    int selectedBid;
+    int selectedCard; //player's selected card
+    int selectedBid; //player's selected bid
 
     ArrayList<Card> deck = new ArrayList<>();
 

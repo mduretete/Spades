@@ -92,6 +92,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
 
+        playerScoreTextView = (TextView) activity.findViewById(R.id.p0trickfield);
+
         c0 = (ImageButton) activity.findViewById(R.id.c0);
         c1 = (ImageButton) activity.findViewById(R.id.c1);
         c2 = (ImageButton) activity.findViewById(R.id.c2);
@@ -105,6 +107,20 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         c10= (ImageButton) activity.findViewById(R.id.c10);
         c11= (ImageButton) activity.findViewById(R.id.c11);
         c12= (ImageButton) activity.findViewById(R.id.c12);
+
+        c0.setOnClickListener(this);
+        c1.setOnClickListener(this);
+        c2.setOnClickListener(this);
+        c3.setOnClickListener(this);
+        c4.setOnClickListener(this);
+        c5.setOnClickListener(this);
+        c6.setOnClickListener(this);
+        c7.setOnClickListener(this);
+        c8.setOnClickListener(this);
+        c9.setOnClickListener(this);
+        c10.setOnClickListener(this);
+        c11.setOnClickListener(this);
+        c12.setOnClickListener(this);
     }
 
     /**
@@ -115,7 +131,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
     public void onClick(View v) {
 
         if (v==c0){
-
+            playerScoreTextView.setText("BLAH");
         }else if (v==c1){
 
         }else if (v==c2){
