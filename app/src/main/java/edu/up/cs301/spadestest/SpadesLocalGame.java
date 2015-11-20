@@ -137,27 +137,27 @@ public class SpadesLocalGame extends LocalGame {
      * @return returns the card that has more trick value
      */
     public Card compCards(Card c1, Card c2){
-        if(c1.getSuit().equals(c1.SPADES) || c2.getSuit().equals(c2.SPADES)){
+        if(c1.getSuit().equals(c1.SPADES) && c2.getSuit().equals(c2.SPADES)){
             if(c1.getRank() > c2.getRank()){
                 return c1;
             } else if(c1.getRank() < c2.getRank()){
                 return c2;
             }
-        } else if (c1.getSuit().equals(c1.SPADES) || !c2.getSuit().equals(c2.SPADES)){
+        } else if (c1.getSuit().equals(c1.SPADES) && !c2.getSuit().equals(c2.SPADES)){
             return c1;
-        } else if (!c1.getSuit().equals(c1.SPADES) || c2.getSuit().equals(c2.SPADES)){
+        } else if (!c1.getSuit().equals(c1.SPADES) && c2.getSuit().equals(c2.SPADES)){
             return c2;
-        } else if (!c1.getSuit().equals(c1.SPADES) || !c2.getSuit().equals(c2.SPADES)){
+        } else if (!c1.getSuit().equals(c1.SPADES) && !c2.getSuit().equals(c2.SPADES)){
             //leading suit wins
-            if(c1.getSuit().equals(spadesGameState.leadTrick) || c2.getSuit().equals(spadesGameState.leadTrick)){
+            if(c1.getSuit().equals(spadesGameState.leadTrick) && c2.getSuit().equals(spadesGameState.leadTrick)){
                 if(c1.getRank() > c2.getRank()){
                     return c1;
                 } else if(c1.getRank() < c2.getRank()){
                     return c2;
                 }
-            } else if (c1.getSuit().equals(spadesGameState.leadTrick) || !c2.getSuit().equals(spadesGameState.leadTrick)){
+            } else if (c1.getSuit().equals(spadesGameState.leadTrick) && !c2.getSuit().equals(spadesGameState.leadTrick)){
                 return c1;
-            } else if (!c1.getSuit().equals(spadesGameState.leadTrick) || c2.getSuit().equals(spadesGameState.leadTrick)){
+            } else if (!c1.getSuit().equals(spadesGameState.leadTrick) && c2.getSuit().equals(spadesGameState.leadTrick)){
                 return c2;
             }
         }
