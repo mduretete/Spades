@@ -53,41 +53,45 @@ public class SpadesState extends GameState{
 
         trickCards = new Card[4];
 
-        initDeck(); //fill deck
+        //fill deck
+        initDeck();
 
         Random rand = new Random();
 
-        player1Hand = new Card[13]; //give players hands of cards
+        //give players hands of cards
+        player1Hand = new Card[13];
         player2Hand = new Card[13];
         player3Hand = new Card[13];
         player4Hand = new Card[13];
 
+        //ints i and cardNo for the for-loops
         int i;
         int cardNo;
-        // shuffle and deal
-        for(i=0;i<13;i++) {
+
+        //deal 13 cards to each player using rand.nextInt with the deck size
+        //to get a random card number 1-52
+        for(i=0;i<13;i++) { //takes the random number, places the card in player1Hand[], removes from deck
             cardNo = rand.nextInt(deck.size());
             player1Hand[i] = deck.get(cardNo);
             deck.remove(cardNo);
         }
-        for(i=0;i<13;i++) {
+        for(i=0;i<13;i++) { //takes the random number, places the card in player2Hand[], removes from deck
             cardNo = rand.nextInt(deck.size());
             player2Hand[i] = deck.get(cardNo);
             deck.remove(cardNo);
         }
-        for(i=0;i<13;i++) {
+        for(i=0;i<13;i++) { //takes the random number, places the card in player3Hand[], removes from deck
             cardNo = rand.nextInt(deck.size());
             player3Hand[i] = deck.get(cardNo);
             deck.remove(cardNo);
         }
-        for(i=0;i<13;i++) {
+        for(i=0;i<13;i++) { //takes the random number, places the card in player4Hand[], removes from deck
             cardNo = rand.nextInt(deck.size());
             player4Hand[i] = deck.get(cardNo);
             deck.remove(cardNo);
         }
 
-
-
+        //new arrays to hold player Bags and Bids
         playerBags = new int[]{0, 0, 0, 0};
         playerBids = new int[]{0, 0, 0, 0};
 
@@ -224,31 +228,33 @@ public class SpadesState extends GameState{
      */
     public void playCard(int index){
 
+        //boolean for error detection
         boolean detectError = false;
 
+        //if player1's turn
         if(currentPlayer == 0) {
-            if(player1Hand[index]!=null) {
+            if(player1Hand[index]!=null) { //can only play cards from hand
                 trickCards[cardsPlayed] = player1Hand[index];
                 player1Hand[index] = null;
             } else detectError = true;
         }
-
+        //if player2's turn
         else if(currentPlayer == 1) {
-            if(player2Hand[index]!=null) {
+            if(player2Hand[index]!=null) { //can only play cards from hand
                 trickCards[cardsPlayed] = player2Hand[index];
                 player2Hand[index] = null;
             } else detectError = true;
         }
-
+        //if player 3's turn
         else if(currentPlayer == 2) {
-            if(player3Hand[index]!=null) {
+            if(player3Hand[index]!=null) { //can only play cards from hand
                 trickCards[cardsPlayed] = player3Hand[index];
                 player3Hand[index] = null;
             } else detectError = true;
         }
-
+        //if player4's turn
         else if(currentPlayer == 3) {
-            if(player4Hand[index]!=null) {
+            if(player4Hand[index]!=null) { //can only play cards from hand
                 trickCards[cardsPlayed] = player4Hand[index];
                 player4Hand[index] = null;
             } else detectError = true;
@@ -273,8 +279,7 @@ public class SpadesState extends GameState{
     }
 
     /**
-     * helper method for the constructor. Fills "deck", an arraylist of Cards
-     *
+     * helper method for the constructor. Fills "deck", an arrayList of Cards
      */
     public void initDeck(){
                 int i;
