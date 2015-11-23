@@ -19,14 +19,14 @@ import edu.up.cs301.game.util.Tickable;
  */
 public class SpadesLocalGame extends LocalGame {
 
-    private SpadesState spadesGameState;
+    private SpadesState spadesGameState; //gameState used in the local game
 
     /**
      * SpadesLocalGame(): ctor for the new game state
      */
     protected SpadesLocalGame() {
         spadesGameState = new SpadesState();
-    }
+    }//ctor
 
     /**
      * sendUpdatedStateTo(): send updated state to a player
@@ -36,7 +36,7 @@ public class SpadesLocalGame extends LocalGame {
     protected void sendUpdatedStateTo(GamePlayer p) {
         SpadesState copy = new SpadesState(spadesGameState);
         p.sendInfo(copy);
-    }
+    }//sendUpdatedStateTo()
 
     /**
      * canMove(): can a player make a move/action?
@@ -47,7 +47,7 @@ public class SpadesLocalGame extends LocalGame {
     @Override
      public boolean canMove(int playerIdx) {
         return playerIdx == spadesGameState.getCurrentPlayer();
-    }
+    }//canMove()
 
     /**
      * checkIfGameOver(): has the win condition been met?
@@ -61,7 +61,7 @@ public class SpadesLocalGame extends LocalGame {
             return "TEAM 2 WINS";
         }
         return null;
-    }
+    }//checkIfGameOver()
 
     /**
      * makeMove(): is called when a new action arrives from a player
@@ -82,7 +82,7 @@ public class SpadesLocalGame extends LocalGame {
         }
 
         return true;
-    }
+    }//makeMove()
 
     /**
      * compTrickCards(): compare cards in a trick array and declare a winner
@@ -127,7 +127,7 @@ public class SpadesLocalGame extends LocalGame {
             return 3; //player 3 took the trick
         }
         return -1; //fails and none of them are the "largest"
-    }
+    }//compTrickCards()
 
     /**
      * compCards(): compare 2 cards to determine which has more trick value, helper
@@ -137,32 +137,42 @@ public class SpadesLocalGame extends LocalGame {
      * @return returns the card that has more trick value
      */
     public Card compCards(Card c1, Card c2){
+        //if both cards are spades
         if(c1.getSuit().equals(c1.SPADES) && c2.getSuit().equals(c2.SPADES)){
+            //compare ranks, same suit so cannot have same rank
             if(c1.getRank() > c2.getRank()){
                 return c1;
             } else if(c1.getRank() < c2.getRank()){
                 return c2;
             }
+            //if c1 is spades it's a higher value
         } else if (c1.getSuit().equals(c1.SPADES) && !c2.getSuit().equals(c2.SPADES)){
             return c1;
+            //if c2 is spades it's a higher value
         } else if (!c1.getSuit().equals(c1.SPADES) && c2.getSuit().equals(c2.SPADES)){
             return c2;
+            //if both cards are not spades
         } else if (!c1.getSuit().equals(c1.SPADES) && !c2.getSuit().equals(c2.SPADES)){
-            //leading suit wins
+            //whichever is the leading suit would win, if both leading suit
             if(c1.getSuit().equals(spadesGameState.leadTrick) && c2.getSuit().equals(spadesGameState.leadTrick)){
+                //compare ranks, same suite so cannot have same rank
                 if(c1.getRank() > c2.getRank()){
                     return c1;
                 } else if(c1.getRank() < c2.getRank()){
                     return c2;
                 }
+                //if c1 is leading suit it's a higher value
             } else if (c1.getSuit().equals(spadesGameState.leadTrick) && !c2.getSuit().equals(spadesGameState.leadTrick)){
                 return c1;
+                //if c2 is leading suit it's a higher value
             } else if (!c1.getSuit().equals(spadesGameState.leadTrick) && c2.getSuit().equals(spadesGameState.leadTrick)){
                 return c2;
             }
         }
+        //no case for if neither is leading suit because then it won't matter which
+        //gets returned, because neither will end up being the highest value card
         return c1;
-    }
+    }//compCards()
 
 
-}
+}//SpadesLocalGame.java
