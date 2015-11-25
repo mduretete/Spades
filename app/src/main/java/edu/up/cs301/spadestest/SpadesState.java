@@ -13,7 +13,7 @@ import edu.up.cs301.game.infoMsg.GameState;
 public class SpadesState extends GameState{
 
     int currentPlayer; //player who's current turn it is
-    int leadTrick; //player who led the trick
+    String leadTrick; //player who led the trick
 
     int[] playerScores; //1-d array for each player's score
     int[] playerTricks; //1-d array for tricks won by each player
@@ -212,7 +212,7 @@ public class SpadesState extends GameState{
         return userTeammate;
     }
 
-    public int getLeadTrick() { return leadTrick; }
+    public String getLeadTrick() { return leadTrick; }
 
     /**
      * Place a bid at the beginning of the round

@@ -30,7 +30,7 @@ public class SpadesLocalGame extends LocalGame {
 
     /**
      * sendUpdatedStateTo(): send updated state to a player
-     * @param p
+     * @param p gamePlayer to send the copied game state to
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -42,16 +42,16 @@ public class SpadesLocalGame extends LocalGame {
      * canMove(): can a player make a move/action?
      * @param playerIdx
      * 		the player's player-number (ID)
-     * @return
+     * @return boolean
      */
     @Override
-     public boolean canMove(int playerIdx) {
+    public boolean canMove(int playerIdx) {
         return playerIdx == spadesGameState.getCurrentPlayer();
     }//canMove()
 
     /**
      * checkIfGameOver(): has the win condition been met?
-     * @return
+     * @return String
      */
     @Override
     public String checkIfGameOver() {
@@ -65,9 +65,8 @@ public class SpadesLocalGame extends LocalGame {
 
     /**
      * makeMove(): is called when a new action arrives from a player
-     * @param action
-     * 			The move that the player has sent to the game
-     * @return
+     * @param action the move that the player has sent to the game
+     * @return boolean
      */
     @Override
     public boolean makeMove(GameAction action) {
@@ -80,14 +79,13 @@ public class SpadesLocalGame extends LocalGame {
         else if(action instanceof SpadesPlayCardAction){
             spadesGameState.playCard();
         }
-
         return true;
     }//makeMove()
 
     /**
      * compTrickCards(): compare cards in a trick array and declare a winner
-     * @param trick
-     * @return player who won the trick (0-3)
+     * @param trick array of cards in the trick
+     * @return player who won the trick (0-3), -1 is failure case
      */
     public int compTrickCards(Card[] trick) {
         //stores the trick cards in temps
@@ -137,6 +135,12 @@ public class SpadesLocalGame extends LocalGame {
      * @return returns the card that has more trick value
      */
     public Card compCards(Card c1, Card c2){
+        //if c1 or c2 == null, return the other
+        if(c1==null){
+            return c2;
+        } else if(c2==null){
+            return c1;
+        }
         //if both cards are spades
         if(c1.getSuit().equals(c1.SPADES) && c2.getSuit().equals(c2.SPADES)){
             //compare ranks, same suit so cannot have same rank
@@ -155,7 +159,7 @@ public class SpadesLocalGame extends LocalGame {
         } else if (!c1.getSuit().equals(c1.SPADES) && !c2.getSuit().equals(c2.SPADES)){
             //whichever is the leading suit would win, if both leading suit
             if(c1.getSuit().equals(spadesGameState.leadTrick) && c2.getSuit().equals(spadesGameState.leadTrick)){
-                //compare ranks, same suite so cannot have same rank
+                //compare ranks, same suit so cannot have same rank
                 if(c1.getRank() > c2.getRank()){
                     return c1;
                 } else if(c1.getRank() < c2.getRank()){
