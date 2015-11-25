@@ -165,7 +165,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         if (v==c0){
             playerScoreTextView.setText("BLAH");
         }else if (v==c1){
-
+            playerScoreTextView.setText("HOOHA");
         }else if (v==c2){
 
         }else if (v==c3){

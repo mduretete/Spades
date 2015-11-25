@@ -1,6 +1,9 @@
 package edu.up.cs301.spadestest;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.util.Log;
+import android.widget.ImageView;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
@@ -16,6 +19,8 @@ public class Card {
     public static final String HEARTS = "H";
     public static final String DIAMONDS = "D";
     public static final String DEFAULT = "S"; //defaults to spades upon programmer error
+
+    public int imageId;
 
     //rank and suit variables
     private int rank;
@@ -33,6 +38,9 @@ public class Card {
         if(suitCheck(s)){
             suit = s;
         }
+        //based on rank and suit, a card image is chosen
+        String str = "R.drawable." + rank + suit.toLowerCase();
+        int imageId = Integer.parseInt(str);
     }//ctor
 
     /**
