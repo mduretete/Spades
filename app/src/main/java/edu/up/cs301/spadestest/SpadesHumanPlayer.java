@@ -38,10 +38,10 @@ import edu.up.cs301.game.infoMsg.GameState;
 public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
 
     // Widgets to be used and modified during play
-    private TextView playerScoreTextView;
-    private TextView partnerScoreTextView;
-    private TextView LScoreTextView;
-    private TextView RScoreTextView;
+    private TextView playerBidTextView;
+    private TextView partnerBidTextView;
+    private TextView LBidTextView;
+    private TextView RBidTextView;
     private TextView playerTrickTextView;
     private TextView partnerTrickTextView;
     private TextView LTrickTextView;
@@ -64,6 +64,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
     private ImageView c11;
     private ImageView c12;
 
+    SpadesState myGameState;
     private GameMainActivity myActivity;
 
     private String[] cardNames;
@@ -95,16 +96,16 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
      */
     public void receiveInfo(GameInfo info) {
         if (info instanceof SpadesState) {
-//            SpadesState myGameState = (SpadesState) info;
-//            playerScoreTextView.setText("" + myGameState.getPlayerScore(0));
-//            LScoreTextView.setText("" + myGameState.getPlayerScore(1));
-//            partnerScoreTextView.setText("" + myGameState.getPlayerScore(2));
-//            RScoreTextView.setText("" + myGameState.getPlayerScore(3));
-//            playerTrickTextView.setText("" + myGameState.getPlayerTricks(0));
-//            LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
-//            partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
-//            RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
-            // c1.setImageResource();
+            myGameState = (SpadesState) info;
+            playerBidTextView.setText("" + myGameState.getPlayerBids(0));
+            LBidTextView.setText("" + myGameState.getPlayerBids(1));
+            partnerBidTextView.setText("" + myGameState.getPlayerBids(2));
+            RBidTextView.setText("" + myGameState.getPlayerBids(3));
+            playerTrickTextView.setText("" + myGameState.getPlayerTricks(0));
+            LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
+            partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
+            RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
+//            // c1.setImageResource();
         }
     }
 
@@ -120,7 +121,14 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
 
-        playerScoreTextView = (TextView) activity.findViewById(R.id.p0trickfield);
+        playerBidTextView = (TextView) activity.findViewById(R.id.p0bid);
+        partnerBidTextView = (TextView) activity.findViewById(R.id.p2bid);
+        LBidTextView = (TextView) activity.findViewById(R.id.p1bid);
+        RBidTextView = (TextView) activity.findViewById(R.id.p3bid);
+        playerTrickTextView = (TextView) activity.findViewById(R.id.p0trick);
+        partnerTrickTextView = (TextView) activity.findViewById(R.id.p0trick);
+        LTrickTextView = (TextView) activity.findViewById(R.id.p0trick);
+        RTrickTextView = (TextView) activity.findViewById(R.id.p0trick);
 
         c0 = (ImageView) activity.findViewById(R.id.c0);
         c1 = (ImageView) activity.findViewById(R.id.c1);
@@ -180,7 +188,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
     public void onClick(View v) {
 
         if (v == c0) {
-            playerScoreTextView.setText("BLAH");
+            playerBidTextView.setText("BLAH");
         } else if (v == c1) {
 
         } else if (v == c2) {

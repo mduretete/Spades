@@ -38,7 +38,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 	protected Game game; // the game
 	protected int playerNum; // my player ID
 	protected String name; // my player's name
-	protected String[] allPlayerNames; // the names of all the player
+	protected String[] allPlayerNames; // the names of all the players
 	private Handler myHandler; // my thread's handler
 	private GameMainActivity myActivity; // the current activity
 	private GameTimer myTimer = new GameTimer(this); // my player's timer
@@ -294,7 +294,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 			}
 			else {
 				// pass the state on to the subclass
-//				receiveInfo(myInfo);
+				receiveInfo(myInfo);
 			}
 		}
 	}
