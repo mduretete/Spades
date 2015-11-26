@@ -39,8 +39,8 @@ public class Card {
             suit = s;
         }
         //based on rank and suit, a card image is chosen
-        String str = "R.drawable." + rank + suit.toLowerCase();
-        int imageId = Integer.parseInt(str);
+//        String str = "R.drawable." + rank + suit.toLowerCase();
+//        int imageId = Integer.parseInt(str);
     }//ctor
 
     /**

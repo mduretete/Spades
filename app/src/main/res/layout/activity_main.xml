@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:id="@+id/top_gui_layout"
     android:layout_height="match_parent"
-    android:background="#ff38b553">
+    android:background="#ff38b553"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetAPI="11" >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -54,12 +57,6 @@
                 android:adjustViewBounds="true"
                 android:maxHeight="180dp"
                 android:layout_marginBottom="20dp" />
-
-            <Space
-                android:layout_width="250dp"
-                android:layout_height="300dp"
-                android:layout_gravity="center_horizontal|bottom"
-                android:id="@+id/dropSpace" />
 
         </FrameLayout>
 
@@ -306,7 +303,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp">
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c0"
@@ -315,9 +312,10 @@
             android:adjustViewBounds="true"
             android:backgroundTint="#00ffffff"
             android:layout_gravity="center"
-            android:layout_marginLeft="-210dp" />
+            android:layout_marginLeft="-210dp"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c1"
@@ -325,10 +323,11 @@
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:layout_marginLeft="-175dp"
+            android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:layout_gravity="center" />
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c2"
@@ -337,9 +336,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="-140dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c3"
@@ -348,9 +348,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="-105dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c4"
@@ -359,9 +360,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="-70dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c5"
@@ -370,9 +372,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="-35dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c6"
@@ -380,9 +383,10 @@
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c7"
@@ -391,9 +395,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="35dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c8"
@@ -402,9 +407,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="70dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c9"
@@ -413,9 +419,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="105dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c10"
@@ -424,9 +431,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="140dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c11"
@@ -435,9 +443,10 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="175dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/c12"
@@ -446,7 +455,8 @@
             android:adjustViewBounds="true"
             android:layout_marginLeft="210dp"
             android:layout_gravity="center"
-            android:backgroundTint="#00ffffff" />
+            android:backgroundTint="#00ffffff"
+            android:background="?android:attr/selectableItemBackground"/>
 
     </FrameLayout>
 
