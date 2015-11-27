@@ -31,16 +31,16 @@ public class Card {
      * @param r int that holds the rank of a Card object, 2-13
      * @param s string that holds the suit of a Card object
      */
-    public Card(int r, String s) {
+    public Card(int r, String s, int im) {
         if(rankCheck(r)){
             rank = r;
         }
         if(suitCheck(s)){
             suit = s;
         }
+        imageId = im;
+
         //based on rank and suit, a card image is chosen
-//        String str = "R.drawable." + rank + suit.toLowerCase();
-//        int imageId = Integer.parseInt(str);
     }//ctor
 
     /**
@@ -85,11 +85,7 @@ public class Card {
      * @return boolean, false if the rank is not valid (2-14 inclusive is valid)
      */
     public boolean rankCheck(int r){
-        if(r < 2 || r > 14){
-            //Log.d("RANK ERROR", "Rank out of range: "+ r);
-            return false;
-        }
-        return true;
+        return !(r < 2 || r > 14);
     }
 
     /**
@@ -99,13 +95,9 @@ public class Card {
      *          string constants is valid)
      */
     public boolean suitCheck(String s){
-        if(!s.equals(DIAMONDS) ||
-                !s.equals(HEARTS) ||
-                !s.equals(CLUBS) ||
-                !s.equals(SPADES)){
-            //Log.d("SUIT ERROR", "Suit invalid: " + s);
-            return false;
-        }
-        return true;
+        return !(!s.equals(DIAMONDS) &&
+                !s.equals(HEARTS) &&
+                !s.equals(CLUBS) &&
+                !s.equals(SPADES));
     }
 }

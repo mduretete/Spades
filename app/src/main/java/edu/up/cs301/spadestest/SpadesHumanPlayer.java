@@ -105,7 +105,19 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
             partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
             RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
-//            // c1.setImageResource();
+            c0.setImageResource(myGameState.getPlayer1Hand()[0].imageId);
+            c1.setImageResource(myGameState.getPlayer1Hand()[1].imageId);
+            c2.setImageResource(myGameState.getPlayer1Hand()[2].imageId);
+            c3.setImageResource(myGameState.getPlayer1Hand()[3].imageId);
+            c4.setImageResource(myGameState.getPlayer1Hand()[4].imageId);
+            c5.setImageResource(myGameState.getPlayer1Hand()[5].imageId);
+            c6.setImageResource(myGameState.getPlayer1Hand()[6].imageId);
+            c7.setImageResource(myGameState.getPlayer1Hand()[7].imageId);
+            c8.setImageResource(myGameState.getPlayer1Hand()[8].imageId);
+            c9.setImageResource(myGameState.getPlayer1Hand()[9].imageId);
+            c10.setImageResource(myGameState.getPlayer1Hand()[10].imageId);
+            c11.setImageResource(myGameState.getPlayer1Hand()[11].imageId);
+            c12.setImageResource(myGameState.getPlayer1Hand()[12].imageId);
         }
     }
 
