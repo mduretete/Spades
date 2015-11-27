@@ -312,7 +312,7 @@
             android:backgroundTint="#00ffffff"
             android:layout_gravity="center"
             android:layout_marginLeft="-210dp"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -323,7 +323,7 @@
             android:layout_marginLeft="-175dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -334,7 +334,7 @@
             android:layout_marginLeft="-140dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -345,7 +345,7 @@
             android:layout_marginLeft="-105dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -356,7 +356,7 @@
             android:layout_marginLeft="-70dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -367,7 +367,7 @@
             android:layout_marginLeft="-35dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -377,7 +377,7 @@
             android:adjustViewBounds="true"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -388,7 +388,7 @@
             android:layout_marginLeft="35dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -399,7 +399,7 @@
             android:layout_marginLeft="70dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -410,7 +410,7 @@
             android:layout_marginLeft="105dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -421,7 +421,7 @@
             android:layout_marginLeft="140dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -432,7 +432,7 @@
             android:layout_marginLeft="175dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -443,7 +443,7 @@
             android:layout_marginLeft="210dp"
             android:layout_gravity="center"
             android:backgroundTint="#00ffffff"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground" />
 
     </FrameLayout>
 

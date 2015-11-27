@@ -1,5 +1,6 @@
 package edu.up.cs301.spadestest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import edu.up.cs301.game.infoMsg.GameState;
@@ -23,12 +24,12 @@ public class SpadesState extends GameState{
     int team1Score; //team scores
     int team2Score;
 
-    Card[] trickCards; //1-d array for cards played in current trick
+    ArrayList<Card> trickCards; //arrayList for cards played in current trick
 
-    Card[] player1Hand; //1-d arrays for cards left in each player's hand
-    Card[] player2Hand;
-    Card[] player3Hand;
-    Card[] player4Hand;
+    ArrayList<Card> player1Hand; //arrayList for cards left in each player's hand
+    ArrayList<Card> player2Hand;
+    ArrayList<Card> player3Hand;
+    ArrayList<Card> player4Hand;
 
     int[] playerBags; //1-d array for number of bags for each player
     int[] playerBids; //1-d array for player bids for the round
@@ -51,7 +52,11 @@ public class SpadesState extends GameState{
         team1Score = 0;
         team2Score = 0;
 
-        trickCards = new Card[4];
+        trickCards = new ArrayList<>(4);
+        //dummy up array if prev line of code not initializing causes problems
+//        for (int i = 0; i < 4; i++) {
+//            trickCards.add(new Card(i, Card.DEFAULT));
+//        }
 
         //fill deck
         initDeck();
@@ -59,10 +64,10 @@ public class SpadesState extends GameState{
         Random rand = new Random();
 
         //give players hands of cards
-        player1Hand = new Card[13];
-        player2Hand = new Card[13];
-        player3Hand = new Card[13];
-        player4Hand = new Card[13];
+        player1Hand = new ArrayList<>(13);
+        player2Hand = new ArrayList<>(13);
+        player3Hand = new ArrayList<>(13);
+        player4Hand = new ArrayList<>(13);
 
         //ints i and cardNo for the for-loops
         int i;
@@ -72,22 +77,22 @@ public class SpadesState extends GameState{
         //to get a random card number 1-52
         for(i=0;i<13;i++) { //takes the random number, places the card in player1Hand[], removes from deck
             cardNo = rand.nextInt(deck.size());
-            player1Hand[i] = deck.get(cardNo);
+            player1Hand.add(deck.get(cardNo));
             deck.remove(cardNo);
         }
         for(i=0;i<13;i++) { //takes the random number, places the card in player2Hand[], removes from deck
             cardNo = rand.nextInt(deck.size());
-            player2Hand[i] = deck.get(cardNo);
+            player2Hand.add(deck.get(cardNo));
             deck.remove(cardNo);
         }
         for(i=0;i<13;i++) { //takes the random number, places the card in player3Hand[], removes from deck
             cardNo = rand.nextInt(deck.size());
-            player3Hand[i] = deck.get(cardNo);
+            player3Hand.add(deck.get(cardNo));
             deck.remove(cardNo);
         }
         for(i=0;i<13;i++) { //takes the random number, places the card in player4Hand[], removes from deck
             cardNo = rand.nextInt(deck.size());
-            player4Hand[i] = deck.get(cardNo);
+            player4Hand.add(deck.get(cardNo));
             deck.remove(cardNo);
         }
 
@@ -100,15 +105,15 @@ public class SpadesState extends GameState{
 
     public SpadesState(SpadesState copy){
         //declare all the empty array definitions so there is something to copy to
-        trickCards = new Card[4];
+        trickCards = new ArrayList<>(copy.getTrickCards());
 
         playerScores = new int[]{0, 0, 0, 0};
         playerTricks = new int[]{0, 0, 0, 0};
 
-        player1Hand = new Card[13]; //give players hands of cards
-        player2Hand = new Card[13];
-        player3Hand = new Card[13];
-        player4Hand = new Card[13];
+        player1Hand = new ArrayList<>(copy.getPlayer1Hand());
+        player2Hand = new ArrayList<>(copy.getPlayer2Hand());
+        player3Hand = new ArrayList<>(copy.getPlayer3Hand());
+        player4Hand = new ArrayList<>(copy.getPlayer4Hand());
 
         playerBags = new int[]{0, 0, 0, 0};
         playerBids = new int[]{0, 0, 0, 0};
@@ -130,12 +135,13 @@ public class SpadesState extends GameState{
         this.team1Score = copy.getTeam1Score();
         this.team2Score = copy.getTeam2Score();
 
-        System.arraycopy(copy.getTrickCards(),0,this.trickCards,0,copy.getTrickCards().length);
-
-        System.arraycopy(copy.getPlayer1Hand(),0,this.player1Hand,0,copy.getPlayer1Hand().length);
-        System.arraycopy(copy.getPlayer2Hand(),0,this.player2Hand,0,copy.getPlayer2Hand().length);
-        System.arraycopy(copy.getPlayer3Hand(),0,this.player3Hand,0,copy.getPlayer3Hand().length);
-        System.arraycopy(copy.getPlayer4Hand(),0,this.player4Hand,0,copy.getPlayer4Hand().length);
+        // was this correctly copied?
+//        Collections.copy(this.trickCards, copy.getTrickCards());
+//
+//        Collections.copy(this.player1Hand, copy.getPlayer1Hand());
+//        Collections.copy(this.player1Hand, copy.getPlayer2Hand());
+//        Collections.copy(this.player1Hand, copy.getPlayer3Hand());
+//        Collections.copy(this.player1Hand, copy.getPlayer4Hand());
 
         i = 0;
         while(i<4) {
@@ -151,7 +157,7 @@ public class SpadesState extends GameState{
 
         this.userTeammate = copy.getUserTeammate();
 
-        this.deck = new ArrayList<Card>(copy.deck);
+        this.deck = new ArrayList<>(copy.deck);
 
     }
 
@@ -180,23 +186,23 @@ public class SpadesState extends GameState{
         return team2Score;
     }
 
-    public Card[] getTrickCards() {
+    public ArrayList<Card> getTrickCards() {
         return trickCards;
     }
 
-    public Card[] getPlayer1Hand() {
+    public ArrayList<Card> getPlayer1Hand() {
         return player1Hand;
     }
 
-    public Card[] getPlayer2Hand() {
+    public ArrayList<Card> getPlayer2Hand() {
         return player2Hand;
     }
 
-    public Card[] getPlayer3Hand() {
+    public ArrayList<Card> getPlayer3Hand() {
         return player3Hand;
     }
 
-    public Card[] getPlayer4Hand(){
+    public ArrayList<Card> getPlayer4Hand(){
         return player4Hand;
     }
 
@@ -233,30 +239,30 @@ public class SpadesState extends GameState{
 
         //if player1's turn
         if(currentPlayer == 0) {
-            if(player1Hand[index]!=null) { //can only play cards from hand
-                trickCards[cardsPlayed] = player1Hand[index];
-                player1Hand[index] = null;
+            if(player1Hand.get(index)!=null) { //can only play cards from hand
+                trickCards.add(cardsPlayed, player1Hand.get(index));
+                player1Hand.remove(index);
             } else detectError = true;
         }
         //if player2's turn
         else if(currentPlayer == 1) {
-            if(player2Hand[index]!=null) { //can only play cards from hand
-                trickCards[cardsPlayed] = player2Hand[index];
-                player2Hand[index] = null;
+            if(player2Hand.get(index)!=null) { //can only play cards from hand
+                trickCards.add(cardsPlayed, player2Hand.get(index));
+                player2Hand.remove(index);
             } else detectError = true;
         }
         //if player 3's turn
         else if(currentPlayer == 2) {
-            if(player3Hand[index]!=null) { //can only play cards from hand
-                trickCards[cardsPlayed] = player3Hand[index];
-                player3Hand[index] = null;
+            if(player3Hand.get(index)!=null) { //can only play cards from hand
+                trickCards.add(cardsPlayed, player3Hand.get(index));
+                player3Hand.remove(index);
             } else detectError = true;
         }
         //if player4's turn
         else if(currentPlayer == 3) {
-            if(player4Hand[index]!=null) { //can only play cards from hand
-                trickCards[cardsPlayed] = player4Hand[index];
-                player4Hand[index] = null;
+            if(player4Hand.get(index)!=null) { //can only play cards from hand
+                trickCards.add(cardsPlayed, player4Hand.get(index));
+                player4Hand.remove(index);
             } else detectError = true;
         }
 
@@ -272,8 +278,8 @@ public class SpadesState extends GameState{
         if(cardsPlayed >= 4) {
             int i;
             for(i=0;i<4;i++){
-                deck.add(trickCards[i]);
-                trickCards[i] = null;
+                deck.add(trickCards.get(i));
+                trickCards.remove(i);
             }
         }
     }

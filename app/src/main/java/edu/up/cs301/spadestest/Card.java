@@ -18,7 +18,7 @@ public class Card {
     public static final String CLUBS = "C";
     public static final String HEARTS = "H";
     public static final String DIAMONDS = "D";
-    public static final String DEFAULT = "S"; //defaults to spades upon programmer error
+    public static final String DEFAULT = "A"; //defaults to unusable
 
     public int imageId;
 
@@ -30,6 +30,7 @@ public class Card {
      * Card(): initialize new Card object
      * @param r int that holds the rank of a Card object, 2-13
      * @param s string that holds the suit of a Card object
+     * @param im image id
      */
     public Card(int r, String s, int im) {
         if(rankCheck(r)){
@@ -42,6 +43,17 @@ public class Card {
 
         //based on rank and suit, a card image is chosen
     }//ctor
+    /**
+     * Constructor that doesn't take an image
+     */
+    public Card(int r, String s) {
+        if(rankCheck(r)){
+            rank = r;
+        }
+        if(suitCheck(s)){
+            suit = s;
+        }
+    }
 
     /**
      * getRank(): getter for the rank of a Card object
@@ -98,6 +110,7 @@ public class Card {
         return !(!s.equals(DIAMONDS) &&
                 !s.equals(HEARTS) &&
                 !s.equals(CLUBS) &&
-                !s.equals(SPADES));
+                !s.equals(SPADES) &&
+                !s.equals(DEFAULT));
     }
 }

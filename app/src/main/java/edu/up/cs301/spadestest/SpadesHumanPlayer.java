@@ -35,7 +35,7 @@ import edu.up.cs301.game.infoMsg.GameState;
  *      the player can make and values that the player object
  *      holds
  */
-public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
+public class SpadesHumanPlayer extends GameHumanPlayer {
 
     // Widgets to be used and modified during play
     private TextView playerBidTextView;
@@ -105,19 +105,19 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
             partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
             RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
-            c0.setImageResource(myGameState.getPlayer1Hand()[0].imageId);
-            c1.setImageResource(myGameState.getPlayer1Hand()[1].imageId);
-            c2.setImageResource(myGameState.getPlayer1Hand()[2].imageId);
-            c3.setImageResource(myGameState.getPlayer1Hand()[3].imageId);
-            c4.setImageResource(myGameState.getPlayer1Hand()[4].imageId);
-            c5.setImageResource(myGameState.getPlayer1Hand()[5].imageId);
-            c6.setImageResource(myGameState.getPlayer1Hand()[6].imageId);
-            c7.setImageResource(myGameState.getPlayer1Hand()[7].imageId);
-            c8.setImageResource(myGameState.getPlayer1Hand()[8].imageId);
-            c9.setImageResource(myGameState.getPlayer1Hand()[9].imageId);
-            c10.setImageResource(myGameState.getPlayer1Hand()[10].imageId);
-            c11.setImageResource(myGameState.getPlayer1Hand()[11].imageId);
-            c12.setImageResource(myGameState.getPlayer1Hand()[12].imageId);
+            c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
+            c1.setImageResource(myGameState.getPlayer1Hand().get(1).imageId);
+            c2.setImageResource(myGameState.getPlayer1Hand().get(2).imageId);
+            c3.setImageResource(myGameState.getPlayer1Hand().get(3).imageId);
+            c4.setImageResource(myGameState.getPlayer1Hand().get(4).imageId);
+            c5.setImageResource(myGameState.getPlayer1Hand().get(5).imageId);
+            c6.setImageResource(myGameState.getPlayer1Hand().get(6).imageId);
+            c7.setImageResource(myGameState.getPlayer1Hand().get(7).imageId);
+            c8.setImageResource(myGameState.getPlayer1Hand().get(8).imageId);
+            c9.setImageResource(myGameState.getPlayer1Hand().get(9).imageId);
+            c10.setImageResource(myGameState.getPlayer1Hand().get(10).imageId);
+            c11.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
+            c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
         }
     }
 
@@ -191,43 +191,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         p0card.setOnDragListener(new ChoiceDragListener());
     }
 
-    /**
-     * onClick(): handles buttons being clicked
-     *
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-
-        if (v == c0) {
-            playerBidTextView.setText("BLAH");
-        } else if (v == c1) {
-
-        } else if (v == c2) {
-
-        } else if (v == c3) {
-
-        } else if (v == c4) {
-
-        } else if (v == c5) {
-
-        } else if (v == c6) {
-
-        } else if (v == c7) {
-
-        } else if (v == c8) {
-
-        } else if (v == c9) {
-
-        } else if (v == c10) {
-
-        } else if (v == c11) {
-
-        } else if (v == c12) {
-
-        }
-    }
-
     private final class ChoiceTouchListener implements View.OnTouchListener {
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
@@ -272,10 +235,39 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnClickLi
                     ImageView dropSpace = (ImageView) v;
                     //cast active button being dragged
                     ImageView dropped = (ImageView) view;
+                    //drop the card
                     dropped.setDrawingCacheEnabled(true);
-                    //cheaty temporary way to set the card because we can't use "dropped" yet
                     dropSpace.setImageBitmap(dropped.getDrawingCache());
-                    //need to update played cards and turn
+                    //update played card
+                    //currently does not add card back to deck
+                    //note: playCard currently updates trickCards by adding new cards to array; think they get removed after a trick but not sure
+                    if (dropped == c0) {
+                        myGameState.playCard(0);
+                    } else if (dropped == c1) {
+                        myGameState.playCard(1);
+                    } else if (dropped == c2) {
+                        myGameState.playCard(2);
+                    } else if (dropped == c3) {
+                        myGameState.playCard(3);
+                    } else if (dropped == c4) {
+                        myGameState.playCard(4);
+                    } else if (dropped == c5) {
+                        myGameState.playCard(5);
+                    } else if (dropped == c6) {
+                        myGameState.playCard(6);
+                    } else if (dropped == c7) {
+                        myGameState.playCard(7);
+                    } else if (dropped == c8) {
+                        myGameState.playCard(8);
+                    } else if (dropped == c9) {
+                        myGameState.playCard(9);
+                    } else if (dropped == c10) {
+                        myGameState.playCard(10);
+                    } else if (dropped == c11) {
+                        myGameState.playCard(11);
+                    } else if (dropped == c12) {
+                        myGameState.playCard(12);
+                    }
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
                     //no action necessary
