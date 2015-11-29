@@ -135,13 +135,12 @@ public class SpadesState extends GameState{
         this.team1Score = copy.getTeam1Score();
         this.team2Score = copy.getTeam2Score();
 
-        // was this correctly copied?
-//        Collections.copy(this.trickCards, copy.getTrickCards());
-//
-//        Collections.copy(this.player1Hand, copy.getPlayer1Hand());
-//        Collections.copy(this.player1Hand, copy.getPlayer2Hand());
-//        Collections.copy(this.player1Hand, copy.getPlayer3Hand());
-//        Collections.copy(this.player1Hand, copy.getPlayer4Hand());
+        Collections.copy(this.trickCards, copy.getTrickCards());
+
+        Collections.copy(this.player1Hand, copy.getPlayer1Hand());
+        Collections.copy(this.player1Hand, copy.getPlayer2Hand());
+        Collections.copy(this.player1Hand, copy.getPlayer3Hand());
+        Collections.copy(this.player1Hand, copy.getPlayer4Hand());
 
         i = 0;
         while(i<4) {
@@ -157,7 +156,7 @@ public class SpadesState extends GameState{
 
         this.userTeammate = copy.getUserTeammate();
 
-        this.deck = new ArrayList<>(copy.deck);
+        Collections.copy(this.deck, copy.deck);
 
     }
 
@@ -288,120 +287,65 @@ public class SpadesState extends GameState{
      * helper method for the constructor. Fills "deck", an arrayList of Cards
      */
     public void initDeck() {
-        int i;
-        for (i = 2; i < 15; i++) {
-            if (i == 2) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_2c));
-            } else if (i == 3) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_3c));
-            } else if (i == 4) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_4c));
-            } else if (i == 5) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_5c));
-            } else if (i == 6) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_6c));
-            } else if (i == 7) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_7c));
-            } else if (i == 8) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_8c));
-            } else if (i == 9) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_9c));
-            } else if (i == 10) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_tc));
-            } else if (i == 11) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_jc));
-            } else if (i == 12) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_qc));
-            } else if (i == 13) {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_kc));
-            } else {
-                deck.add(new Card(i, Card.CLUBS, R.mipmap.card_ac));
-            }
-        }
-        for(i=2;i<15;i++)
-            if (i == 2) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_2d));
-            } else if (i == 3) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_3d));
-            } else if (i == 4) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_4d));
-            } else if (i == 5) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_5d));
-            } else if (i == 6) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_6d));
-            } else if (i == 7) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_7d));
-            } else if (i == 8) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_8d));
-            } else if (i == 9) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_9d));
-            } else if (i == 10) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_td));
-            } else if (i == 11) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_jd));
-            } else if (i == 12) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_qd));
-            } else if (i == 13) {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_kd));
-            } else {
-                deck.add(new Card(i, Card.DIAMONDS, R.mipmap.card_ad));
-            }
-        for(i=2;i<15;i++)
-            if (i == 2) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_2s));
-            } else if (i == 3) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_3s));
-            } else if (i == 4) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_4s));
-            } else if (i == 5) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_5s));
-            } else if (i == 6) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_6s));
-            } else if (i == 7) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_7s));
-            } else if (i == 8) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_8s));
-            } else if (i == 9) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_9s));
-            } else if (i == 10) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_ts));
-            } else if (i == 11) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_js));
-            } else if (i == 12) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_qs));
-            } else if (i == 13) {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_ks));
-            } else {
-                deck.add(new Card(i, Card.SPADES, R.mipmap.card_as));
-            }
-        for(i=2;i<15;i++)
-            if (i == 2) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_2h));
-            } else if (i == 3) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_3h));
-            } else if (i == 4) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_4h));
-            } else if (i == 5) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_5h));
-            } else if (i == 6) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_6h));
-            } else if (i == 7) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_7h));
-            } else if (i == 8) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_8h));
-            } else if (i == 9) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_9h));
-            } else if (i == 10) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_th));
-            } else if (i == 11) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_jh));
-            } else if (i == 12) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_qh));
-            } else if (i == 13) {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_kh));
-            } else {
-                deck.add(new Card(i, Card.HEARTS, R.mipmap.card_ah));
-            }
+        
+                deck.add(new Card(2 , Card.CLUBS, R.mipmap.card_2c));
+                deck.add(new Card(3 , Card.CLUBS, R.mipmap.card_3c));
+                deck.add(new Card(4 , Card.CLUBS, R.mipmap.card_4c));
+                deck.add(new Card(5 , Card.CLUBS, R.mipmap.card_5c));
+                deck.add(new Card(6 , Card.CLUBS, R.mipmap.card_6c));
+                deck.add(new Card(7 , Card.CLUBS, R.mipmap.card_7c));
+                deck.add(new Card(8 , Card.CLUBS, R.mipmap.card_8c));
+                deck.add(new Card(9 , Card.CLUBS, R.mipmap.card_9c));
+                deck.add(new Card(10, Card.CLUBS, R.mipmap.card_tc));
+                deck.add(new Card(11, Card.CLUBS, R.mipmap.card_jc));
+                deck.add(new Card(12, Card.CLUBS, R.mipmap.card_qc));
+                deck.add(new Card(13, Card.CLUBS, R.mipmap.card_kc));
+                deck.add(new Card(1 , Card.CLUBS, R.mipmap.card_ac));
+
+
+                deck.add(new Card(2 , Card.DIAMONDS, R.mipmap.card_2d));
+                deck.add(new Card(3 , Card.DIAMONDS, R.mipmap.card_3d));
+                deck.add(new Card(4 , Card.DIAMONDS, R.mipmap.card_4d));
+                deck.add(new Card(5 , Card.DIAMONDS, R.mipmap.card_5d));
+                deck.add(new Card(6 , Card.DIAMONDS, R.mipmap.card_6d));
+                deck.add(new Card(7 , Card.DIAMONDS, R.mipmap.card_7d));
+                deck.add(new Card(8 , Card.DIAMONDS, R.mipmap.card_8d));
+                deck.add(new Card(9 , Card.DIAMONDS, R.mipmap.card_9d));
+                deck.add(new Card(10, Card.DIAMONDS, R.mipmap.card_td));
+                deck.add(new Card(11, Card.DIAMONDS, R.mipmap.card_jd));
+                deck.add(new Card(12, Card.DIAMONDS, R.mipmap.card_qd));
+                deck.add(new Card(13, Card.DIAMONDS, R.mipmap.card_kd));
+                deck.add(new Card(1 , Card.DIAMONDS, R.mipmap.card_ad));
+
+
+                deck.add(new Card(2 , Card.SPADES, R.mipmap.card_2s));
+                deck.add(new Card(3 , Card.SPADES, R.mipmap.card_3s));
+                deck.add(new Card(4 , Card.SPADES, R.mipmap.card_4s));
+                deck.add(new Card(5 , Card.SPADES, R.mipmap.card_5s));
+                deck.add(new Card(6 , Card.SPADES, R.mipmap.card_6s));
+                deck.add(new Card(7 , Card.SPADES, R.mipmap.card_7s));
+                deck.add(new Card(8 , Card.SPADES, R.mipmap.card_8s));
+                deck.add(new Card(9 , Card.SPADES, R.mipmap.card_9s));
+                deck.add(new Card(10, Card.SPADES, R.mipmap.card_ts));
+                deck.add(new Card(11, Card.SPADES, R.mipmap.card_js));
+                deck.add(new Card(12, Card.SPADES, R.mipmap.card_qs));
+                deck.add(new Card(13, Card.SPADES, R.mipmap.card_ks));
+                deck.add(new Card(1 , Card.SPADES, R.mipmap.card_as));
+
+
+                deck.add(new Card(2 , Card.HEARTS, R.mipmap.card_2h));
+                deck.add(new Card(3 , Card.HEARTS, R.mipmap.card_3h));
+                deck.add(new Card(4 , Card.HEARTS, R.mipmap.card_4h));
+                deck.add(new Card(5 , Card.HEARTS, R.mipmap.card_5h));
+                deck.add(new Card(6 , Card.HEARTS, R.mipmap.card_6h));
+                deck.add(new Card(7 , Card.HEARTS, R.mipmap.card_7h));
+                deck.add(new Card(8 , Card.HEARTS, R.mipmap.card_8h));
+                deck.add(new Card(9 , Card.HEARTS, R.mipmap.card_9h));
+                deck.add(new Card(10, Card.HEARTS, R.mipmap.card_th));
+                deck.add(new Card(11, Card.HEARTS, R.mipmap.card_jh));
+                deck.add(new Card(12, Card.HEARTS, R.mipmap.card_qh));
+                deck.add(new Card(13, Card.HEARTS, R.mipmap.card_kh));
+                deck.add(new Card(1 , Card.HEARTS, R.mipmap.card_ah));
 
     }
 

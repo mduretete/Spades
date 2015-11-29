@@ -28,7 +28,7 @@ public class Card {
 
     /**
      * Card(): initialize new Card object
-     * @param r int that holds the rank of a Card object, 2-13
+     * @param r int that holds the rank of a Card object, 1-13
      * @param s string that holds the suit of a Card object
      * @param im image id
      */
