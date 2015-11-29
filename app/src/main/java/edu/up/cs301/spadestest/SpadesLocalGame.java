@@ -77,7 +77,7 @@ public class SpadesLocalGame extends LocalGame {
             spadesGameState.placeBid();
         }
         else if(action instanceof SpadesPlayCardAction){
-            spadesGameState.playCard();
+            spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
         }
         return true;
     }//makeMove()
