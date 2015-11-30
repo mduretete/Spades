@@ -134,9 +134,10 @@ public class SpadesState extends GameState{
     }
 
     /**
-     * sets a few things based on an older SpadesState
+     * sets a SpadesState to have certain values from another SpadesState
      */
     public void set(SpadesState temp){
+        //values updated are the values that are needed throughout the entire game
         this.currentPlayer = temp.currentPlayer;
         this.playerBags = temp.playerBags;
         this.playerScores = temp.playerScores;

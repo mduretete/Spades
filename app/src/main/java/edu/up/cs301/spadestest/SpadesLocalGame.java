@@ -80,12 +80,12 @@ public class SpadesLocalGame extends LocalGame {
         else if(action instanceof SpadesPlayCardAction){
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
         }
-        //check if the round is over
+        //if hands are empty, round is over
         if(spadesGameState.player1Hand.isEmpty() && spadesGameState.player2Hand.isEmpty()
                 && spadesGameState.player3Hand.isEmpty() && spadesGameState.player4Hand.isEmpty()) {
-            SpadesState temp = spadesGameState;
-            spadesGameState = new SpadesState();
-            spadesGameState.set(temp);
+            SpadesState temp = spadesGameState; //store the current SpadesState in a temp
+            spadesGameState = new SpadesState(); //overwrite current SpadesState with a new one, newly inited and dealt deck
+            spadesGameState.set(temp); //restore the permanent values (such as scores and bags) to the current SpadesState
         }
         return true;
     }//makeMove()
