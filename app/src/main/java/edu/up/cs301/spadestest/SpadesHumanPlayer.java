@@ -115,6 +115,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer {
             c10.setImageResource(myGameState.getPlayer1Hand().get(10).imageId);
             c11.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
             c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
+
+
         }
     }
 

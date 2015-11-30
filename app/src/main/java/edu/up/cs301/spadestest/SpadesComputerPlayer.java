@@ -20,6 +20,7 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
     static ImageView p1card;
     static ImageView p2card;
     static ImageView p3card;
+    
     private int playerNo;
     /**
      * SpadesComputerPlayer():ctor for the computer player

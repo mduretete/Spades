@@ -69,32 +69,8 @@ public class SpadesState extends GameState{
         player3Hand = new ArrayList<>(13);
         player4Hand = new ArrayList<>(13);
 
-        //ints i and cardNo for the for-loops
-        int i;
-        int cardNo;
-
-        //deal 13 cards to each player using rand.nextInt with the deck size
-        //to get a random card number 1-52
-        for(i=0;i<13;i++) { //takes the random number, places the card in player1Hand[], removes from deck
-            cardNo = rand.nextInt(deck.size());
-            player1Hand.add(deck.get(cardNo));
-            deck.remove(cardNo);
-        }
-        for(i=0;i<13;i++) { //takes the random number, places the card in player2Hand[], removes from deck
-            cardNo = rand.nextInt(deck.size());
-            player2Hand.add(deck.get(cardNo));
-            deck.remove(cardNo);
-        }
-        for(i=0;i<13;i++) { //takes the random number, places the card in player3Hand[], removes from deck
-            cardNo = rand.nextInt(deck.size());
-            player3Hand.add(deck.get(cardNo));
-            deck.remove(cardNo);
-        }
-        for(i=0;i<13;i++) { //takes the random number, places the card in player4Hand[], removes from deck
-            cardNo = rand.nextInt(deck.size());
-            player4Hand.add(deck.get(cardNo));
-            deck.remove(cardNo);
-        }
+        //deal the cards
+        deal();
 
         //new arrays to hold player Bags and Bids
         playerBags = new int[]{0, 0, 0, 0};
@@ -345,6 +321,40 @@ public class SpadesState extends GameState{
                 deck.add(new Card(13, Card.HEARTS, R.mipmap.card_kh));
                 deck.add(new Card(1 , Card.HEARTS, R.mipmap.card_ah));
 
+    }
+
+    /**
+     * helper method for constructor that deals the cards to the players
+     */
+    public void deal(){
+        //ints i and cardNo for the for-loops
+        int i;
+        int cardNo;
+
+        Random rand = new Random();
+
+        //deal 13 cards to each player using rand.nextInt with the deck size
+        //to get a random card number 1-52
+        for(i=0;i<13;i++) { //takes the random number, places the card in player1Hand[], removes from deck
+            cardNo = rand.nextInt(deck.size());
+            player1Hand.add(deck.get(cardNo));
+            deck.remove(cardNo);
+        }
+        for(i=0;i<13;i++) { //takes the random number, places the card in player2Hand[], removes from deck
+            cardNo = rand.nextInt(deck.size());
+            player2Hand.add(deck.get(cardNo));
+            deck.remove(cardNo);
+        }
+        for(i=0;i<13;i++) { //takes the random number, places the card in player3Hand[], removes from deck
+            cardNo = rand.nextInt(deck.size());
+            player3Hand.add(deck.get(cardNo));
+            deck.remove(cardNo);
+        }
+        for(i=0;i<13;i++) { //takes the random number, places the card in player4Hand[], removes from deck
+            cardNo = rand.nextInt(deck.size());
+            player4Hand.add(deck.get(cardNo));
+            deck.remove(cardNo);
+        }
     }
 
     /**

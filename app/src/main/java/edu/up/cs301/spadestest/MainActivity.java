@@ -42,13 +42,13 @@ public class MainActivity extends GameMainActivity {
             public GamePlayer createPlayer(String name) { return new SpadesHumanPlayer(name);}});
 
         playerTypes.add(new GamePlayerType("Local Computer Player") {
-            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name,1);}});
 
         playerTypes.add(new GamePlayerType("Local Computer Player") {
-            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name,2);}});
 
         playerTypes.add(new GamePlayerType("Local Computer Player") {
-            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name,3);}});
 
         GameConfig defaultConfig = new GameConfig(playerTypes,4,4,"Spades",PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); // player 1: a human player
