@@ -107,28 +107,54 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
             partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
             RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
-            c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
-            c1.setImageResource(myGameState.getPlayer1Hand().get(1).imageId);
-            c2.setImageResource(myGameState.getPlayer1Hand().get(2).imageId);
-            c3.setImageResource(myGameState.getPlayer1Hand().get(3).imageId);
-            c4.setImageResource(myGameState.getPlayer1Hand().get(4).imageId);
-            c5.setImageResource(myGameState.getPlayer1Hand().get(5).imageId);
-            c6.setImageResource(myGameState.getPlayer1Hand().get(6).imageId);
-            c7.setImageResource(myGameState.getPlayer1Hand().get(7).imageId);
-            c8.setImageResource(myGameState.getPlayer1Hand().get(8).imageId);
-            c9.setImageResource(myGameState.getPlayer1Hand().get(9).imageId);
-            c10.setImageResource(myGameState.getPlayer1Hand().get(10).imageId);
-            c11.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
-//            c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
-
-
-            if (myGameState.getTrickCards().size() > 0) {
-                p1card.setImageResource(myGameState.getTrickCards().get(0).imageId);
+            if (myGameState.getPlayer1Hand().get(0) != null) {
+                c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
             }
-            if (myGameState.getTrickCards().size() > 1) {
+            if (myGameState.getPlayer1Hand().get(1) != null) {
+                c1.setImageResource(myGameState.getPlayer1Hand().get(1).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(2) != null) {
+                c2.setImageResource(myGameState.getPlayer1Hand().get(2).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(3) != null) {
+                c3.setImageResource(myGameState.getPlayer1Hand().get(3).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(4) != null) {
+                c4.setImageResource(myGameState.getPlayer1Hand().get(4).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(5) != null) {
+                c5.setImageResource(myGameState.getPlayer1Hand().get(5).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(6) != null) {
+                c6.setImageResource(myGameState.getPlayer1Hand().get(6).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(7) != null) {
+                c7.setImageResource(myGameState.getPlayer1Hand().get(7).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(8) != null) {
+                c8.setImageResource(myGameState.getPlayer1Hand().get(8).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(9) != null) {
+                c9.setImageResource(myGameState.getPlayer1Hand().get(9).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(10) != null) {
+                c10.setImageResource(myGameState.getPlayer1Hand().get(10).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(11) != null) {
+                c11.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
+            }
+            if (myGameState.getPlayer1Hand().get(12) != null) {
+                c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
+            }
+
+
+            if (myGameState.getTrickCards().get(1) != null) {
+                p1card.setImageResource(myGameState.getTrickCards().get(1).imageId);
+            }
+            if (myGameState.getTrickCards().get(2) != null) {
                 p2card.setImageResource(myGameState.getTrickCards().get(2).imageId);
             }
-            if (myGameState.getTrickCards().size() > 2) {
+            if (myGameState.getTrickCards().get(3) != null) {
                 p3card.setImageResource(myGameState.getTrickCards().get(3).imageId);
             }
 

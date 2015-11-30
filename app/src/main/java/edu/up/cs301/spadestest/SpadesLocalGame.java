@@ -132,16 +132,17 @@ public class SpadesLocalGame extends LocalGame {
         }
 
         //returns an int corresponding with the user that was in possession of the "largest" card
+        int result = -1;
         if(largest == card1){
-            return 0; //player 0 (human player) took the trick
+            result = 0; //player 0 (human player) took the trick
         } else if(largest == card2){
-            return 1; //player 1 took the trick
+            result = 1; //player 1 took the trick
         } else if(largest == card3){
-            return 2; //player 2 took the trick
+            result = 2; //player 2 took the trick
         } else if(largest == card4){
-            return 3; //player 3 took the trick
+            result = 3; //player 3 took the trick
         }
-        return -1; //fails and none of them are the "largest"
+        return result; //returns "fail" = -1 if no cards largest
     }//compTrickCards()
 
     /**
