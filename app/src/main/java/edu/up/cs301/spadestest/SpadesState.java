@@ -51,9 +51,9 @@ public class SpadesState extends GameState{
 
         trickCards = new ArrayList<>(4);
         //dummy up array if prev line of code not initializing causes problems
-//        for (int i = 0; i < 4; i++) {
-//            trickCards.add(new Card(i, Card.DEFAULT));
-//        }
+       for (int i = 0; i < 4; i++) {
+            trickCards.add(new Card(i, Card.DEFAULT));
+        }
 
         //fill deck
         initDeck();
@@ -78,7 +78,8 @@ public class SpadesState extends GameState{
 
     public SpadesState(SpadesState copy){
         //declare all the empty array definitions so there is something to copy to
-        trickCards = new ArrayList<>(copy.getTrickCards());
+        this.trickCards = new ArrayList<>(copy.getTrickCards());
+        this.deck = new ArrayList<>(copy.getDeck());
 
         playerScores = copy.playerScores;
         playerTricks = copy.playerTricks;
@@ -188,6 +189,10 @@ public class SpadesState extends GameState{
 
     public ArrayList<Card> getPlayer4Hand(){
         return player4Hand;
+    }
+
+    public ArrayList<Card> getDeck() {
+        return deck;
     }
 
     public int getPlayerBags(int player){

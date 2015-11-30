@@ -119,7 +119,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             c9.setImageResource(myGameState.getPlayer1Hand().get(9).imageId);
             c10.setImageResource(myGameState.getPlayer1Hand().get(10).imageId);
             c11.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
-            c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
+//            c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
 
 
             if (myGameState.getTrickCards().size() > 0) {
