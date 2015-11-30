@@ -47,9 +47,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer {
     private TextView LTrickTextView;
     private TextView RTrickTextView;
     private ImageView p0card;
-    private ImageView p1card;
-    private ImageView p2card;
-    private ImageView p3card;
     private ImageView c0;
     private ImageView c1;
     private ImageView c2;
@@ -157,9 +154,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer {
         c12 = (ImageView) activity.findViewById(R.id.c12);
 
         p0card = (ImageView) activity.findViewById(R.id.p0card);
-        p1card = (ImageView) activity.findViewById(R.id.p1card);
-        p2card = (ImageView) activity.findViewById(R.id.p2card);
-        p3card = (ImageView) activity.findViewById(R.id.p3card);
+        SpadesComputerPlayer.p1card = (ImageView) activity.findViewById(R.id.p1card);
+        SpadesComputerPlayer.p2card = (ImageView) activity.findViewById(R.id.p2card);
+        SpadesComputerPlayer.p3card = (ImageView) activity.findViewById(R.id.p3card);
 
         // create arrayList to hold the deck
         cardNames = activity.getResources().getStringArray(R.array.card_names);

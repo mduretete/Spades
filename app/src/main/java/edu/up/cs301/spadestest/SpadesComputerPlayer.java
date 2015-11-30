@@ -1,5 +1,9 @@
 package edu.up.cs301.spadestest;
 
+import android.widget.ImageView;
+
+import java.util.Random;
+
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
@@ -13,12 +17,17 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 public class SpadesComputerPlayer extends GameComputerPlayer {
 
+    static ImageView p1card;
+    static ImageView p2card;
+    static ImageView p3card;
+    private int playerNo;
     /**
      * SpadesComputerPlayer():ctor for the computer player
      * @param name
      */
-    public SpadesComputerPlayer(String name) {
+    public SpadesComputerPlayer(String name,int playerNo) {
         super(name);
+        this.playerNo = playerNo;
     }
 
     /**
@@ -27,6 +36,15 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
+        if(info instanceof SpadesState) {
+            Random rand = new Random();
+
+            if(((SpadesState)info).getPlayerBids(playerNo) == -1) { //if a bid has not been made yet
+                game.sendAction(new SpadesBidAction(this,rand.nextInt(13)));
+            }else{
+                game.sendAction(new SpadesPlayCardAction(this, rand.nextInt(13)));
+            }
+        }
 
     }
 }

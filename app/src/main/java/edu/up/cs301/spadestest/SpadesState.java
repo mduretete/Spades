@@ -98,7 +98,7 @@ public class SpadesState extends GameState{
 
         //new arrays to hold player Bags and Bids
         playerBags = new int[]{0, 0, 0, 0};
-        playerBids = new int[]{0, 0, 0, 0};
+        playerBids = new int[]{-1, -1, -1, -1};
 
         userTeammate = 2; //player across from user will always be their teammate
     }
@@ -107,16 +107,16 @@ public class SpadesState extends GameState{
         //declare all the empty array definitions so there is something to copy to
         trickCards = new ArrayList<>(copy.getTrickCards());
 
-        playerScores = new int[]{0, 0, 0, 0};
-        playerTricks = new int[]{0, 0, 0, 0};
+        playerScores = copy.playerScores;
+        playerTricks = copy.playerTricks;
 
         player1Hand = new ArrayList<>(copy.getPlayer1Hand());
         player2Hand = new ArrayList<>(copy.getPlayer2Hand());
         player3Hand = new ArrayList<>(copy.getPlayer3Hand());
         player4Hand = new ArrayList<>(copy.getPlayer4Hand());
 
-        playerBags = new int[]{0, 0, 0, 0};
-        playerBids = new int[]{0, 0, 0, 0};
+        playerBags = copy.playerBags;
+        playerBids = copy.playerBids;
 
         //begin the copy process
         this.currentPlayer = copy.getCurrentPlayer();
@@ -223,9 +223,7 @@ public class SpadesState extends GameState{
      * Place a bid at the beginning of the round
      * @param newBid the bid to be set
      */
-    public void placeBid(int newBid){
-        playerBids[currentPlayer] = newBid;
-    }
+    public void placeBid(int newBid){ playerBids[currentPlayer] = newBid; }
 
     /**
      * Select a card to be played in the current trick

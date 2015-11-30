@@ -11,11 +11,17 @@ import edu.up.cs301.game.actionMsg.GameAction;
  */
 public class SpadesBidAction extends GameAction {
 
+    private int bid;
     /**
      * SpadesBidAction(): calls parent player object making the action
      * @param player
      */
-    public SpadesBidAction(GamePlayer player){
+    public SpadesBidAction(GamePlayer player, int bid){
         super(player);
+        this.bid = bid;
+    }
+
+    public int getBid(){
+        return bid;
     }
 }
