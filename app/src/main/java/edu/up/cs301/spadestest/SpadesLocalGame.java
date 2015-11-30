@@ -2,6 +2,7 @@ package edu.up.cs301.spadestest;
 
 import android.os.Message;
 
+import java.util.ArrayList;
 import java.util.logging.Handler;
 
 import edu.up.cs301.game.GamePlayer;
@@ -84,10 +85,19 @@ public class SpadesLocalGame extends LocalGame {
 
     /**
      * compTrickCards(): compare cards in a trick array and declare a winner
-     * @param trick array of cards in the trick
+     * @param trickList array of cards in the trick
      * @return player who won the trick (0-3), -1 is failure case
      */
-    public int compTrickCards(Card[] trick) {
+    public int compTrickCards(ArrayList<Card> trickList) {
+
+        //if the arrayList has less or more than 4 elements, return -1
+        if(trickList.size() != 4){
+            return -1; //ERROR
+        }
+
+        //convert the arrayList to an array so it can be more easily referenced
+        Card[] trick = trickList.toArray(new Card[trickList.size()]);
+
         //stores the trick cards in temps
         Card card1 = trick[0];
         Card card2 = trick[1];
