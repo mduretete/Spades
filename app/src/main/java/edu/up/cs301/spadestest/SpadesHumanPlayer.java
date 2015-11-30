@@ -3,6 +3,7 @@ package edu.up.cs301.spadestest;
 import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.content.res.TypedArray;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
+import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.infoMsg.GameInfo;
 import edu.up.cs301.game.infoMsg.GameState;
 
@@ -35,7 +37,7 @@ import edu.up.cs301.game.infoMsg.GameState;
  *      the player can make and values that the player object
  *      holds
  */
-public class SpadesHumanPlayer extends GameHumanPlayer {
+public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragListener, View.OnTouchListener {
 
     // Widgets to be used and modified during play
     private TextView playerBidTextView;
@@ -47,6 +49,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer {
     private TextView LTrickTextView;
     private TextView RTrickTextView;
     private ImageView p0card;
+    private ImageView p1card;
+    private ImageView p2card;
+    private ImageView p3card;
     private ImageView c0;
     private ImageView c1;
     private ImageView c2;
@@ -117,6 +122,17 @@ public class SpadesHumanPlayer extends GameHumanPlayer {
             c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
 
 
+            if (myGameState.getTrickCards().size() > 0) {
+                p1card.setImageResource(myGameState.getTrickCards().get(0).imageId);
+            }
+            if (myGameState.getTrickCards().size() > 1) {
+                p2card.setImageResource(myGameState.getTrickCards().get(2).imageId);
+            }
+            if (myGameState.getTrickCards().size() > 2) {
+                p3card.setImageResource(myGameState.getTrickCards().get(3).imageId);
+            }
+
+
         }
     }
 
@@ -156,9 +172,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer {
         c12 = (ImageView) activity.findViewById(R.id.c12);
 
         p0card = (ImageView) activity.findViewById(R.id.p0card);
-        SpadesComputerPlayer.p1card = (ImageView) activity.findViewById(R.id.p1card);
-        SpadesComputerPlayer.p2card = (ImageView) activity.findViewById(R.id.p2card);
-        SpadesComputerPlayer.p3card = (ImageView) activity.findViewById(R.id.p3card);
+        p1card = (ImageView) activity.findViewById(R.id.p1card);
+        p2card = (ImageView) activity.findViewById(R.id.p2card);
+        p3card = (ImageView) activity.findViewById(R.id.p3card);
 
         // create arrayList to hold the deck
         cardNames = activity.getResources().getStringArray(R.array.card_names);
@@ -173,108 +189,102 @@ public class SpadesHumanPlayer extends GameHumanPlayer {
             deck.add(img);
         }
 
-        c0.setOnTouchListener(new ChoiceTouchListener());
-        c1.setOnTouchListener(new ChoiceTouchListener());
-        c2.setOnTouchListener(new ChoiceTouchListener());
-        c3.setOnTouchListener(new ChoiceTouchListener());
-        c4.setOnTouchListener(new ChoiceTouchListener());
-        c5.setOnTouchListener(new ChoiceTouchListener());
-        c6.setOnTouchListener(new ChoiceTouchListener());
-        c7.setOnTouchListener(new ChoiceTouchListener());
-        c8.setOnTouchListener(new ChoiceTouchListener());
-        c9.setOnTouchListener(new ChoiceTouchListener());
-        c10.setOnTouchListener(new ChoiceTouchListener());
-        c11.setOnTouchListener(new ChoiceTouchListener());
-        c12.setOnTouchListener(new ChoiceTouchListener());
+        c0.setOnTouchListener(this);
+        c1.setOnTouchListener(this);
+        c2.setOnTouchListener(this);
+        c3.setOnTouchListener(this);
+        c4.setOnTouchListener(this);
+        c5.setOnTouchListener(this);
+        c6.setOnTouchListener(this);
+        c7.setOnTouchListener(this);
+        c8.setOnTouchListener(this);
+        c9.setOnTouchListener(this);
+        c10.setOnTouchListener(this);
+        c11.setOnTouchListener(this);
+        c12.setOnTouchListener(this);
 
-        p0card.setOnDragListener(new ChoiceDragListener());
+        p0card.setOnDragListener(this);
     }
 
-    private final class ChoiceTouchListener implements View.OnTouchListener {
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                //setup drag
-                ClipData data = ClipData.newPlainText("", "");
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                //start dragging the item touched
-                view.startDrag(data, shadowBuilder, view, 0);
-                return true;
-            }
-            else {
-                return false;
-            }
-
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+        //handle drag events
+        switch (event.getAction()) {
+            case DragEvent.ACTION_DRAG_STARTED:
+                //no action necessary
+                break;
+            case DragEvent.ACTION_DRAG_ENTERED:
+                //no action necessary
+                break;
+            case DragEvent.ACTION_DRAG_EXITED:
+                //no action necessary
+                break;
+            case DragEvent.ACTION_DROP:
+                //handle the dragged view being dropped over a drop view
+                View view = (View) event.getLocalState();
+                view.setVisibility(View.INVISIBLE);
+                //cast passed area to drop in
+                ImageView dropSpace = (ImageView) v;
+                //cast active button being dragged
+                ImageView dropped = (ImageView) view;
+                //drop the card
+                dropped.setDrawingCacheEnabled(true);
+                dropSpace.setImageBitmap(dropped.getDrawingCache());
+                //update played card
+                //note: playCard currently updates trickCards by adding new cards to array; think they get removed after a trick but not sure
+                if (dropped == c0) {
+                   // myGameState.playCard(0);
+                    game.sendAction(new SpadesPlayCardAction(this, 0));
+                } else if (dropped == c1) {
+                    myGameState.playCard(1);
+                } else if (dropped == c2) {
+                    myGameState.playCard(2);
+                } else if (dropped == c3) {
+                    myGameState.playCard(3);
+                } else if (dropped == c4) {
+                    myGameState.playCard(4);
+                } else if (dropped == c5) {
+                    myGameState.playCard(5);
+                } else if (dropped == c6) {
+                    myGameState.playCard(6);
+                } else if (dropped == c7) {
+                    myGameState.playCard(7);
+                } else if (dropped == c8) {
+                    myGameState.playCard(8);
+                } else if (dropped == c9) {
+                    myGameState.playCard(9);
+                } else if (dropped == c10) {
+                    myGameState.playCard(10);
+                } else if (dropped == c11) {
+                    myGameState.playCard(11);
+                } else if (dropped == c12) {
+                    myGameState.playCard(12);
+                }
+                break;
+            case DragEvent.ACTION_DRAG_ENDED:
+                //no action necessary
+                break;
+            default:
+                break;
         }
-
-
+        return true;
     }
-    @TargetApi(11)
-    private class ChoiceDragListener implements View.OnDragListener {
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            //handle drag events
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    //no action necessary
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    //no action necessary
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    //no action necessary
-                    break;
-                case DragEvent.ACTION_DROP:
-                    //handle the dragged view being dropped over a drop view
-                    View view = (View) event.getLocalState();
-                    view.setVisibility(View.INVISIBLE);
-                    //cast passed area to drop in
-                    ImageView dropSpace = (ImageView) v;
-                    //cast active button being dragged
-                    ImageView dropped = (ImageView) view;
-                    //drop the card
-                    dropped.setDrawingCacheEnabled(true);
-                    dropSpace.setImageBitmap(dropped.getDrawingCache());
-                    //update played card
-                    //currently does not add card back to deck
-                    //note: playCard currently updates trickCards by adding new cards to array; think they get removed after a trick but not sure
-                    if (dropped == c0) {
-                        myGameState.playCard(0);
-                    } else if (dropped == c1) {
-                        myGameState.playCard(1);
-                    } else if (dropped == c2) {
-                        myGameState.playCard(2);
-                    } else if (dropped == c3) {
-                        myGameState.playCard(3);
-                    } else if (dropped == c4) {
-                        myGameState.playCard(4);
-                    } else if (dropped == c5) {
-                        myGameState.playCard(5);
-                    } else if (dropped == c6) {
-                        myGameState.playCard(6);
-                    } else if (dropped == c7) {
-                        myGameState.playCard(7);
-                    } else if (dropped == c8) {
-                        myGameState.playCard(8);
-                    } else if (dropped == c9) {
-                        myGameState.playCard(9);
-                    } else if (dropped == c10) {
-                        myGameState.playCard(10);
-                    } else if (dropped == c11) {
-                        myGameState.playCard(11);
-                    } else if (dropped == c12) {
-                        myGameState.playCard(12);
-                    }
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    //no action necessary
-                    break;
-                default:
-                    break;
-            }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            //setup drag
+            ClipData data = ClipData.newPlainText("", "");
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+            //start dragging the item touched
+            view.startDrag(data, shadowBuilder, view, 0);
             return true;
         }
+        else {
+            return false;
+        }
+
     }
 }

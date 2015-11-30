@@ -42,10 +42,10 @@ public class MainActivity extends GameMainActivity {
             public GamePlayer createPlayer(String name) { return new SpadesHumanPlayer(name);}});
 
         playerTypes.add(new GamePlayerType("Local Computer Player") {
-            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name,1);}});
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name, 1);}});
 
         playerTypes.add(new GamePlayerType("Local Computer Player") {
-            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name,2);}});
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name, 2);}});
 
         playerTypes.add(new GamePlayerType("Local Computer Player") {
             public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name,3);}});

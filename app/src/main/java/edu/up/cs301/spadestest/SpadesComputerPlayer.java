@@ -38,12 +38,19 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         if(info instanceof SpadesState) {
-            Random rand = new Random();
 
-            if(((SpadesState)info).getPlayerBids(playerNo) == -1) { //if a bid has not been made yet
-                game.sendAction(new SpadesBidAction(this,rand.nextInt(13)));
-            }else{
-                game.sendAction(new SpadesPlayCardAction(this, rand.nextInt(13)));
+            SpadesState state = (SpadesState) info;
+            Random rand = new Random();
+            int randBid = rand.nextInt(13);
+            int cardToPlay = rand.nextInt(13);
+
+            if (state.getPlayerBids(playerNo) == -1) { //if a bid has not been made yet
+                game.sendAction(new SpadesBidAction(this, randBid));
+            }
+            else {
+                if (state.getCurrentPlayer() != 0) {
+                    game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
+                }
             }
         }
 

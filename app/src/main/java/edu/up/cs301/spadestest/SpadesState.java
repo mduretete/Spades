@@ -111,9 +111,9 @@ public class SpadesState extends GameState{
         Collections.copy(this.trickCards, copy.getTrickCards());
 
         Collections.copy(this.player1Hand, copy.getPlayer1Hand());
-        Collections.copy(this.player1Hand, copy.getPlayer2Hand());
-        Collections.copy(this.player1Hand, copy.getPlayer3Hand());
-        Collections.copy(this.player1Hand, copy.getPlayer4Hand());
+        Collections.copy(this.player2Hand, copy.getPlayer2Hand());
+        Collections.copy(this.player3Hand, copy.getPlayer3Hand());
+        Collections.copy(this.player4Hand, copy.getPlayer4Hand());
 
         i = 0;
         while(i<4) {
