@@ -80,6 +80,13 @@ public class SpadesLocalGame extends LocalGame {
         else if(action instanceof SpadesPlayCardAction){
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
         }
+        //check if the round is over
+        if(spadesGameState.player1Hand.isEmpty() && spadesGameState.player2Hand.isEmpty()
+                && spadesGameState.player3Hand.isEmpty() && spadesGameState.player4Hand.isEmpty()) {
+            SpadesState temp = spadesGameState;
+            spadesGameState = new SpadesState();
+            spadesGameState.set(temp);
+        }
         return true;
     }//makeMove()
 

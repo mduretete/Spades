@@ -36,9 +36,6 @@ public class SpadesState extends GameState{
 
     int userTeammate; //player number of user's teammate
 
-    int selectedCard; //player's selected card
-    int selectedBid; //player's selected bid
-
     ArrayList<Card> deck = new ArrayList<>();
 
     public SpadesState() {
@@ -134,6 +131,17 @@ public class SpadesState extends GameState{
 
         Collections.copy(this.deck, copy.deck);
 
+    }
+
+    /**
+     * sets a few things based on an older SpadesState
+     */
+    public void set(SpadesState temp){
+        this.currentPlayer = temp.currentPlayer;
+        this.playerBags = temp.playerBags;
+        this.playerScores = temp.playerScores;
+        this.team1Score = temp.team1Score;
+        this.team2Score = temp.team2Score;
     }
 
     //getters
@@ -355,19 +363,5 @@ public class SpadesState extends GameState{
             player4Hand.add(deck.get(cardNo));
             deck.remove(cardNo);
         }
-    }
-
-    /**
-     * call playCard with card currently selected by the player
-     */
-    public void playCard(){
-        playCard(this.selectedCard);
-    }
-
-    /**
-     * call placeBid with the bid currently entered by the player
-     */
-    public void placeBid(){
-        placeBid(this.selectedBid);
     }
 }
