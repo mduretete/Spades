@@ -70,8 +70,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     private GameMainActivity myActivity;
 
     private String[] cardNames;
-    private ArrayList<Bitmap> deck;
-
 
     /**
      * SpadesHumanPlayer():ctor for the human player
@@ -148,14 +146,16 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             }
 
 
-            if (myGameState.getTrickCards().get(1) != null) {
-                p1card.setImageResource(myGameState.getTrickCards().get(1).imageId);
-            }
-            if (myGameState.getTrickCards().get(2) != null) {
-                p2card.setImageResource(myGameState.getTrickCards().get(2).imageId);
-            }
-            if (myGameState.getTrickCards().get(3) != null) {
-                p3card.setImageResource(myGameState.getTrickCards().get(3).imageId);
+            if (myGameState.getTrickCards().size() > 0) {
+                if (myGameState.getTrickCards().get(1) != null) {
+                    p1card.setImageResource(myGameState.getTrickCards().get(1).imageId);
+                }
+                if (myGameState.getTrickCards().get(2) != null) {
+                    p2card.setImageResource(myGameState.getTrickCards().get(2).imageId);
+                }
+                if (myGameState.getTrickCards().get(3) != null) {
+                    p3card.setImageResource(myGameState.getTrickCards().get(3).imageId);
+                }
             }
 
 
@@ -202,19 +202,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         p2card = (ImageView) activity.findViewById(R.id.p2card);
         p3card = (ImageView) activity.findViewById(R.id.p3card);
 
-        // create arrayList to hold the deck
-        cardNames = activity.getResources().getStringArray(R.array.card_names);
-        deck = new ArrayList<Bitmap>();
-        TypedArray cardIds = activity.getResources().obtainTypedArray(R.array.cardIdArray); //don't use "activity?"
-        for (int i = 0; i < cardNames.length; i++) {
-            // determine the index; use 0 if out of bounds
-            int id = cardIds.getResourceId(i, 0);
-            if (id == 0) id = cardIds.getResourceId(0, 0);
-            // load the image; add to arraylist
-            Bitmap img = BitmapFactory.decodeResource(activity.getResources(), id);
-            deck.add(img);
-        }
-
         c0.setOnTouchListener(this);
         c1.setOnTouchListener(this);
         c2.setOnTouchListener(this);
@@ -259,32 +246,31 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 //update played card
                 //note: playCard currently updates trickCards by adding new cards to array; think they get removed after a trick but not sure
                 if (dropped == c0) {
-                   // myGameState.playCard(0);
                     game.sendAction(new SpadesPlayCardAction(this, 0));
                 } else if (dropped == c1) {
-                    myGameState.playCard(1);
+                    game.sendAction(new SpadesPlayCardAction(this, 1));
                 } else if (dropped == c2) {
-                    myGameState.playCard(2);
+                    game.sendAction(new SpadesPlayCardAction(this, 2));
                 } else if (dropped == c3) {
-                    myGameState.playCard(3);
+                    game.sendAction(new SpadesPlayCardAction(this, 3));
                 } else if (dropped == c4) {
-                    myGameState.playCard(4);
+                    game.sendAction(new SpadesPlayCardAction(this, 4));
                 } else if (dropped == c5) {
-                    myGameState.playCard(5);
+                    game.sendAction(new SpadesPlayCardAction(this, 5));
                 } else if (dropped == c6) {
-                    myGameState.playCard(6);
+                    game.sendAction(new SpadesPlayCardAction(this, 6));
                 } else if (dropped == c7) {
-                    myGameState.playCard(7);
+                    game.sendAction(new SpadesPlayCardAction(this, 7));
                 } else if (dropped == c8) {
-                    myGameState.playCard(8);
+                    game.sendAction(new SpadesPlayCardAction(this, 8));
                 } else if (dropped == c9) {
-                    myGameState.playCard(9);
+                    game.sendAction(new SpadesPlayCardAction(this, 9));
                 } else if (dropped == c10) {
-                    myGameState.playCard(10);
+                    game.sendAction(new SpadesPlayCardAction(this, 10));
                 } else if (dropped == c11) {
-                    myGameState.playCard(11);
+                    game.sendAction(new SpadesPlayCardAction(this, 11));
                 } else if (dropped == c12) {
-                    myGameState.playCard(12);
+                    game.sendAction(new SpadesPlayCardAction(this, 12));
                 }
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
