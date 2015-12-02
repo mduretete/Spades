@@ -80,6 +80,13 @@ public class SpadesLocalGame extends LocalGame {
         else if(action instanceof SpadesPlayCardAction){
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
         }
+
+        //TODO does not work
+        if(spadesGameState.cardsInTrick == 4){
+            int playerWhoWonTheCurrentTrick = compTrickCards(spadesGameState.getTrickCards());
+            spadesGameState.playerTricks[playerWhoWonTheCurrentTrick]++;
+        }
+
         //if hands are empty, round is over
         if(spadesGameState.player1Hand.isEmpty() && spadesGameState.player2Hand.isEmpty()
                 && spadesGameState.player3Hand.isEmpty() && spadesGameState.player4Hand.isEmpty()) {
