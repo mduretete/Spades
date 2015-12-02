@@ -194,6 +194,48 @@ public class SpadesLocalGame extends LocalGame {
     }//compCards()
 
     /**
+     * roundWin(): determines which team scored the most in a round and updates the arrays
+     * @return int, 0 for team 1 (human + comp) and 1 for team 2 (comp + comp), 2 for draw, -1 for ERROR
+     */
+    public int roundWin(){
+
+        for(int i = 0; i < 4; i++) {
+            //if nul bid is made
+            if(spadesGameState.playerTricks[i] == spadesGameState.playerBids[i] && spadesGameState.playerTricks[i] == 0){
+                spadesGameState.playerScores[i] = spadesGameState.playerScores[i] + 50;
+            //if bid is made and not nul
+            } else if(spadesGameState.playerTricks[i] == spadesGameState.playerBids[i] && spadesGameState.playerBids[i] != 0){
+                int add = (spadesGameState.playerBids[i])*10;
+                spadesGameState.playerScores[i] = spadesGameState.playerScores[i] + add;
+            //if null bid not made
+            } else if(spadesGameState.playerTricks[i] != spadesGameState.playerBids[i] && spadesGameState.playerBids[i] == 0){
+                spadesGameState.playerScores[i] = spadesGameState.playerScores[i] - 50;
+            //if overbid
+            } else if(spadesGameState.playerTricks[i] > spadesGameState.playerBids[i] && spadesGameState.playerBids[i] != 0){
+                int sub = spadesGameState.playerTricks[i] - spadesGameState.playerBids[i];
+                int add = ((spadesGameState.playerBids[i])*10)+sub;
+                spadesGameState.playerScores[i] = spadesGameState.playerScores[i] + add;
+            //if underbid
+            } else if(spadesGameState.playerTricks[i] < spadesGameState.playerBids[i] && spadesGameState.playerBids[i] != 0){
+                int add = (spadesGameState.playerBids[i])*10;
+                spadesGameState.playerScores[i] = spadesGameState.playerScores[i] - add;
+            }
+        }
+
+        spadesGameState.team1Score = spadesGameState.playerScores[0] + spadesGameState.playerScores[2];
+        spadesGameState.team2Score = spadesGameState.playerScores[1] + spadesGameState.playerScores[3];
+
+        if(spadesGameState.team1Score > spadesGameState.team2Score){
+            return 0;
+        } else if(spadesGameState.team2Score > spadesGameState.team1Score){
+            return 1;
+        } else if(spadesGameState.team1Score == spadesGameState.team2Score){
+            return 2; //draw
+        }
+        return -1;
+    }
+
+    /**
      * This is where the scoring happens
      */
     private void scoring(){
@@ -210,6 +252,8 @@ public class SpadesLocalGame extends LocalGame {
             SpadesState temp = spadesGameState; //store the current SpadesState in a temp
             spadesGameState = new SpadesState(); //overwrite current SpadesState with a new one, newly inited and dealt deck
             spadesGameState.set(temp); //restore the permanent values (such as scores and bags) to the current SpadesState
+
+            spadesGameState.winningTeam = roundWin();
         }
     }
 
