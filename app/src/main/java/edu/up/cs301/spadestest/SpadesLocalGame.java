@@ -72,13 +72,18 @@ public class SpadesLocalGame extends LocalGame {
     @Override
     public boolean makeMove(GameAction action) {
         if(!canMove(getPlayerIdx(action.getPlayer()))){
-        //    return false;
+            return false;
         }
         if(action instanceof SpadesBidAction){
             spadesGameState.placeBid(((SpadesBidAction) action).getBid());
         }
         else if(action instanceof SpadesPlayCardAction){
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
+        }
+        int winner;
+        if (spadesGameState.cardsInTrick == 4) {
+            winner = compTrickCards(spadesGameState.getTrickCards());
+            spadesGameState.incrementTricks(winner);
         }
 
         //TODO does not work

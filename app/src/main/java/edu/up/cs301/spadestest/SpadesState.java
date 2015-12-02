@@ -241,14 +241,13 @@ public class SpadesState extends GameState{
         //boolean for error detection
         boolean detectError = false;
 
-        //see if the trick is full
-        if(cardsInTrick >= 4) {
+        if(cardsInTrick == 4) {
             int i;
             for(i = 3;i >= 0; i--){
                 deck.set(cardsPlayed, trickCards.get(i));
                 trickCards.set(i, null);
-                cardsInTrick = 0;
             }
+            cardsInTrick = 0;
         }
 
         //if player1's turn
@@ -398,5 +397,9 @@ public class SpadesState extends GameState{
                 deck.set(cardNo, null);
             } while (player4Hand.get(i) == null);
         }
+    }
+
+    public void incrementTricks (int player) {
+        playerTricks[player]++;
     }
 }

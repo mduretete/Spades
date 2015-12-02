@@ -179,9 +179,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         LBidTextView = (TextView) activity.findViewById(R.id.p1bid);
         RBidTextView = (TextView) activity.findViewById(R.id.p3bid);
         playerTrickTextView = (TextView) activity.findViewById(R.id.p0trick);
-        partnerTrickTextView = (TextView) activity.findViewById(R.id.p0trick);
-        LTrickTextView = (TextView) activity.findViewById(R.id.p0trick);
-        RTrickTextView = (TextView) activity.findViewById(R.id.p0trick);
+        partnerTrickTextView = (TextView) activity.findViewById(R.id.p2trick);
+        LTrickTextView = (TextView) activity.findViewById(R.id.p1trick);
+        RTrickTextView = (TextView) activity.findViewById(R.id.p3trick);
 
         c0 = (ImageView) activity.findViewById(R.id.c0);
         c1 = (ImageView) activity.findViewById(R.id.c1);
