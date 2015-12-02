@@ -1,6 +1,7 @@
 package edu.up.cs301.spadestest;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.media.Image;
@@ -28,6 +29,7 @@ import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.infoMsg.GameInfo;
 import edu.up.cs301.game.infoMsg.GameState;
+import edu.up.cs301.game.util.MessageBox;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
@@ -101,6 +103,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             LBidTextView.setText("" + myGameState.getPlayerBids(1));
             partnerBidTextView.setText("" + myGameState.getPlayerBids(2));
             RBidTextView.setText("" + myGameState.getPlayerBids(3));
+
             playerTrickTextView.setText("" + myGameState.getPlayerTricks(0));
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
             partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));

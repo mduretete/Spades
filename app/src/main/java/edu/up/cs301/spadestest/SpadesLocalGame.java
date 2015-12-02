@@ -80,19 +80,10 @@ public class SpadesLocalGame extends LocalGame {
         else if(action instanceof SpadesPlayCardAction){
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
         }
-        int winner;
-        if (spadesGameState.cardsInTrick == 4) {
-            winner = compTrickCards(spadesGameState.getTrickCards());
-            spadesGameState.incrementTricks(winner);
-        }
 
-        //if hands are empty, round is over
-        if(spadesGameState.player1Hand.isEmpty() && spadesGameState.player2Hand.isEmpty()
-                && spadesGameState.player3Hand.isEmpty() && spadesGameState.player4Hand.isEmpty()) {
-            SpadesState temp = spadesGameState; //store the current SpadesState in a temp
-            spadesGameState = new SpadesState(); //overwrite current SpadesState with a new one, newly inited and dealt deck
-            spadesGameState.set(temp); //restore the permanent values (such as scores and bags) to the current SpadesState
-        }
+        //do the scoring stuff
+        scoring();
+
         return true;
     }//makeMove()
 
@@ -201,6 +192,26 @@ public class SpadesLocalGame extends LocalGame {
         //gets returned, because neither will end up being the highest value card
         return c1;
     }//compCards()
+
+    /**
+     * This is where the scoring happens
+     */
+    private void scoring(){
+        //who won the trick?
+        int trickWinner;
+        if (spadesGameState.cardsInTrick == 4) {
+            trickWinner = compTrickCards(spadesGameState.getTrickCards());
+            spadesGameState.incrementTricks(trickWinner);
+        }
+
+        //if hands are empty, round is over
+        if(spadesGameState.player1Hand.isEmpty() && spadesGameState.player2Hand.isEmpty()
+                && spadesGameState.player3Hand.isEmpty() && spadesGameState.player4Hand.isEmpty()) {
+            SpadesState temp = spadesGameState; //store the current SpadesState in a temp
+            spadesGameState = new SpadesState(); //overwrite current SpadesState with a new one, newly inited and dealt deck
+            spadesGameState.set(temp); //restore the permanent values (such as scores and bags) to the current SpadesState
+        }
+    }
 
 
 }//SpadesLocalGame.java
