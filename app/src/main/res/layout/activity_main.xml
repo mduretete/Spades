@@ -315,6 +315,20 @@
                 android:inputType="text"
                 android:ems="10"
                 android:id="@+id/bidview" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T1 Score:           "
+                android:id="@+id/team1score"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T2 Score:           "
+                android:id="@+id/team2score"
+                android:textSize="30dp" />
         </LinearLayout>
 
     </FrameLayout>

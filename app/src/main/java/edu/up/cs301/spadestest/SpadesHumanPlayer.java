@@ -72,6 +72,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     private EditText bidView;
     private Button bidConfirm;
 
+    private TextView t1Score;
+    private TextView t2Score;
+
     SpadesState myGameState;
     private GameMainActivity myActivity;
 
@@ -165,6 +168,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 }
             }
 
+            t1Score.setText("T1 Score:       " + myGameState.team1Score + " ");
+            t2Score.setText("T2 Score:       " + myGameState.team2Score + " ");
 
         }
     }
@@ -192,6 +197,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
         bidView = (EditText) activity.findViewById(R.id.bidview);
         bidConfirm = (Button) activity.findViewById(R.id.bidconfirm);
+
+        t1Score = (TextView) activity.findViewById(R.id.team1score);
+        t2Score = (TextView) activity.findViewById(R.id.team2score);
 
         c0 = (ImageView) activity.findViewById(R.id.c0);
         c1 = (ImageView) activity.findViewById(R.id.c1);
