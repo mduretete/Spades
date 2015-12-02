@@ -247,13 +247,13 @@ public class SpadesLocalGame extends LocalGame {
         }
 
         //if hands are empty, round is over
-        if(spadesGameState.player1Hand.isEmpty() && spadesGameState.player2Hand.isEmpty()
-                && spadesGameState.player3Hand.isEmpty() && spadesGameState.player4Hand.isEmpty()) {
+        if(spadesGameState.cardsPlayed == 51) {
+
+            spadesGameState.winningTeam = roundWin();
+
             SpadesState temp = spadesGameState; //store the current SpadesState in a temp
             spadesGameState = new SpadesState(); //overwrite current SpadesState with a new one, newly inited and dealt deck
             spadesGameState.set(temp); //restore the permanent values (such as scores and bags) to the current SpadesState
-
-            spadesGameState.winningTeam = roundWin();
         }
     }
 

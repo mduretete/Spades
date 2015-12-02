@@ -171,7 +171,10 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
             t1Score.setText("T1 Score:       " + myGameState.team1Score + " ");
             t2Score.setText("T2 Score:       " + myGameState.team2Score + " ");
-            winnerText.setText("");
+
+            if(myGameState.winningTeam == 0) winnerText.setText("Team 1 Wins!");
+            else if(myGameState.winningTeam == 1) winnerText.setText("Team 2 Wins!");
+            else if(myGameState.winningTeam == 2) winnerText.setText("It's a Draw!");
 
         }
     }
