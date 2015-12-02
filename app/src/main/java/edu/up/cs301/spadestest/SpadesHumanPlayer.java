@@ -74,6 +74,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
     private TextView t1Score;
     private TextView t2Score;
+    private TextView winnerText;
 
     SpadesState myGameState;
     private GameMainActivity myActivity;
@@ -170,6 +171,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
             t1Score.setText("T1 Score:       " + myGameState.team1Score + " ");
             t2Score.setText("T2 Score:       " + myGameState.team2Score + " ");
+            winnerText.setText("");
 
         }
     }
@@ -200,6 +202,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
         t1Score = (TextView) activity.findViewById(R.id.team1score);
         t2Score = (TextView) activity.findViewById(R.id.team2score);
+        winnerText = (TextView) activity.findViewById(R.id.winnertext);
 
         c0 = (ImageView) activity.findViewById(R.id.c0);
         c1 = (ImageView) activity.findViewById(R.id.c1);

@@ -37,6 +37,8 @@ public class SpadesState extends GameState{
 
     int userTeammate; //player number of user's teammate
 
+    int winningTeam;
+
     ArrayList<Card> deck = new ArrayList<>(52);
 
     public SpadesState() {
@@ -88,6 +90,7 @@ public class SpadesState extends GameState{
         playerBids = new int[]{0, -1, -1, -1};
 
         userTeammate = 2; //player across from user will always be their teammate
+        winningTeam = -1;
     }
 
     public SpadesState(SpadesState copy){
@@ -146,6 +149,8 @@ public class SpadesState extends GameState{
         this.userTeammate = copy.getUserTeammate();
 
         Collections.copy(this.deck, copy.deck);
+
+        this.winningTeam = copy.winningTeam;
 
     }
 
