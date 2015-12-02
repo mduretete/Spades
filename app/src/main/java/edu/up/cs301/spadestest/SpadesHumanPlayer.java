@@ -15,6 +15,7 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Space;
@@ -39,7 +40,7 @@ import edu.up.cs301.game.util.MessageBox;
  *      the player can make and values that the player object
  *      holds
  */
-public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragListener, View.OnTouchListener {
+public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragListener, View.OnTouchListener, View.OnClickListener {
 
     // Widgets to be used and modified during play
     private TextView playerBidTextView;
@@ -67,6 +68,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     private ImageView c10;
     private ImageView c11;
     private ImageView c12;
+
+    private EditText bidView;
+    private Button bidConfirm;
 
     SpadesState myGameState;
     private GameMainActivity myActivity;
@@ -186,6 +190,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         LTrickTextView = (TextView) activity.findViewById(R.id.p1trick);
         RTrickTextView = (TextView) activity.findViewById(R.id.p3trick);
 
+        bidView = (EditText) activity.findViewById(R.id.bidview);
+        bidConfirm = (Button) activity.findViewById(R.id.bidconfirm);
+
         c0 = (ImageView) activity.findViewById(R.id.c0);
         c1 = (ImageView) activity.findViewById(R.id.c1);
         c2 = (ImageView) activity.findViewById(R.id.c2);
@@ -220,86 +227,128 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         c12.setOnTouchListener(this);
 
         p0card.setOnDragListener(this);
+
+        bidConfirm.setOnClickListener(this);
     }
 
     @Override
     public boolean onDrag(View v, DragEvent event) {
-        //handle drag events
-        switch (event.getAction()) {
-            case DragEvent.ACTION_DRAG_STARTED:
-                //no action necessary
-                break;
-            case DragEvent.ACTION_DRAG_ENTERED:
-                //no action necessary
-                break;
-            case DragEvent.ACTION_DRAG_EXITED:
-                //no action necessary
-                break;
-            case DragEvent.ACTION_DROP:
-                //handle the dragged view being dropped over a drop view
-                View view = (View) event.getLocalState();
-                view.setVisibility(View.INVISIBLE);
-                //cast passed area to drop in
-                ImageView dropSpace = (ImageView) v;
-                //cast active button being dragged
-                ImageView dropped = (ImageView) view;
-                //drop the card
-                dropped.setDrawingCacheEnabled(true);
-                dropSpace.setImageBitmap(dropped.getDrawingCache());
-                //update played card
-                //note: playCard currently updates trickCards by adding new cards to array; think they get removed after a trick but not sure
-                if (dropped == c0) {
-                    game.sendAction(new SpadesPlayCardAction(this, 0));
-                } else if (dropped == c1) {
-                    game.sendAction(new SpadesPlayCardAction(this, 1));
-                } else if (dropped == c2) {
-                    game.sendAction(new SpadesPlayCardAction(this, 2));
-                } else if (dropped == c3) {
-                    game.sendAction(new SpadesPlayCardAction(this, 3));
-                } else if (dropped == c4) {
-                    game.sendAction(new SpadesPlayCardAction(this, 4));
-                } else if (dropped == c5) {
-                    game.sendAction(new SpadesPlayCardAction(this, 5));
-                } else if (dropped == c6) {
-                    game.sendAction(new SpadesPlayCardAction(this, 6));
-                } else if (dropped == c7) {
-                    game.sendAction(new SpadesPlayCardAction(this, 7));
-                } else if (dropped == c8) {
-                    game.sendAction(new SpadesPlayCardAction(this, 8));
-                } else if (dropped == c9) {
-                    game.sendAction(new SpadesPlayCardAction(this, 9));
-                } else if (dropped == c10) {
-                    game.sendAction(new SpadesPlayCardAction(this, 10));
-                } else if (dropped == c11) {
-                    game.sendAction(new SpadesPlayCardAction(this, 11));
-                } else if (dropped == c12) {
-                    game.sendAction(new SpadesPlayCardAction(this, 12));
-                }
-                break;
-            case DragEvent.ACTION_DRAG_ENDED:
-                //no action necessary
-                break;
-            default:
-                break;
+        if(!bidView.isEnabled()) {
+            //handle drag events
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    //no action necessary
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    //no action necessary
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    //no action necessary
+                    break;
+                case DragEvent.ACTION_DROP:
+                    //handle the dragged view being dropped over a drop view
+                    View view = (View) event.getLocalState();
+                    view.setVisibility(View.INVISIBLE);
+                    //cast passed area to drop in
+                    ImageView dropSpace = (ImageView) v;
+                    //cast active button being dragged
+                    ImageView dropped = (ImageView) view;
+                    //drop the card
+                    dropped.setDrawingCacheEnabled(true);
+                    dropSpace.setImageBitmap(dropped.getDrawingCache());
+                    //update played card
+                    //note: playCard currently updates trickCards by adding new cards to array; think they get removed after a trick but not sure
+                    if (dropped == c0) {
+                        game.sendAction(new SpadesPlayCardAction(this, 0));
+                    } else if (dropped == c1) {
+                        game.sendAction(new SpadesPlayCardAction(this, 1));
+                    } else if (dropped == c2) {
+                        game.sendAction(new SpadesPlayCardAction(this, 2));
+                    } else if (dropped == c3) {
+                        game.sendAction(new SpadesPlayCardAction(this, 3));
+                    } else if (dropped == c4) {
+                        game.sendAction(new SpadesPlayCardAction(this, 4));
+                    } else if (dropped == c5) {
+                        game.sendAction(new SpadesPlayCardAction(this, 5));
+                    } else if (dropped == c6) {
+                        game.sendAction(new SpadesPlayCardAction(this, 6));
+                    } else if (dropped == c7) {
+                        game.sendAction(new SpadesPlayCardAction(this, 7));
+                    } else if (dropped == c8) {
+                        game.sendAction(new SpadesPlayCardAction(this, 8));
+                    } else if (dropped == c9) {
+                        game.sendAction(new SpadesPlayCardAction(this, 9));
+                    } else if (dropped == c10) {
+                        game.sendAction(new SpadesPlayCardAction(this, 10));
+                    } else if (dropped == c11) {
+                        game.sendAction(new SpadesPlayCardAction(this, 11));
+                    } else if (dropped == c12) {
+                        game.sendAction(new SpadesPlayCardAction(this, 12));
+                    }
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    //no action necessary
+                    break;
+                default:
+                    break;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-            //setup drag
-            ClipData data = ClipData.newPlainText("", "");
-            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-            //start dragging the item touched
-            view.startDrag(data, shadowBuilder, view, 0);
-            return true;
+        //only act if the bid has been confirmed already
+        if(!bidView.isEnabled()) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                //setup drag
+                ClipData data = ClipData.newPlainText("", "");
+                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                //start dragging the item touched
+                view.startDrag(data, shadowBuilder, view, 0);
+                return true;
+            } else {
+                return false;
+            }
         }
-        else {
-            return false;
-        }
+        return false;
 
+    }
+
+    /**
+     * write a better comment here
+     * @param v
+     */
+    @Override
+    public void onClick(View v){
+        if(v == bidConfirm){
+            //default bid to zero if the player is a dumbass
+            int bid = 0;
+            try {
+                bid = Integer.parseInt(bidView.getText().toString());
+                if((bid>=0)&&(bid<=13)) {
+                    myGameState.playerBids[0] = bid;
+                    playerBidTextView.setText(bidView.getText().toString());
+
+                    bidView.setEnabled(false);
+                    bidConfirm.setEnabled(false);
+
+                    return;
+                }
+            }catch(Exception e){}
+
+            //in correspondence with default
+            myGameState.playerBids[0] = 0;
+            playerBidTextView.setText("0");
+
+            bidView.setEnabled(false);
+            bidConfirm.setEnabled(false);
+
+            bidView.setText("ERROR: "+bidView.getText().toString());
+
+        }
     }
 }

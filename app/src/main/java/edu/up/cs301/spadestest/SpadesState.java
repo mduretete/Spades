@@ -85,7 +85,7 @@ public class SpadesState extends GameState{
 
         //new arrays to hold player Bags and Bids
         playerBags = new int[]{0, 0, 0, 0};
-        playerBids = new int[]{4, -1, -1, -1};
+        playerBids = new int[]{0, -1, -1, -1};
 
         userTeammate = 2; //player across from user will always be their teammate
     }
