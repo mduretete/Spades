@@ -16,10 +16,6 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  *      holds
  */
 public class SpadesComputerPlayer extends GameComputerPlayer {
-
-    static ImageView p1card;
-    static ImageView p2card;
-    static ImageView p3card;
     
     private int playerNo;
     /**
@@ -44,7 +40,7 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
             int randBid = rand.nextInt(13);
             int cardToPlay = rand.nextInt(13);
 
-            if (state.getPlayerBids(playerNo) == -1) { //if a bid has not been made yet
+            if (state.getPlayerBids(state.getCurrentPlayer()) == -1) { //if a bid has not been made yet
                 game.sendAction(new SpadesBidAction(this, randBid));
             }
             else {

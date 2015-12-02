@@ -72,7 +72,7 @@ public class SpadesLocalGame extends LocalGame {
     @Override
     public boolean makeMove(GameAction action) {
         if(!canMove(getPlayerIdx(action.getPlayer()))){
-            return false;
+        //    return false;
         }
         if(action instanceof SpadesBidAction){
             spadesGameState.placeBid(((SpadesBidAction) action).getBid());
