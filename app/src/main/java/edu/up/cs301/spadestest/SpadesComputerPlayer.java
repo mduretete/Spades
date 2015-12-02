@@ -46,7 +46,7 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                 game.sendAction(new SpadesBidAction(this, randBid));
             }
             else {
-                if (state.getCurrentPlayer() != 0) {
+                if (state.getCurrentPlayer() != 0) { //play a card
                     game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
                 }
             }
