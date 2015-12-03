@@ -71,6 +71,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
     private EditText bidView;
     private Button bidConfirm;
+    private boolean showCards = false;
 
     private TextView t1Score;
     private TextView t2Score;
@@ -116,45 +117,47 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
             partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
             RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
-            if (myGameState.getPlayer1Hand().get(0) != null) {
-                c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(1) != null) {
-                c1.setImageResource(myGameState.getPlayer1Hand().get(1).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(2) != null) {
-                c2.setImageResource(myGameState.getPlayer1Hand().get(2).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(3) != null) {
-                c3.setImageResource(myGameState.getPlayer1Hand().get(3).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(4) != null) {
-                c4.setImageResource(myGameState.getPlayer1Hand().get(4).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(5) != null) {
-                c5.setImageResource(myGameState.getPlayer1Hand().get(5).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(6) != null) {
-                c6.setImageResource(myGameState.getPlayer1Hand().get(6).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(7) != null) {
-                c7.setImageResource(myGameState.getPlayer1Hand().get(7).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(8) != null) {
-                c8.setImageResource(myGameState.getPlayer1Hand().get(8).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(9) != null) {
-                c9.setImageResource(myGameState.getPlayer1Hand().get(9).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(10) != null) {
-                c10.setImageResource(myGameState.getPlayer1Hand().get(10).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(11) != null) {
-                c11.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
-            }
-            if (myGameState.getPlayer1Hand().get(12) != null) {
-                c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
-            }
+          //  if (showCards) {
+                if (myGameState.getPlayer1Hand().get(0) != null) {
+                    c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(1) != null) {
+                    c1.setImageResource(myGameState.getPlayer1Hand().get(1).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(2) != null) {
+                    c2.setImageResource(myGameState.getPlayer1Hand().get(2).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(3) != null) {
+                    c3.setImageResource(myGameState.getPlayer1Hand().get(3).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(4) != null) {
+                    c4.setImageResource(myGameState.getPlayer1Hand().get(4).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(5) != null) {
+                    c5.setImageResource(myGameState.getPlayer1Hand().get(5).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(6) != null) {
+                    c6.setImageResource(myGameState.getPlayer1Hand().get(6).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(7) != null) {
+                    c7.setImageResource(myGameState.getPlayer1Hand().get(7).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(8) != null) {
+                    c8.setImageResource(myGameState.getPlayer1Hand().get(8).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(9) != null) {
+                    c9.setImageResource(myGameState.getPlayer1Hand().get(9).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(10) != null) {
+                    c10.setImageResource(myGameState.getPlayer1Hand().get(10).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(11) != null) {
+                    c11.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
+                }
+                if (myGameState.getPlayer1Hand().get(12) != null) {
+                    c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
+                }
+         //   }
 
 
             if (myGameState.getTrickCards().size() > 0) {
@@ -350,6 +353,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     bidView.setEnabled(false);
                     bidConfirm.setEnabled(false);
 
+                    this.showCards = true;
+
                     return;
                 }
             }catch(Exception e){}
@@ -362,6 +367,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             bidConfirm.setEnabled(false);
 
             bidView.setText("ERROR: "+bidView.getText().toString());
+
+            this.showCards = true;
 
         }
     }

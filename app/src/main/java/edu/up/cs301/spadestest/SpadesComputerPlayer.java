@@ -47,6 +47,7 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
             }
             else {
                 if (state.getCurrentPlayer() != 0) { //play a card
+                    this.sleep(1000);
                     game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
                 }
             }
