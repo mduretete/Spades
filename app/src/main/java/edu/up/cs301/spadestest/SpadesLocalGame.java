@@ -203,7 +203,7 @@ public class SpadesLocalGame extends LocalGame {
             //if nul bid is made
             if(spadesGameState.playerTricks[i] == spadesGameState.playerBids[i] && spadesGameState.playerTricks[i] == 0){
                 spadesGameState.playerScores[i] = spadesGameState.playerScores[i] + 50;
-            //if bid is made and not nul
+            //if bid is made and not nil
             } else if(spadesGameState.playerTricks[i] == spadesGameState.playerBids[i] && spadesGameState.playerBids[i] != 0){
                 int add = (spadesGameState.playerBids[i])*10;
                 spadesGameState.playerScores[i] = spadesGameState.playerScores[i] + add;

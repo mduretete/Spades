@@ -47,7 +47,8 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
             }
             else {
                 if (state.getCurrentPlayer() != 0) { //play a card
-                    this.sleep(1000);
+                    //this.sleep(200); //buggy, sometimes it's slower or faster, i think depending on the complexity of the
+                                        //compTrickCards logic
                     game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
                 }
             }

@@ -164,6 +164,7 @@ public class SpadesState extends GameState{
         this.playerScores = temp.playerScores;
         this.team1Score = temp.team1Score;
         this.team2Score = temp.team2Score;
+        this.winningTeam = temp.winningTeam;
     }
 
     //getters
@@ -235,7 +236,10 @@ public class SpadesState extends GameState{
      * Place a bid at the beginning of the round
      * @param newBid the bid to be set
      */
-    public void placeBid(int newBid){ playerBids[currentPlayer] = newBid; }
+    public void placeBid(int newBid){
+        playerBids[currentPlayer] = newBid;
+        currentPlayer++; //TESTING TODO
+    }
 
     /**
      * Select a card to be played in the current trick

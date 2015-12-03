@@ -355,18 +355,20 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
                     this.showCards = true;
 
+                    game.sendAction(new SpadesBidAction(this, bid)); //TESTING TODO
                     return;
                 }
             }catch(Exception e){}
 
             //in correspondence with default
-            myGameState.playerBids[0] = 0;
+            //myGameState.playerBids[0] = 0;
+            game.sendAction(new SpadesBidAction(this, 0)); //TESTING TODO
             playerBidTextView.setText("0");
 
             bidView.setEnabled(false);
             bidConfirm.setEnabled(false);
 
-            bidView.setText("ERROR: "+bidView.getText().toString());
+            bidView.setText("ERROR: " + bidView.getText().toString());
 
             this.showCards = true;
 
