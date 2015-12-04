@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Nov. 2015
+ * @version Dec. 2015 ALPHA
  *
  * Class defines a Card object
  */

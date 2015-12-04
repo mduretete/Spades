@@ -34,7 +34,7 @@ import edu.up.cs301.game.util.MessageBox;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Nov. 2015
+ * @version Dec. 2015 ALPHA
  *
  * Class that extends GameHumanPlayer and specifies the actions
  *      the player can make and values that the player object
@@ -117,7 +117,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
             partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
             RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
-          //  if (showCards) {
+          //  if (showCards) { //TESTING TODO: making cards invis before bid
                 if (myGameState.getPlayer1Hand().get(0) != null) {
                     c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
                 }
@@ -160,6 +160,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
          //   }
 
 
+            //get the trick cards for the human player
             if (myGameState.getTrickCards().size() > 0) {
                 if (myGameState.getTrickCards().get(1) != null) {
                     p1card.setImageResource(myGameState.getTrickCards().get(1).imageId);
@@ -172,13 +173,14 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 }
             }
 
+            //update team score
             t1Score.setText("T1 Score:       " + myGameState.team1Score + " ");
             t2Score.setText("T2 Score:       " + myGameState.team2Score + " ");
 
+            //posts which team "wins"/is winning at the end of a round
             if(myGameState.winningTeam == 0) winnerText.setText("Team 1 Wins!");
             else if(myGameState.winningTeam == 1) winnerText.setText("Team 2 Wins!");
             else if(myGameState.winningTeam == 2) winnerText.setText("It's a Draw!");
-
         }
     }
 
@@ -342,9 +344,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     @Override
     public void onClick(View v){
         if(v == bidConfirm){
-            //default bid to zero if the player is a dumbass
-            int bid = 0;
-            try {
+            //default bid to zero if the user
+            int bid = 0; //init bid
+            try { //in a try-catch so that parsing something other than an int doesn't break the game
                 bid = Integer.parseInt(bidView.getText().toString());
                 if((bid>=0)&&(bid<=13)) {
                     //myGameState.playerBids[0] = bid;
@@ -362,14 +364,17 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
             //in correspondence with default
             //myGameState.playerBids[0] = 0;
-            game.sendAction(new SpadesBidAction(this, 0)); //TESTING TODO
+            game.sendAction(new SpadesBidAction(this, 0)); //sets default bid, TESTING TODO
             playerBidTextView.setText("0");
 
+            //disables bidView and bidConfirm so players can't change their bids
             bidView.setEnabled(false);
             bidConfirm.setEnabled(false);
 
+            //if there is an error, show it, for both the Programmer and the user
             bidView.setText("ERROR: " + bidView.getText().toString());
 
+            //TODO: helps making cards invis prior to bid
             this.showCards = true;
 
         }

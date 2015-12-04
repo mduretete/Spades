@@ -7,7 +7,7 @@ import edu.up.cs301.game.infoMsg.GameState;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Nov. 2015
+ * @version Dec. 2015 ALPHA
  *
  * Holds all the values contingent with the current gameState
  */
@@ -37,9 +37,9 @@ public class SpadesState extends GameState{
 
     int userTeammate; //player number of user's teammate
 
-    int winningTeam;
+    int winningTeam; //keeps track of which team is currently winning
 
-    ArrayList<Card> deck = new ArrayList<>(52);
+    ArrayList<Card> deck = new ArrayList<>(52); //inits arrayList of size 52, a deck of cards
 
     public SpadesState() {
         currentPlayer = 0;
@@ -238,7 +238,7 @@ public class SpadesState extends GameState{
      */
     public void placeBid(int newBid){
         playerBids[currentPlayer] = newBid;
-        if(currentPlayer < 3) currentPlayer++; //TESTING TODO
+        if(currentPlayer < 3) currentPlayer++; //TESTING TODO: attempting to get the computers to bid at the same time as the human
         else currentPlayer = 0;
     }
 
@@ -409,6 +409,10 @@ public class SpadesState extends GameState{
         }
     }
 
+    /**
+     * incrementTricks(): ups the value in a players trick if they win a trick
+     * @param player: player who just won the trick
+     */
     public void incrementTricks (int player) {
         playerTricks[player]++;
     }

@@ -5,7 +5,7 @@ import edu.up.cs301.game.actionMsg.GameAction;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Nov. 2015
+ * @version Dec. 2015 ALPHA
  *
  * Class that allows the bid action to be recognized
  */

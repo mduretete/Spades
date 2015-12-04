@@ -13,7 +13,7 @@ import edu.up.cs301.game.util.Tickable;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Nov. 2015
+ * @version Dec. 2015 ALPHA
  *
  * Class that extends LocalGame and handles the in-game conditions, such as turns,
  *      winning, and valid moves.
@@ -222,9 +222,11 @@ public class SpadesLocalGame extends LocalGame {
             }
         }
 
+        //updates team scores
         spadesGameState.team1Score = spadesGameState.playerScores[0] + spadesGameState.playerScores[2];
         spadesGameState.team2Score = spadesGameState.playerScores[1] + spadesGameState.playerScores[3];
 
+        //sets winning team
         if(spadesGameState.team1Score > spadesGameState.team2Score){
             return 0;
         } else if(spadesGameState.team2Score > spadesGameState.team1Score){
@@ -249,6 +251,7 @@ public class SpadesLocalGame extends LocalGame {
         //if hands are empty, round is over
         if(spadesGameState.cardsPlayed == 51) {
 
+            //gets winning team
             spadesGameState.winningTeam = roundWin();
 
             SpadesState temp = spadesGameState; //store the current SpadesState in a temp
