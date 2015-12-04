@@ -347,7 +347,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             try {
                 bid = Integer.parseInt(bidView.getText().toString());
                 if((bid>=0)&&(bid<=13)) {
-                    myGameState.playerBids[0] = bid;
+                    //myGameState.playerBids[0] = bid;
                     playerBidTextView.setText(bidView.getText().toString());
 
                     bidView.setEnabled(false);

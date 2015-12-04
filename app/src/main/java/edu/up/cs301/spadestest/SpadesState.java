@@ -238,7 +238,8 @@ public class SpadesState extends GameState{
      */
     public void placeBid(int newBid){
         playerBids[currentPlayer] = newBid;
-        currentPlayer++; //TESTING TODO
+        if(currentPlayer < 3) currentPlayer++; //TESTING TODO
+        else currentPlayer = 0;
     }
 
     /**
