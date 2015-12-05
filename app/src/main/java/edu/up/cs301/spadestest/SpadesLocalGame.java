@@ -77,12 +77,14 @@ public class SpadesLocalGame extends LocalGame {
         if(action instanceof SpadesBidAction){
             spadesGameState.placeBid(((SpadesBidAction) action).getBid());
         }
-        else if(action instanceof SpadesPlayCardAction){
-            spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
-        }
+        else if(action instanceof EndTrickAction) {
 
-        //do the scoring stuff
-        scoring();
+        }
+        else if(action instanceof SpadesPlayCardAction){
+            //sendAllUpdatedState();
+            spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
+            sendAllUpdatedState();
+        }
 
         return true;
     }//makeMove()

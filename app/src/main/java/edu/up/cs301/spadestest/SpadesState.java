@@ -242,6 +242,7 @@ public class SpadesState extends GameState{
         else currentPlayer = 0;
     }
 
+
     /**
      * Select a card to be played in the current trick
      * @param index index of card in the player's hand
@@ -251,13 +252,13 @@ public class SpadesState extends GameState{
         //boolean for error detection
         boolean detectError = false;
 
+
         if(cardsInTrick == 4) {
             int i;
             for(i = 3;i >= 0; i--){
                 deck.set(cardsPlayed, trickCards.get(i));
                 trickCards.set(i, null);
             }
-            cardsInTrick = 0;
         }
 
         //if player1's turn
@@ -265,6 +266,7 @@ public class SpadesState extends GameState{
             if(player1Hand.get(index)!=null) { //can only play cards from hand
                 trickCards.set(cardsInTrick, player1Hand.get(index));
                 player1Hand.set(index, null); //don't remove to avoid problems?
+                currentPlayer++;
             } else detectError = true;
         }
         //if player2's turn
@@ -272,6 +274,7 @@ public class SpadesState extends GameState{
             if(player2Hand.get(index)!=null) { //can only play cards from hand
                 trickCards.set(cardsInTrick, player2Hand.get(index));
                 player2Hand.set(index, null);
+                currentPlayer++;
             } else detectError = true;
         }
         //if player 3's turn
@@ -279,6 +282,7 @@ public class SpadesState extends GameState{
             if(player3Hand.get(index)!=null) { //can only play cards from hand
                 trickCards.set(cardsInTrick, player3Hand.get(index));
                 player3Hand.set(index, null);
+                currentPlayer++;
             } else detectError = true;
         }
         //if player4's turn
@@ -286,6 +290,7 @@ public class SpadesState extends GameState{
             if(player4Hand.get(index)!=null) { //can only play cards from hand
                 trickCards.set(cardsInTrick, player4Hand.get(index));
                 player4Hand.set(index, null);
+                currentPlayer = 0;
             } else detectError = true;
         }
 
@@ -293,10 +298,14 @@ public class SpadesState extends GameState{
         if(!detectError) {
             cardsPlayed++;
             cardsInTrick++;
-
-            if (currentPlayer < 3)
-                currentPlayer++;
-            else currentPlayer = 0;
+            //scoring();
+            int trickWinner;
+            if (cardsInTrick == 4) {
+                trickWinner = compTrickCards(getTrickCards());
+                playerTricks[trickWinner]++;
+                currentPlayer = trickWinner;
+                cardsInTrick = 0;
+            }
         }
 
     }
@@ -409,11 +418,188 @@ public class SpadesState extends GameState{
         }
     }
 
+    // The fact that so much of SpadesState was being edited in SpadesLocalGame and that there was a temp version stored
+    // in local game makes me think all of this belongs here
+
+    /**
+     * This is where the scoring happens
+     */
+    private void scoring(){
+        //who won the trick?
+        int trickWinner;
+        if (cardsInTrick == 4) {
+            trickWinner = compTrickCards(getTrickCards());
+            playerTricks[trickWinner]++;
+            currentPlayer = trickWinner;
+            cardsInTrick = 0;
+        }
+
+        //if hands are empty, round is over
+        if(cardsPlayed == 51) {
+
+            //gets winning team
+            winningTeam = roundWin();
+
+        }
+    }
+
+    /**
+     * compCards(): compare 2 cards to determine which has more trick value, helper
+     *              method for the compTrickCards() method
+     * @param c1 card 1
+     * @param c2 card 2
+     * @return returns the card that has more trick value
+     */
+    public Card compCards(Card c1, Card c2){
+        //if c1 or c2 == null, return the other
+        if(c1==null){
+            return c2;
+        } else if(c2==null){
+            return c1;
+        }
+        //if both cards are spades
+        if(c1.getSuit().equals(Card.SPADES) && c2.getSuit().equals(Card.SPADES)){
+            //compare ranks, same suit so cannot have same rank
+            if(c1.getRank() > c2.getRank()){
+                return c1;
+            } else if(c1.getRank() < c2.getRank()){
+                return c2;
+            }
+            //if c1 is spades it's a higher value
+        } else if (c1.getSuit().equals(Card.SPADES) && !c2.getSuit().equals(Card.SPADES)){
+            return c1;
+            //if c2 is spades it's a higher value
+        } else if (!c1.getSuit().equals(Card.SPADES) && c2.getSuit().equals(Card.SPADES)){
+            return c2;
+            //if both cards are not spades
+        } else if (!c1.getSuit().equals(Card.SPADES) && !c2.getSuit().equals(Card.SPADES)){
+            //whichever is the leading suit would win, if both leading suit
+            if(c1.getSuit().equals(leadTrick) && c2.getSuit().equals(leadTrick)){
+                //compare ranks, same suit so cannot have same rank
+                if(c1.getRank() > c2.getRank()){
+                    return c1;
+                } else if(c1.getRank() < c2.getRank()){
+                    return c2;
+                }
+                //if c1 is leading suit it's a higher value
+            } else if (c1.getSuit().equals(leadTrick) && !c2.getSuit().equals(leadTrick)){
+                return c1;
+                //if c2 is leading suit it's a higher value
+            } else if (!c1.getSuit().equals(leadTrick) && c2.getSuit().equals(leadTrick)){
+                return c2;
+            }
+        }
+        //no case for if neither is leading suit because then it won't matter which
+        //gets returned, because neither will end up being the highest value card
+        return c1;
+    }//compCards()
+
+    /**
+     * compTrickCards(): compare cards in a trick array and declare a winner
+     * @param trickList array of cards in the trick
+     * @return player who won the trick (0-3), -1 is failure case
+     */
+    public int compTrickCards(ArrayList<Card> trickList) {
+
+        //if the arrayList has less or more than 4 elements, return -1
+        if(trickList.size() != 4){
+            return -1; //ERROR
+        }
+
+        //convert the arrayList to an array so it can be more easily referenced
+        Card[] trick = trickList.toArray(new Card[trickList.size()]);
+
+        //stores the trick cards in temps
+        Card card1 = trick[0];
+        Card card2 = trick[1];
+        Card card3 = trick[2];
+        Card card4 = trick[3];
+        Card largest; //holds the largest to be returned
+
+        //compares card2 and card2, updating the largest card
+        if(compCards(card1, card2) == card1){
+            largest = card1;
+        } else {
+            largest = card2;
+        }
+
+        //compares card3 and the current largest, updates largest if card3 is larger
+        if(compCards(largest, card3) == largest){
+        } else {
+            largest = card3;
+        }
+
+        //compares card4 and the current largest, updates largest if card4 is larger
+        if(compCards(largest, card4) == largest){
+        } else {
+            largest = card4;
+        }
+
+        //returns an int corresponding with the user that was in possession of the "largest" card
+        int result = -1;
+        if(largest == card1){
+            result = 0; //player 0 (human player) took the trick
+        } else if(largest == card2){
+            result = 1; //player 1 took the trick
+        } else if(largest == card3){
+            result = 2; //player 2 took the trick
+        } else if(largest == card4){
+            result = 3; //player 3 took the trick
+        }
+        return result; //returns "fail" = -1 if no cards largest
+    }//compTrickCards()
+
+
+    /**
+     * roundWin(): determines which team scored the most in a round and updates the arrays
+     * @return int, 0 for team 1 (human + comp) and 1 for team 2 (comp + comp), 2 for draw, -1 for ERROR
+     */
+    public int roundWin(){
+
+        for(int i = 0; i < 4; i++) {
+            //if nul bid is made
+            if(playerTricks[i] == playerBids[i] && playerTricks[i] == 0){
+                playerScores[i] = playerScores[i] + 50;
+                //if bid is made and not nil
+            } else if(playerTricks[i] == playerBids[i] && playerBids[i] != 0){
+                int add = (playerBids[i])*10;
+                playerScores[i] = playerScores[i] + add;
+                //if null bid not made
+            } else if(playerTricks[i] != playerBids[i] && playerBids[i] == 0){
+                playerScores[i] = playerScores[i] - 50;
+                //if overbid
+            } else if(playerTricks[i] > playerBids[i] && playerBids[i] != 0){
+                int sub = playerTricks[i] - playerBids[i];
+                int add = ((playerBids[i])*10)+sub;
+                playerScores[i] = playerScores[i] + add;
+                //if underbid
+            } else if(playerTricks[i] < playerBids[i] && playerBids[i] != 0){
+                int add = (playerBids[i])*10;
+                playerScores[i] = playerScores[i] - add;
+            }
+        }
+
+        //updates team scores
+        team1Score = playerScores[0] + playerScores[2];
+        team2Score = playerScores[1] + playerScores[3];
+
+        //sets winning team
+        if(team1Score > team2Score){
+            return 0;
+        } else if(team2Score > team1Score){
+            return 1;
+        } else if(team1Score == team2Score){
+            return 2; //draw
+        }
+        return -1;
+    }
+
     /**
      * incrementTricks(): ups the value in a players trick if they win a trick
      * @param player: player who just won the trick
      */
     public void incrementTricks (int player) {
         playerTricks[player]++;
+        currentPlayer = player;
     }
 }

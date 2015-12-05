@@ -17,10 +17,6 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 public class SpadesComputerPlayer extends GameComputerPlayer {
 
-    static ImageView p1card;
-    static ImageView p2card;
-    static ImageView p3card;
-
     /**
      * SpadesComputerPlayer():ctor for the computer player
      * @param name
@@ -49,12 +45,12 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
             if (state.getPlayerBids(playerNum) == -1) { //if a bid has not been made yet
                 game.sendAction(new SpadesBidAction(this, randBid));
             }
-            else {
-                if (state.getCurrentPlayer() != 0) { //play a card
-                    //this.sleep(200); //buggy, sometimes it's slower or faster, I (Nick) think it depends on the complexity of the
+
+            else if (state.getCurrentPlayer() == playerNum) { //play a card
+                this.sleep(500); //buggy, sometimes it's slower or faster, I (Nick) think it depends on the complexity of the
                                         //compTrickCards logic, which varies depending on the cards
-                    game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
-                }
+
+                game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
             }
         }
 

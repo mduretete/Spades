@@ -304,6 +304,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     } else if (dropped == c12) {
                         game.sendAction(new SpadesPlayCardAction(this, 12));
                     }
+
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
                     //no action necessary
