@@ -16,6 +16,11 @@ public class SpadesState extends GameState{
     int currentPlayer; //player who's current turn it is
     int leadTrick; //player who led the trick
 
+    boolean showPlayer0;
+    boolean showPlayer1;
+    boolean showPlayer2;
+    boolean showPlayer3;
+
     int[] playerScores; //1-d array for each player's score
     int[] playerTricks; //1-d array for tricks won by each player
 
@@ -47,6 +52,11 @@ public class SpadesState extends GameState{
         currentPlayer = 0;
         leadTrick = -1;
         firstCard = null;
+
+        showPlayer0 = false;
+        showPlayer1 = false;
+        showPlayer2 = false;
+        showPlayer3 = false;
 
         cardsInTrick = 0;
         cardsPlayed = -1; //-1 for index purposes
@@ -124,6 +134,10 @@ public class SpadesState extends GameState{
         firstCard = copy.getFirstCard();
         cardsPlayed = copy.getCardsPlayed();
         cardsInTrick = copy.getCardsInTrick();
+        showPlayer0 = copy.showPlayer0;
+        showPlayer1 = copy.showPlayer1;
+        showPlayer2 = copy.showPlayer2;
+        showPlayer3 = copy.showPlayer3;
 
         int i = 0;
         do {
@@ -296,6 +310,10 @@ public class SpadesState extends GameState{
 
         currentPlayerHand = getCurrentPlayerHand();
 
+        if (cardsInTrick == 4) {
+            cardsInTrick = 0;
+        }
+
         if (cardsInTrick == 0) {
             leadTrick = currentPlayer;
             firstCard = currentPlayerHand.get(index);
@@ -307,6 +325,7 @@ public class SpadesState extends GameState{
                 trickCards.set(currentPlayer, player1Hand.get(index));
                 player1Hand.set(index, null);
                 currentPlayer++;
+                showPlayer0 = true;
             } else {return;}
         }
         //if player2's turn
@@ -315,6 +334,7 @@ public class SpadesState extends GameState{
                 trickCards.set(currentPlayer, player2Hand.get(index));
                 player2Hand.set(index, null);
                 currentPlayer++;
+                showPlayer1 = true;
             }
             else {return;}
         }
@@ -324,6 +344,7 @@ public class SpadesState extends GameState{
                 trickCards.set(currentPlayer, player3Hand.get(index));
                 player3Hand.set(index, null);
                 currentPlayer++;
+                showPlayer2 = true;
             }
             else {return;}
         }
@@ -333,6 +354,7 @@ public class SpadesState extends GameState{
                 trickCards.set(currentPlayer, player4Hand.get(index));
                 player4Hand.set(index, null);
                 currentPlayer = 0;
+                showPlayer3 = true;
             }
             else {return;}
         }
@@ -345,8 +367,6 @@ public class SpadesState extends GameState{
                 trickWinner = compTrickCards(getTrickCards());
                 playerTricks[trickWinner]++;
                 currentPlayer = trickWinner;
-                cardsInTrick = 0;
-                leadTrick = -1;
                 firstCard = null;
             }
 
@@ -644,5 +664,12 @@ public class SpadesState extends GameState{
     public void incrementTricks (int player) {
         playerTricks[player]++;
         currentPlayer = player;
+    }
+
+    public void noShowCard() {
+        showPlayer0 = false;
+        showPlayer1 = false;
+        showPlayer2 = false;
+        showPlayer3 = false;
     }
 }

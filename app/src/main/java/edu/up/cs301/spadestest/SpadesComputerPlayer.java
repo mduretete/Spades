@@ -85,6 +85,11 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                         }
                     }
 
+                    if (currentState.cardsInTrick == 4) {
+                        this.sleep(500);
+                        game.sendAction(new EndTrickAction(this));
+                        this.sleep(1000);
+                    }
                     this.sleep(500);
                     game.sendAction(new SpadesPlayCardAction(this, card));
 

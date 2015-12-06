@@ -112,6 +112,7 @@ public class SpadesLocalGame extends LocalGame {
             spadesGameState.placeBid(((SpadesBidAction) action).getBid());
         }
         else if(action instanceof EndTrickAction) {
+            spadesGameState.noShowCard();
 
         }
         else if(action instanceof SpadesPlayCardAction){

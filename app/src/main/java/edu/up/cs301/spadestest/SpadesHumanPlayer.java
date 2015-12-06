@@ -194,15 +194,31 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
 
             //get the trick cards for the human player to see
-                if (myGameState.getTrickCards().get(1) != null) {
-                    p1card.setImageResource(myGameState.getTrickCards().get(1).imageId);
-                }
-                if (myGameState.getTrickCards().get(2) != null) {
-                    p2card.setImageResource(myGameState.getTrickCards().get(2).imageId);
-                }
-                if (myGameState.getTrickCards().get(3) != null) {
-                    p3card.setImageResource(myGameState.getTrickCards().get(3).imageId);
-                }
+
+               // p0card.setImageResource(android.R.color.transparent);
+
+
+
+            if (!myGameState.showPlayer1) {
+                p1card.setImageResource(android.R.color.transparent);
+            }
+            else if (myGameState.getTrickCards().get(1) != null) {
+                p1card.setImageResource(myGameState.getTrickCards().get(1).imageId);
+            }
+
+            if (!myGameState.showPlayer2) {
+                p2card.setImageResource(android.R.color.transparent);
+            }
+            else if (myGameState.getTrickCards().get(2) != null) {
+                p2card.setImageResource(myGameState.getTrickCards().get(2).imageId);
+            }
+
+            if (!myGameState.showPlayer3) {
+                p3card.setImageResource(android.R.color.transparent);
+            }
+            else if (myGameState.getTrickCards().get(3) != null) {
+                p3card.setImageResource(myGameState.getTrickCards().get(3).imageId);
+            }
 
             //update team score
             t1Score.setText("T1 Score:       " + myGameState.team1Score + " ");
