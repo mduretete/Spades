@@ -52,16 +52,43 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
             }
 
             else if (currentState.getCurrentPlayer() == playerNum) { //play a card
-                if (currentState.getCurrentPlayerHand(playerNum) != null) {
+
+                if (currentState.getCurrentPlayerHand(playerNum) != null) { //if we haven't dealt yet you can't play, go away
                     myHand = currentState.getCurrentPlayerHand(playerNum);
-                    int cardToPlay;
+
+                    int card;
+
+                    Card leadCard; // if card has been led with, this is it
+                    int leadPlayer = currentState.getLeadTrick(); // who led
+                    String leadSuit; // if card has been led with, this is its suit
+                    ArrayList<Card> playerHand = currentState.getCurrentPlayerHand(); // player's current hand
 
                     do {
-                        cardToPlay = rand.nextInt(13); //play a random card TODO: implement rules on which card can be played
-                    } while (myHand.get(cardToPlay) == null);
+                        card = rand.nextInt(13); //choose a random ish card
+                    } while (playerHand.get(card) == null);
+
+                    if (leadPlayer != -1) { //make the player follow the rules if he can't play first
+
+                        leadCard = currentState.getTrickCards().get(leadPlayer); //store leading card info
+                        leadSuit = leadCard.getSuit();
+
+                        if (!leadSuit.equals(myHand.get(card).getSuit())) { //if can't play the chosen card
+
+                            for (int i = 0; i < playerHand.size(); i++) { //try to find a card that works
+                                if (playerHand.get(i) != null) { //existent card
+                                    if (leadSuit.equals(playerHand.get(i).getSuit())) { //see if we can use this card
+                                        card = i;
+                                        break; //go use this card
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     this.sleep(500);
-                    game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
+                    game.sendAction(new SpadesPlayCardAction(this, card));
+
+
                 }
             }
         }

@@ -119,7 +119,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
 
             //if not our turn, we can't play
-            if (myGameState.getCurrentPlayer() != 0) {
+            if (myGameState.getCurrentPlayer() > 0) {
                 c0.setEnabled(false);
                 c1.setEnabled(false);
                 c2.setEnabled(false);

@@ -50,6 +50,40 @@ public class SpadesLocalGame extends LocalGame {
         return playerIdx == spadesGameState.getCurrentPlayer();
     }//canMove()
 
+    public boolean canPlayCard(int cardIdx) {
+
+        Card leadCard; // if card has been led with, this is it
+        int leadPlayer = spadesGameState.getLeadTrick(); // who led
+        String leadSuit; // if card has been led with, this is its suit
+        boolean haveSuit = false; // whether player can follow suit
+        ArrayList<Card> playerHand = spadesGameState.getCurrentPlayerHand(); // player's current hand
+        Card toPlay = playerHand.get(cardIdx); // what player wants to play
+
+
+        if (leadPlayer == -1) {
+            return true;
+        }
+        else {
+            leadCard = spadesGameState.getTrickCards().get(leadPlayer);
+            leadSuit = leadCard.getSuit();
+
+            for (int i = 0; i < playerHand.size(); i++) {
+                if (playerHand.get(i) != null) {
+                    haveSuit = leadSuit.equals(playerHand.get(i).getSuit());
+                    if (haveSuit) break;
+                }
+            }
+        }
+        if (leadSuit.equals(toPlay.getSuit())) {
+            return true;
+        }
+        else if (haveSuit) {
+            return false;
+        }
+        else
+        return true;
+    }
+
     /**
      * checkIfGameOver(): has the win condition been met?
      * @return String
@@ -81,6 +115,7 @@ public class SpadesLocalGame extends LocalGame {
 
         }
         else if(action instanceof SpadesPlayCardAction){
+            // calling method makeMove from here takes too long and confuses the players
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
         }
 
@@ -173,7 +208,7 @@ public class SpadesLocalGame extends LocalGame {
             //if both cards are not spades
         } else if (!c1.getSuit().equals(c1.SPADES) && !c2.getSuit().equals(c2.SPADES)){
             //whichever is the leading suit would win, if both leading suit
-            if(c1.getSuit().equals(spadesGameState.leadTrick) && c2.getSuit().equals(spadesGameState.leadTrick)){
+            if(c1.getSuit().equals(spadesGameState.firstCard.getSuit()) && c2.getSuit().equals(spadesGameState.firstCard.getSuit())){
                 //compare ranks, same suit so cannot have same rank
                 if(c1.getRank() > c2.getRank()){
                     return c1;
@@ -181,10 +216,10 @@ public class SpadesLocalGame extends LocalGame {
                     return c2;
                 }
                 //if c1 is leading suit it's a higher value
-            } else if (c1.getSuit().equals(spadesGameState.leadTrick) && !c2.getSuit().equals(spadesGameState.leadTrick)){
+            } else if (c1.getSuit().equals(spadesGameState.firstCard.getSuit()) && !c2.getSuit().equals(spadesGameState.firstCard.getSuit())){
                 return c1;
                 //if c2 is leading suit it's a higher value
-            } else if (!c1.getSuit().equals(spadesGameState.leadTrick) && c2.getSuit().equals(spadesGameState.leadTrick)){
+            } else if (!c1.getSuit().equals(spadesGameState.firstCard.getSuit()) && c2.getSuit().equals(spadesGameState.firstCard.getSuit())){
                 return c2;
             }
         }

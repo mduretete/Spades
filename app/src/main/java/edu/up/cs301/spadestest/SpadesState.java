@@ -14,7 +14,7 @@ import edu.up.cs301.game.infoMsg.GameState;
 public class SpadesState extends GameState{
 
     int currentPlayer; //player who's current turn it is
-    String leadTrick; //player who led the trick
+    int leadTrick; //player who led the trick
 
     int[] playerScores; //1-d array for each player's score
     int[] playerTricks; //1-d array for tricks won by each player
@@ -26,6 +26,7 @@ public class SpadesState extends GameState{
     int team2Score;
 
     ArrayList<Card> trickCards; //arrayList for cards played in current trick
+    Card firstCard;
 
     ArrayList<Card> player1Hand; //arrayList for cards left in each player's hand
     ArrayList<Card> player2Hand;
@@ -44,6 +45,8 @@ public class SpadesState extends GameState{
 
     public SpadesState() {
         currentPlayer = 0;
+        leadTrick = -1;
+        firstCard = null;
 
         cardsInTrick = 0;
         cardsPlayed = -1; //-1 for index purposes
@@ -117,6 +120,8 @@ public class SpadesState extends GameState{
 
         //begin the copy process
         currentPlayer = copy.getCurrentPlayer();
+        leadTrick = copy.getLeadTrick();
+        firstCard = copy.getFirstCard();
         cardsPlayed = copy.getCardsPlayed();
         cardsInTrick = copy.getCardsInTrick();
 
@@ -179,8 +184,16 @@ public class SpadesState extends GameState{
         return currentPlayer;
     }
 
+    public int getLeadTrick(){
+        return leadTrick;
+    }
+
     public int getCardsPlayed(){
         return cardsPlayed;
+    }
+
+    public Card getFirstCard(){
+        return firstCard;
     }
 
     public int getCardsInTrick() { return cardsInTrick; }
@@ -234,6 +247,19 @@ public class SpadesState extends GameState{
         else return player1Hand;
     }
 
+    public ArrayList<Card> getCurrentPlayerHand() {
+        if (currentPlayer == 1) {
+            return player2Hand;
+        }
+        if (currentPlayer == 2) {
+            return player3Hand;
+        }
+        if (currentPlayer == 3) {
+            return player4Hand;
+        }
+        else return player1Hand;
+    }
+
     public ArrayList<Card> getDeck() {
         return deck;
     }
@@ -250,7 +276,6 @@ public class SpadesState extends GameState{
         return userTeammate;
     }
 
-    public String getLeadTrick() { return leadTrick; }
 
     /**
      * Place a bid at the beginning of the round
@@ -269,6 +294,12 @@ public class SpadesState extends GameState{
      */
     public void playCard(int index){
 
+        currentPlayerHand = getCurrentPlayerHand();
+
+        if (cardsInTrick == 0) {
+            leadTrick = currentPlayer;
+            firstCard = currentPlayerHand.get(index);
+        }
 
         //if player1's turn
         if(currentPlayer == 0) {
@@ -315,6 +346,8 @@ public class SpadesState extends GameState{
                 playerTricks[trickWinner]++;
                 currentPlayer = trickWinner;
                 cardsInTrick = 0;
+                leadTrick = -1;
+                firstCard = null;
             }
 
 
@@ -484,7 +517,7 @@ public class SpadesState extends GameState{
             //if both cards are not spades
         } else if (!c1.getSuit().equals(Card.SPADES) && !c2.getSuit().equals(Card.SPADES)){
             //whichever is the leading suit would win, if both leading suit
-            if(c1.getSuit().equals(leadTrick) && c2.getSuit().equals(leadTrick)){
+            if(c1.getSuit().equals(firstCard.getSuit()) && c2.getSuit().equals(firstCard.getSuit())){
                 //compare ranks, same suit so cannot have same rank
                 if(c1.getRank() > c2.getRank()){
                     return c1;
@@ -492,10 +525,10 @@ public class SpadesState extends GameState{
                     return c2;
                 }
                 //if c1 is leading suit it's a higher value
-            } else if (c1.getSuit().equals(leadTrick) && !c2.getSuit().equals(leadTrick)){
+            } else if (c1.getSuit().equals(firstCard.getSuit()) && !c2.getSuit().equals(firstCard.getSuit())){
                 return c1;
                 //if c2 is leading suit it's a higher value
-            } else if (!c1.getSuit().equals(leadTrick) && c2.getSuit().equals(leadTrick)){
+            } else if (!c1.getSuit().equals(firstCard.getSuit()) && c2.getSuit().equals(firstCard.getSuit())){
                 return c2;
             }
         }
