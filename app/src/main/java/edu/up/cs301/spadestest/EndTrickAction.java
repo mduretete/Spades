@@ -4,13 +4,10 @@ import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.actionMsg.GameAction;
 
 /**
- *
- * Temp class for testing purposes
+ * Sent at the end of a trick to prepare GUI for next trick
  *
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
  * @version Dec. 2015 ALPHA
- *
- * Class that allows the playCard action to be recognized
  */
 public class EndTrickAction extends GameAction {
 

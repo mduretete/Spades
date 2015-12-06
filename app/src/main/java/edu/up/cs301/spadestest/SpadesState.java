@@ -361,13 +361,14 @@ public class SpadesState extends GameState{
 
             cardsPlayed++;
             cardsInTrick++;
-            //scoring();
+            //scoring(); //TODO use this, implements end of trick scoring
             int trickWinner;
             if (cardsInTrick == 4) {
                 trickWinner = compTrickCards(getTrickCards());
                 playerTricks[trickWinner]++;
                 currentPlayer = trickWinner;
                 firstCard = null;
+                leadTrick = -1;
             }
 
 
@@ -562,6 +563,8 @@ public class SpadesState extends GameState{
      * @param trickList array of cards in the trick
      * @return player who won the trick (0-3), -1 is failure case
      */
+
+    //TODO Ace not considered high
     public int compTrickCards(ArrayList<Card> trickList) {
 
         //if the arrayList has less or more than 4 elements, return -1

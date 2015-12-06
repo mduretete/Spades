@@ -51,6 +51,7 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                 game.sendAction(new SpadesBidAction(this, randBid));
             }
 
+            // TODO prohibit spades if spades haven't been broken
             else if (currentState.getCurrentPlayer() == playerNum) { //play a card
 
                 if (currentState.getCurrentPlayerHand(playerNum) != null) { //if we haven't dealt yet you can't play, go away
@@ -92,7 +93,6 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                     }
                     this.sleep(500);
                     game.sendAction(new SpadesPlayCardAction(this, card));
-
 
                 }
             }

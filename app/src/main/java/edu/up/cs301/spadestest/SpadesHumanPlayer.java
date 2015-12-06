@@ -198,6 +198,12 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                // p0card.setImageResource(android.R.color.transparent);
 
 
+            if (myGameState.currentPlayer == 0 && myGameState.leadTrick == -1) {
+                if (!myGameState.showPlayer0) {
+                //    p0card.setImageResource(R.mipmap.card_ad); // TODO replace with open slot and make work
+                }
+                game.sendAction(new EndTrickAction(this));
+            }
 
             if (!myGameState.showPlayer1) {
                 p1card.setImageResource(android.R.color.transparent);

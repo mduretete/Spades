@@ -50,6 +50,12 @@ public class SpadesLocalGame extends LocalGame {
         return playerIdx == spadesGameState.getCurrentPlayer();
     }//canMove()
 
+
+    /**
+     * Method to verify if a card is ok to play
+     * Duplicate code -- SpadesComputerPlayer knows the rules -- checking validity here slows gameplay
+     * To be used for SpadesHumanPlayer?
+     */
     public boolean canPlayCard(int cardIdx) {
 
         Card leadCard; // if card has been led with, this is it
