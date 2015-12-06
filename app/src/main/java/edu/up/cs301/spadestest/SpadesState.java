@@ -361,15 +361,7 @@ public class SpadesState extends GameState{
 
             cardsPlayed++;
             cardsInTrick++;
-            //scoring(); //TODO use this, implements end of trick scoring
-            int trickWinner;
-            if (cardsInTrick == 4) {
-                trickWinner = compTrickCards(getTrickCards());
-                playerTricks[trickWinner]++;
-                currentPlayer = trickWinner;
-                firstCard = null;
-                leadTrick = -1;
-            }
+            scoring();
 
 
     }
@@ -495,7 +487,8 @@ public class SpadesState extends GameState{
             trickWinner = compTrickCards(getTrickCards());
             playerTricks[trickWinner]++;
             currentPlayer = trickWinner;
-            cardsInTrick = 0;
+            firstCard = null;
+            leadTrick = -1;
         }
 
         //if hands are empty, round is over
