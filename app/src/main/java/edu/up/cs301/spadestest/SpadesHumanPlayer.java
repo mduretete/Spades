@@ -117,6 +117,39 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
             partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
             RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
+
+            //if not our turn, we can't play
+            if (myGameState.getCurrentPlayer() != 0) {
+                c0.setEnabled(false);
+                c1.setEnabled(false);
+                c2.setEnabled(false);
+                c3.setEnabled(false);
+                c4.setEnabled(false);
+                c5.setEnabled(false);
+                c6.setEnabled(false);
+                c7.setEnabled(false);
+                c8.setEnabled(false);
+                c9.setEnabled(false);
+                c10.setEnabled(false);
+                c11.setEnabled(false);
+                c12.setEnabled(false);
+            }
+            else {
+                c0.setEnabled(true);
+                c1.setEnabled(true);
+                c2.setEnabled(true);
+                c3.setEnabled(true);
+                c4.setEnabled(true);
+                c5.setEnabled(true);
+                c6.setEnabled(true);
+                c7.setEnabled(true);
+                c8.setEnabled(true);
+                c9.setEnabled(true);
+                c10.setEnabled(true);
+                c11.setEnabled(true);
+                c12.setEnabled(true);
+            }
+
           //  if (showCards) { //TESTING TODO: making cards invis before bid
                 if (myGameState.getPlayer1Hand().get(0) != null) {
                     c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
@@ -160,8 +193,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
          //   }
 
 
-            //get the trick cards for the human player
-            if (myGameState.getTrickCards().size() > 0) {
+            //get the trick cards for the human player to see
                 if (myGameState.getTrickCards().get(1) != null) {
                     p1card.setImageResource(myGameState.getTrickCards().get(1).imageId);
                 }
@@ -171,7 +203,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 if (myGameState.getTrickCards().get(3) != null) {
                     p3card.setImageResource(myGameState.getTrickCards().get(3).imageId);
                 }
-            }
 
             //update team score
             t1Score.setText("T1 Score:       " + myGameState.team1Score + " ");
@@ -304,6 +335,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     } else if (dropped == c12) {
                         game.sendAction(new SpadesPlayCardAction(this, 12));
                     }
+                    dropped = null;
 
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:

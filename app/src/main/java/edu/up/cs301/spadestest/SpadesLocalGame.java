@@ -81,9 +81,7 @@ public class SpadesLocalGame extends LocalGame {
 
         }
         else if(action instanceof SpadesPlayCardAction){
-            //sendAllUpdatedState();
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
-            sendAllUpdatedState();
         }
 
         return true;

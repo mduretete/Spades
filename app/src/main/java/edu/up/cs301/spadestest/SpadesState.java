@@ -31,6 +31,7 @@ public class SpadesState extends GameState{
     ArrayList<Card> player2Hand;
     ArrayList<Card> player3Hand;
     ArrayList<Card> player4Hand;
+    ArrayList<Card> currentPlayerHand;
 
     int[] playerBags; //1-d array for number of bags for each player
     int[] playerBids; //1-d array for player bids for the round
@@ -81,6 +82,10 @@ public class SpadesState extends GameState{
         for (int i = 0; i < 13; i++) {
             player4Hand.add(i, null);
         }
+        currentPlayerHand = new ArrayList<>(13);
+        for (int i = 0; i < 13; i++) {
+            currentPlayerHand.add(i, null);
+        }
 
         //deal the cards
         deal();
@@ -105,52 +110,54 @@ public class SpadesState extends GameState{
         player2Hand = new ArrayList<>(copy.getPlayer2Hand());
         player3Hand = new ArrayList<>(copy.getPlayer3Hand());
         player4Hand = new ArrayList<>(copy.getPlayer4Hand());
+        currentPlayerHand = new ArrayList<>(copy.getCurrentPlayerHand(currentPlayer));
 
         playerBags = copy.playerBags;
         playerBids = copy.playerBids;
 
         //begin the copy process
-        this.currentPlayer = copy.getCurrentPlayer();
-        this.cardsPlayed = copy.getCardsPlayed();
-        this.cardsInTrick = copy.getCardsInTrick();
+        currentPlayer = copy.getCurrentPlayer();
+        cardsPlayed = copy.getCardsPlayed();
+        cardsInTrick = copy.getCardsInTrick();
 
         int i = 0;
         do {
-            this.playerScores[i] = copy.getPlayerScore(i);
+            playerScores[i] = copy.getPlayerScore(i);
             i++;
         }while(i<4);
 
         for(i=0;i<4;i++)
-            this.playerTricks[0] = copy.getPlayerTricks(0);
+            playerTricks[i] = copy.getPlayerTricks(i);
 
 
         this.team1Score = copy.getTeam1Score();
         this.team2Score = copy.getTeam2Score();
 
-        Collections.copy(this.trickCards, copy.getTrickCards());
+        Collections.copy(trickCards, copy.getTrickCards());
 
-        Collections.copy(this.player1Hand, copy.getPlayer1Hand());
-        Collections.copy(this.player2Hand, copy.getPlayer2Hand());
-        Collections.copy(this.player3Hand, copy.getPlayer3Hand());
-        Collections.copy(this.player4Hand, copy.getPlayer4Hand());
+        Collections.copy(player1Hand, copy.getPlayer1Hand());
+        Collections.copy(player2Hand, copy.getPlayer2Hand());
+        Collections.copy(player3Hand, copy.getPlayer3Hand());
+        Collections.copy(player4Hand, copy.getPlayer4Hand());
+        Collections.copy(currentPlayerHand, copy.getCurrentPlayerHand(currentPlayer));
 
         i = 0;
         while(i<4) {
-            this.playerBags[i] = copy.getPlayerBags(i);
+            playerBags[i] = copy.getPlayerBags(i);
             i++;
         }
 
         i = 0;
         while(i<4) {
-            this.playerBids[i] = copy.getPlayerBids(i);
+            playerBids[i] = copy.getPlayerBids(i);
             i++;
         }
 
-        this.userTeammate = copy.getUserTeammate();
+        userTeammate = copy.getUserTeammate();
 
-        Collections.copy(this.deck, copy.deck);
+        Collections.copy(deck, copy.deck);
 
-        this.winningTeam = copy.winningTeam;
+        winningTeam = copy.winningTeam;
 
     }
 
@@ -214,6 +221,19 @@ public class SpadesState extends GameState{
         return player4Hand;
     }
 
+    public ArrayList<Card> getCurrentPlayerHand(int player) {
+        if (player == 1) {
+            return player2Hand;
+        }
+        if (player == 2) {
+            return player3Hand;
+        }
+        if (player == 3) {
+            return player4Hand;
+        }
+        else return player1Hand;
+    }
+
     public ArrayList<Card> getDeck() {
         return deck;
     }
@@ -249,53 +269,43 @@ public class SpadesState extends GameState{
      */
     public void playCard(int index){
 
-        //boolean for error detection
-        boolean detectError = false;
-
-
-        if(cardsInTrick == 4) {
-            int i;
-            for(i = 3;i >= 0; i--){
-                deck.set(cardsPlayed, trickCards.get(i));
-                trickCards.set(i, null);
-            }
-        }
 
         //if player1's turn
         if(currentPlayer == 0) {
             if(player1Hand.get(index)!=null) { //can only play cards from hand
-                trickCards.set(cardsInTrick, player1Hand.get(index));
-                player1Hand.set(index, null); //don't remove to avoid problems?
+                trickCards.set(currentPlayer, player1Hand.get(index));
+                player1Hand.set(index, null);
                 currentPlayer++;
-            } else detectError = true;
+            } else {return;}
         }
         //if player2's turn
         else if(currentPlayer == 1) {
             if(player2Hand.get(index)!=null) { //can only play cards from hand
-                trickCards.set(cardsInTrick, player2Hand.get(index));
+                trickCards.set(currentPlayer, player2Hand.get(index));
                 player2Hand.set(index, null);
                 currentPlayer++;
-            } else detectError = true;
+            }
+            else {return;}
         }
         //if player 3's turn
         else if(currentPlayer == 2) {
             if(player3Hand.get(index)!=null) { //can only play cards from hand
-                trickCards.set(cardsInTrick, player3Hand.get(index));
+                trickCards.set(currentPlayer, player3Hand.get(index));
                 player3Hand.set(index, null);
                 currentPlayer++;
-            } else detectError = true;
+            }
+            else {return;}
         }
         //if player4's turn
         else if(currentPlayer == 3) {
             if(player4Hand.get(index)!=null) { //can only play cards from hand
-                trickCards.set(cardsInTrick, player4Hand.get(index));
+                trickCards.set(currentPlayer, player4Hand.get(index));
                 player4Hand.set(index, null);
                 currentPlayer = 0;
-            } else detectError = true;
+            }
+            else {return;}
         }
 
-        //if an invalid move was made, don't move on to the next turn
-        if(!detectError) {
             cardsPlayed++;
             cardsInTrick++;
             //scoring();
@@ -306,7 +316,7 @@ public class SpadesState extends GameState{
                 currentPlayer = trickWinner;
                 cardsInTrick = 0;
             }
-        }
+
 
     }
 

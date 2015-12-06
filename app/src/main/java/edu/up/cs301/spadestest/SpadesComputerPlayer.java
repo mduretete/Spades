@@ -2,6 +2,7 @@ package edu.up.cs301.spadestest;
 
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import edu.up.cs301.game.GameComputerPlayer;
@@ -29,30 +30,45 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
      * recieveInfo(): Callback method, called as a formality (it's a computer -_-)
      * @param info
      */
-    @Override
+
     protected void receiveInfo(GameInfo info) {
+
+        SpadesState currentState;
+        ArrayList<Card> myHand;
+
         if(info instanceof SpadesState) {
 
-            SpadesState state = (SpadesState) info;
+            currentState = (SpadesState) info;
+
             Random rand = new Random();
             int ctrlRand = rand.nextInt(10);
             int randBid;
             if(ctrlRand != 0) { //just basic AI work, TODO: will be changed eventually for something more logical
                 randBid = rand.nextInt(7)+1; //if ctrlRand != 0 make a bid 1-7 **RESTRICTED BIDS**
             }else { randBid = 0;} //else bid nil
-            int cardToPlay = rand.nextInt(13); //play a random card TODO: implement rules on which card can be played
 
-            if (state.getPlayerBids(playerNum) == -1) { //if a bid has not been made yet
+            if (currentState.getPlayerBids(playerNum) == -1) { //if a bid has not been made yet
                 game.sendAction(new SpadesBidAction(this, randBid));
             }
 
-            else if (state.getCurrentPlayer() == playerNum) { //play a card
-                this.sleep(500); //buggy, sometimes it's slower or faster, I (Nick) think it depends on the complexity of the
-                                        //compTrickCards logic, which varies depending on the cards
+            else if (currentState.getCurrentPlayer() == playerNum) { //play a card
+                if (currentState.getCurrentPlayerHand(playerNum) != null) {
+                    myHand = currentState.getCurrentPlayerHand(playerNum);
+                    int cardToPlay;
 
-                game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
+                    do {
+                        cardToPlay = rand.nextInt(13); //play a random card TODO: implement rules on which card can be played
+                    } while (myHand.get(cardToPlay) == null);
+
+                    this.sleep(500);
+                    game.sendAction(new SpadesPlayCardAction(this, cardToPlay));
+                }
             }
         }
 
+    }
+
+    public int getPlayerNo() {
+        return this.playerNum;
     }
 }
