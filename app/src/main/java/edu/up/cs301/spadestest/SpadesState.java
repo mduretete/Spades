@@ -314,15 +314,6 @@ public class SpadesState extends GameState{
 
         currentPlayerHand = getCurrentPlayerHand();
 
-        if(cardsInTrick == 4) {
-            /*int i;
-            for (i = 3; i >= 0; i--) {
-                deck.set(cardsPlayed, trickCards.get(i));
-                if (trickCards.get(i).getSuit().equals("S"))
-                    spadesBroken = true; //TODO idk if this is necessary or not
-                trickCards.set(i, null);
-            }*/
-
             if (cardsInTrick == 4) {
                 cardsInTrick = 0;
             }
@@ -382,7 +373,6 @@ public class SpadesState extends GameState{
             scoring();
 
         }
-    }
 
     /**
      * helper method for the constructor. Fills "deck", an arrayList of Cards
@@ -509,10 +499,14 @@ public class SpadesState extends GameState{
             leadTrick = -1;
 
             int i;
-            if(!spadesBroken) for(i = 3; i >= 0; i--) if(trickCards.get(i).getSuit().equals("S")){
-                spadesBroken = true;
-                break;
-            } //TODO supposedly that works
+            if (!spadesBroken) {
+                for (i = 3; i >= 0; i--) {
+                    if (trickCards.get(i).getSuit().equals(Card.SPADES)) {
+                        spadesBroken = true;
+                        break;
+                    } //TODO supposedly that works
+                }
+            }
         }
 
         //if hands are empty, round is over

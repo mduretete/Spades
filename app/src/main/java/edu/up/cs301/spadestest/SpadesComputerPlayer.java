@@ -70,7 +70,6 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
 
                     if ((leadPlayer != -1)) { //make the player follow the rules if he can't play first
 
-
                         leadCard = currentState.getTrickCards().get(leadPlayer); //store leading card info
                         leadSuit = leadCard.getSuit();
 
@@ -85,7 +84,8 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                                 }
                             }
                         }
-                    }else if((playerHand.get(card).getSuit().equals("S")) && ((!currentState.spadesBroken))){
+                    }
+                    else if ((playerHand.get(card).getSuit().equals("S")) && ((!currentState.spadesBroken))) {
                         for (int i = 0; i < playerHand.size(); i++) { //try to find a card that works
                             if (playerHand.get(i) != null) { //existent card
                                 if (!playerHand.get(i).getSuit().equals("S")) { //see if we can use this card

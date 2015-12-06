@@ -200,7 +200,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
             if (myGameState.currentPlayer == 0 && myGameState.leadTrick == -1) {
                 if (!myGameState.showPlayer0) {
-                //    p0card.setImageResource(R.mipmap.card_ad); // TODO replace with open slot and make work
+               //     p0card.setImageResource(R.mipmap.card_ad); // TODO replace with open slot and make work
                 }
                 game.sendAction(new EndTrickAction(this));
             }
