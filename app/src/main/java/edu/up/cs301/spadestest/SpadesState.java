@@ -46,6 +46,8 @@ public class SpadesState extends GameState{
 
     int winningTeam; //keeps track of which team is currently winning
 
+    boolean spadesBroken;
+
     ArrayList<Card> deck = new ArrayList<>(52); //inits arrayList of size 52, a deck of cards
 
     public SpadesState() {
@@ -109,6 +111,8 @@ public class SpadesState extends GameState{
 
         userTeammate = 2; //player across from user will always be their teammate
         winningTeam = -1;
+
+        spadesBroken = false;
     }
 
     public SpadesState(SpadesState copy){
@@ -178,6 +182,7 @@ public class SpadesState extends GameState{
 
         winningTeam = copy.winningTeam;
 
+        this.spadesBroken = copy.spadesBroken;
     }
 
     /**
@@ -290,7 +295,6 @@ public class SpadesState extends GameState{
         return userTeammate;
     }
 
-
     /**
      * Place a bid at the beginning of the round
      * @param newBid the bid to be set
@@ -310,60 +314,74 @@ public class SpadesState extends GameState{
 
         currentPlayerHand = getCurrentPlayerHand();
 
-        if (cardsInTrick == 4) {
-            cardsInTrick = 0;
-        }
+        if(cardsInTrick == 4) {
+            /*int i;
+            for (i = 3; i >= 0; i--) {
+                deck.set(cardsPlayed, trickCards.get(i));
+                if (trickCards.get(i).getSuit().equals("S"))
+                    spadesBroken = true; //TODO idk if this is necessary or not
+                trickCards.set(i, null);
+            }*/
 
-        if (cardsInTrick == 0) {
-            leadTrick = currentPlayer;
-            firstCard = currentPlayerHand.get(index);
-        }
+            if (cardsInTrick == 4) {
+                cardsInTrick = 0;
+            }
 
-        //if player1's turn
-        if(currentPlayer == 0) {
-            if(player1Hand.get(index)!=null) { //can only play cards from hand
-                trickCards.set(currentPlayer, player1Hand.get(index));
-                player1Hand.set(index, null);
-                currentPlayer++;
-                showPlayer0 = true;
-            } else {return;}
-        }
-        //if player2's turn
-        else if(currentPlayer == 1) {
-            if(player2Hand.get(index)!=null) { //can only play cards from hand
-                trickCards.set(currentPlayer, player2Hand.get(index));
-                player2Hand.set(index, null);
-                currentPlayer++;
-                showPlayer1 = true;
+            if (cardsInTrick == 0) {
+                leadTrick = currentPlayer;
+                firstCard = currentPlayerHand.get(index);
             }
-            else {return;}
-        }
-        //if player 3's turn
-        else if(currentPlayer == 2) {
-            if(player3Hand.get(index)!=null) { //can only play cards from hand
-                trickCards.set(currentPlayer, player3Hand.get(index));
-                player3Hand.set(index, null);
-                currentPlayer++;
-                showPlayer2 = true;
+
+            //if player1's turn
+            if (currentPlayer == 0) {
+                if (player1Hand.get(index) != null) { //can only play cards from hand
+                    trickCards.set(currentPlayer, player1Hand.get(index));
+                    player1Hand.set(index, null);
+                    currentPlayer++;
+                    showPlayer0 = true;
+                } else {
+                    return;
+                }
             }
-            else {return;}
-        }
-        //if player4's turn
-        else if(currentPlayer == 3) {
-            if(player4Hand.get(index)!=null) { //can only play cards from hand
-                trickCards.set(currentPlayer, player4Hand.get(index));
-                player4Hand.set(index, null);
-                currentPlayer = 0;
-                showPlayer3 = true;
+            //if player2's turn
+            else if (currentPlayer == 1) {
+                if (player2Hand.get(index) != null) { //can only play cards from hand
+                    trickCards.set(currentPlayer, player2Hand.get(index));
+                    player2Hand.set(index, null);
+                    currentPlayer++;
+                    showPlayer1 = true;
+                } else {
+                    return;
+                }
             }
-            else {return;}
-        }
+            //if player 3's turn
+            else if (currentPlayer == 2) {
+                if (player3Hand.get(index) != null) { //can only play cards from hand
+                    trickCards.set(currentPlayer, player3Hand.get(index));
+                    player3Hand.set(index, null);
+                    currentPlayer++;
+                    showPlayer2 = true;
+                } else {
+                    return;
+                }
+            }
+            //if player4's turn
+            else if (currentPlayer == 3) {
+                if (player4Hand.get(index) != null) { //can only play cards from hand
+                    trickCards.set(currentPlayer, player4Hand.get(index));
+                    player4Hand.set(index, null);
+                    currentPlayer = 0;
+                    showPlayer3 = true;
+                } else {
+                    return;
+                }
+            }
 
             cardsPlayed++;
             cardsInTrick++;
             scoring();
 
-
+        }
     }
 
     /**
@@ -489,6 +507,12 @@ public class SpadesState extends GameState{
             currentPlayer = trickWinner;
             firstCard = null;
             leadTrick = -1;
+
+            int i;
+            if(!spadesBroken) for(i = 3; i >= 0; i--) if(trickCards.get(i).getSuit().equals("S")){
+                spadesBroken = true;
+                break;
+            } //TODO supposedly that works
         }
 
         //if hands are empty, round is over

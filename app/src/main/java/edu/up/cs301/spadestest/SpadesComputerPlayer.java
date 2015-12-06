@@ -68,7 +68,8 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                         card = rand.nextInt(13); //choose a random ish card
                     } while (playerHand.get(card) == null);
 
-                    if (leadPlayer != -1) { //make the player follow the rules if he can't play first
+                    if ((leadPlayer != -1)) { //make the player follow the rules if he can't play first
+
 
                         leadCard = currentState.getTrickCards().get(leadPlayer); //store leading card info
                         leadSuit = leadCard.getSuit();
@@ -81,6 +82,15 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                                         card = i;
                                         break; //go use this card
                                     }
+                                }
+                            }
+                        }
+                    }else if((playerHand.get(card).getSuit().equals("S")) && ((!currentState.spadesBroken))){
+                        for (int i = 0; i < playerHand.size(); i++) { //try to find a card that works
+                            if (playerHand.get(i) != null) { //existent card
+                                if (!playerHand.get(i).getSuit().equals("S")) { //see if we can use this card
+                                    card = i;
+                                    break; //go use this card
                                 }
                             }
                         }
