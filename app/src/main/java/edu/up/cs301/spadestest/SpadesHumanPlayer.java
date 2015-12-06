@@ -150,6 +150,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 c12.setEnabled(true);
             }
 
+            setCardsPlayable();
+
           //  if (showCards) { //TESTING TODO: making cards invis before bid
                 if (myGameState.getPlayer1Hand().get(0) != null) {
                     c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
@@ -433,5 +435,57 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             this.showCards = true;
 
         }
+    }
+
+    /**
+     * choose which cards the user can play and can't play
+     */
+    private void setCardsPlayable(){
+        int card;
+
+        Card leadCard; // if card has been led with, this is it
+        int leadPlayer = myGameState.getLeadTrick(); // who led
+        String leadSuit; // if card has been led with, this is its suit
+        ArrayList<Card> playerHand = myGameState.getPlayer1Hand(); // player's hand
+        ArrayList<ImageView> cardsToDisable = new ArrayList<>();
+        ArrayList<ImageView> myCards = new ArrayList<>(); //putting all the card buttons in a list
+        myCards.add(c0);
+        myCards.add(c1);
+        myCards.add(c2);
+        myCards.add(c3);
+        myCards.add(c4);
+        myCards.add(c5);
+        myCards.add(c6);
+        myCards.add(c7);
+        myCards.add(c8);
+        myCards.add(c9);
+        myCards.add(c10);
+        myCards.add(c11);
+        myCards.add(c12);
+
+        for(card=0;card<13;card++) { //check each card in the player's hand
+
+            if(playerHand.get(card)!=null) { //make sure it's an existing card
+                if ((leadPlayer != -1)) { //if not lead player, there are restrictions
+
+                    leadCard = myGameState.getTrickCards().get(leadPlayer); //store leading card info
+                    leadSuit = leadCard.getSuit();
+
+                    if (!leadSuit.equals(playerHand.get(card).getSuit())) { //if can't play the chosen card
+                        cardsToDisable.add(myCards.get(card));
+                    }
+
+                } //if the lead player, but spades have not been broken, spades can't played
+                else if ((playerHand.get(card).getSuit().equals("S")) && ((!myGameState.spadesBroken))) {
+                    if (playerHand.get(card).getSuit().equals("S"))
+                        cardsToDisable.add(myCards.get(card));
+                }
+            }else cardsToDisable.add(myCards.get(card));
+        }
+
+        if(cardsToDisable.size()<13)
+            for(card=0;card<cardsToDisable.size();card++)
+                if(cardsToDisable.get(card)!=null)
+                    cardsToDisable.get(card).setEnabled(false);
     }
 }

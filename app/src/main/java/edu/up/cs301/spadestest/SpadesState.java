@@ -310,9 +310,18 @@ public class SpadesState extends GameState{
      * Select a card to be played in the current trick
      * @param index index of card in the player's hand
      */
-    public void playCard(int index){
+    public void playCard(int index) {
 
         currentPlayerHand = getCurrentPlayerHand();
+
+        /*if (cardsInTrick == 4) {
+            int i;
+            for (i = 3; i >= 0; i--) {
+                deck.set(cardsPlayed, trickCards.get(i));
+                if (trickCards.get(i).getSuit().equals("S"))
+                    spadesBroken = true; //TODO idk if this is necessary or not
+                trickCards.set(i, null);
+            }*/
 
             if (cardsInTrick == 4) {
                 cardsInTrick = 0;
@@ -372,7 +381,7 @@ public class SpadesState extends GameState{
             cardsInTrick++;
             scoring();
 
-        }
+    }
 
     /**
      * helper method for the constructor. Fills "deck", an arrayList of Cards
