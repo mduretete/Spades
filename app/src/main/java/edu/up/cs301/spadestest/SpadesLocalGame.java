@@ -5,6 +5,7 @@ import android.os.Message;
 import java.util.ArrayList;
 import java.util.logging.Handler;
 
+import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
 import edu.up.cs301.game.actionMsg.GameAction;
@@ -123,7 +124,11 @@ public class SpadesLocalGame extends LocalGame {
         }
         else if(action instanceof SpadesPlayCardAction){
             // calling method makeMove from here takes too long and confuses the players
+            //if (action.getPlayer() instanceof GameHumanPlayer && spadesGameState.getCardsInTrick() == 3 && spadesGameState.getLeadTrick() == 3) {
+            //    spadesGameState.noShowCard();
+            //}
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
+
         }
 
         return true;
