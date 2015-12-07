@@ -43,8 +43,8 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
             Random rand = new Random();
             int ctrlRand = rand.nextInt(10);
             int randBid;
-            if(ctrlRand != 0) { //just basic AI work, TODO: will be changed eventually for something more logical
-                randBid = rand.nextInt(7)+1; //if ctrlRand != 0 make a bid 1-7 **RESTRICTED BIDS**
+            if(ctrlRand != 0) { //just basic dumb AI, random bid and play
+                randBid = rand.nextInt(7)+1; //if ctrlRand != 0 make a bid 1-7
             }else { randBid = 0;} //else bid nil
 
             if (currentState.getPlayerBids(playerNum) == -1) { //if a bid has not been made yet

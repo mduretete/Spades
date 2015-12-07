@@ -19,7 +19,8 @@ import edu.up.cs301.game.config.GamePlayerType;
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
  * @version Dec. 2015 ALPHA
  *
- * Main Activity, primarily to handle onClicks and background process's
+ * Main Activity, primarily to handle the menu screen
+ *
  * KNOWN BUG: Sometimes the game will start up without any cards on screen; the app must be
  *  restarted. Waiting for a few seconds before hitting "start game" seems to make it less
  *  likely.

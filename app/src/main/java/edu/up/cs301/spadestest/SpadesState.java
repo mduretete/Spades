@@ -57,6 +57,7 @@ public class SpadesState extends GameState{
         leadTrick = -1;
         firstCard = null;
 
+        //booleans whether or not to show a players cards (in trick)
         showPlayer0 = false;
         showPlayer1 = false;
         showPlayer2 = false;
@@ -112,7 +113,7 @@ public class SpadesState extends GameState{
         playerBids = new int[]{0, -1, -1, -1};
 
         userTeammate = 2; //player across from user will always be their teammate
-        winningTeam = -1;
+        winningTeam = -1; //inited to -1 b/c 0 means team 1, 1 means team 2, 2 means draw
 
         spadesBroken = false;
 
@@ -307,7 +308,7 @@ public class SpadesState extends GameState{
      */
     public void placeBid(int newBid){
         playerBids[currentPlayer] = newBid;
-        if(currentPlayer < 3) currentPlayer++; //TESTING TODO: attempting to get the computers to bid at the same time as the human
+        if(currentPlayer < 3) currentPlayer++;
         else currentPlayer = 0;
     }
 
@@ -573,7 +574,7 @@ public class SpadesState extends GameState{
                     if (trickCards.get(i).getSuit().equals(Card.SPADES)) {
                         spadesBroken = true;
                         break;
-                    } //TODO supposedly that works
+                    }
                 }
             }
         }
@@ -643,8 +644,6 @@ public class SpadesState extends GameState{
      * @param trickList array of cards in the trick
      * @return player who won the trick (0-3), -1 is failure case
      */
-
-    //TODO Ace not considered high
     public int compTrickCards(ArrayList<Card> trickList) {
 
         //if the arrayList has less or more than 4 elements, return -1

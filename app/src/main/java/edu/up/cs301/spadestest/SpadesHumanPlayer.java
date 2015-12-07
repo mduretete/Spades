@@ -158,7 +158,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
             setCardsPlayable();
 
-          //  if (showCards) { //TESTING TODO: making cards invis before bid
+          //  if (showCards) { //TESTING TODO: making cards invis before bid, probably low priority
                 if (myGameState.getPlayer1Hand().get(0) != null) {
                     c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
                 }
@@ -213,7 +213,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
            // if (myGameState.currentPlayer == 0 && myGameState.leadTrick == -1) {
                 if (!myGameState.showPlayer0) {
-                    p0card.setImageResource(R.mipmap.card_ad); // TODO replace with open slot and make work
+                    p0card.setImageResource(R.mipmap.card_empty); // TODO player card gets replaced with a empty slot
+                                                                  // TODO       but there are still timing bugs it seems
                 }
                 //game.sendAction(new EndTrickAction(this));
            // }
@@ -433,14 +434,14 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
                     this.showCards = true;
 
-                    game.sendAction(new SpadesBidAction(this, bid)); //TESTING TODO
+                    game.sendAction(new SpadesBidAction(this, bid));
                     return;
                 }
             }catch(Exception e){}
 
             //in correspondence with default
             //myGameState.playerBids[0] = 0;
-            game.sendAction(new SpadesBidAction(this, 0)); //sets default bid, TESTING TODO
+            game.sendAction(new SpadesBidAction(this, 1));
             playerBidTextView.setText("0");
 
             //disables bidView and bidConfirm so players can't change their bids

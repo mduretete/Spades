@@ -60,7 +60,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                         card = rand.nextInt(13); //choose a random ish card
                     } while (playerHand.get(card) == null);
 
-                    //TODO: bid logic is updated, playing card logic needs to be updated
+                    //TODO: bid logic IS updated, playing card logic NEEDS TO BE updated
                     if ((leadPlayer != -1)) { //make the player follow the rules if he can't play first
 
                         leadCard = currentState.getTrickCards().get(leadPlayer); //store leading card info
@@ -140,7 +140,6 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                 toBid = rand2.nextInt(3)+1; //if myRand != 0 make a bid 1-3
             }else { toBid = 0;} //else bid nil
         }else if(state.playerBids[idx] < 4){ //if partner bid < 4
-            int myRand = rand2.nextInt(10);
                 toBid = rand2.nextInt(3)+3; //bid 3-6, no chance for null in this case
         }
         return toBid;
