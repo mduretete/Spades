@@ -124,10 +124,12 @@ public class SpadesLocalGame extends LocalGame {
         }
         else if(action instanceof SpadesPlayCardAction){
             // calling method makeMove from here takes too long and confuses the players
-            //if (action.getPlayer() instanceof GameHumanPlayer && spadesGameState.getCardsInTrick() == 3 && spadesGameState.getLeadTrick() == 3) {
-            //    spadesGameState.noShowCard();
-            //}
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
+            //if (action.getPlayer() instanceof GameHumanPlayer) {
+               // spadesGameState.noShowCard();
+               // sendUpdatedStateTo(action.getPlayer());
+           // }
+
 
         }
 
