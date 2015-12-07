@@ -120,13 +120,18 @@ public class SpadesLocalGame extends LocalGame {
         }
         else if(action instanceof EndTrickAction) {
             if (action.getPlayer() instanceof GameHumanPlayer) {
-                //if (spadesGameState.cardsInTrick == 4) {
-                    spadesGameState.noShowCard();
-                //}
+                spadesGameState.noShowCard();
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            spadesGameState.noShowCard();
-            //sendUpdatedStateTo(action.getPlayer());
-            sendAllUpdatedState();
+            else {
+                spadesGameState.noShowCard();
+            }
+            sendUpdatedStateTo(action.getPlayer());
+            //sendAllUpdatedState();
 
         }
         else if(action instanceof SpadesPlayCardAction){
