@@ -489,6 +489,60 @@ public class SpadesState extends GameState{
                 deck.set(cardNo, null);
             } while (player4Hand.get(i) == null);
         }
+
+        //order human hand
+        int[] hearts = new int[10];
+        int h = 0;
+        int[] clubs = new int[10];
+        int c = 0;
+        int[] diamonds = new int[10];
+        int d = 0;
+        int[] spades = new int[10];
+        int s = 0;
+        for (int j = 0; j < 13; j++) { //pick out cards of each suit
+            if (player1Hand.get(j).getSuit().equals(Card.HEARTS)) {
+                hearts[h] = j;
+                h++;
+            }
+            else if (player1Hand.get(j).getSuit().equals(Card.CLUBS)) {
+                clubs[c] = j;
+                c++;
+            }
+            else if (player1Hand.get(j).getSuit().equals(Card.DIAMONDS)) {
+                diamonds[d] = j;
+                d++;
+            }
+            else if (player1Hand.get(j).getSuit().equals(Card.SPADES)) {
+                spades[s] = j;
+                s++;
+            }
+        }
+
+        ArrayList<Card> temp = new ArrayList<>(13);
+        for (int j = 0; j < 13; j++) {
+            temp.add(j, null);
+        }
+
+        Collections.copy(temp, player1Hand);
+
+        int a = 0;
+        for (int j = 0; j < h; j++) {
+            player1Hand.set(a, temp.get(hearts[j]));
+            a++;
+        }
+        for (int j = 0; j < c; j++) {
+            player1Hand.set(a, temp.get(clubs[j]));
+            a++;
+        }
+        for (int j = 0; j < d; j++) {
+            player1Hand.set(a, temp.get(diamonds[j]));
+            a++;
+        }
+        for (int j = 0; j < s; j++) {
+            player1Hand.set(a, temp.get(spades[j]));
+            a++;
+        }
+
     }
 
     // The fact that so much of SpadesState was being edited in SpadesLocalGame and that there was a temp version stored
