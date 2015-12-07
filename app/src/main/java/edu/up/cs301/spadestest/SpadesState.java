@@ -699,7 +699,7 @@ public class SpadesState extends GameState{
      * roundWin(): determines which team scored the most in a round and updates the arrays
      * @return int, 0 for team 1 (human + comp) and 1 for team 2 (comp + comp), 2 for draw, -1 for ERROR
      */
-    public int roundWin(){
+    public int roundWin(){ //TODO verify scoring rules, def need 10 bag deduction rule
 
         for(int i = 0; i < 4; i++) {
             //if nul bid is made
