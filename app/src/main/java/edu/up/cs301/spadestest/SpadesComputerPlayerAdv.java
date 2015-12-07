@@ -39,20 +39,13 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
         if(info instanceof SpadesState) {
 
             currentState = (SpadesState) info;
-
-            Random rand = new Random();
-            int ctrlRand = rand.nextInt(10);
-            int randBid;
-            if(ctrlRand != 0) { //just basic AI work, TODO: will be changed eventually for something more logical
-                randBid = rand.nextInt(7)+1; //if ctrlRand != 0 make a bid 1-7 **RESTRICTED BIDS**
-            }else { randBid = 0;} //else bid nil
+            Random rand = new Random(); //random init
+            int randBid = partnerBid(currentState); //bid based on partners bid
 
             if (currentState.getPlayerBids(playerNum) == -1) { //if a bid has not been made yet
                 game.sendAction(new SpadesBidAction(this, randBid));
             }
-
             else if (currentState.getCurrentPlayer() == playerNum) { //play a card
-
                 if (currentState.getCurrentPlayerHand(playerNum) != null) { //if we haven't dealt yet you can't play, go away
                     myHand = currentState.getCurrentPlayerHand(playerNum);
 
@@ -67,6 +60,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                         card = rand.nextInt(13); //choose a random ish card
                     } while (playerHand.get(card) == null);
 
+                    //TODO: bid logic is updated, playing card logic needs to be updated
                     if ((leadPlayer != -1)) { //make the player follow the rules if he can't play first
 
                         leadCard = currentState.getTrickCards().get(leadPlayer); //store leading card info
@@ -109,7 +103,47 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
 
     }
 
+    //old getter
     public int getPlayerNo() {
         return this.playerNum;
     }
+
+    /**
+     * partnerBid(): used to determine a logical bid based on your partners bid, so that each "team"
+     *                  has one low bid and one high
+     * @param state: take in a SpadesState
+     * @return int, which is inputted to the computers bid
+     */
+    public int partnerBid(SpadesState state){
+        int toBid = -1; //default uninited bid
+        Random rand2 = new Random(); //random init
+        int idx = 0;
+
+        //set partner index
+        if(state.currentPlayer == 1){
+            idx = 3;
+        }else if(state.currentPlayer == 2){
+            idx = 0;
+        }else if(state.currentPlayer == 3){
+            idx = 1;
+        }
+
+        //bid based on partner bid with a chance for a null bid in most cases
+        if(state.playerBids[idx] == -1){ //if partner hasn't bid yet
+            int myRand = rand2.nextInt(10);
+            if(myRand != 0) {
+                toBid = rand2.nextInt(6)+1; //if myRand != 0 make a bid 1-6
+            }else { toBid = 0;} //else bid nil
+        }else if(state.playerBids[idx] >= 4){ //if partner bid >= 4
+            int myRand = rand2.nextInt(10);
+            if(myRand != 0) {
+                toBid = rand2.nextInt(3)+1; //if myRand != 0 make a bid 1-3
+            }else { toBid = 0;} //else bid nil
+        }else if(state.playerBids[idx] < 4){ //if partner bid < 4
+            int myRand = rand2.nextInt(10);
+                toBid = rand2.nextInt(3)+3; //bid 3-6, no chance for null in this case
+        }
+        return toBid;
+    }
+
 }

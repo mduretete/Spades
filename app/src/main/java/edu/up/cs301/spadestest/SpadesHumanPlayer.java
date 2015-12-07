@@ -236,6 +236,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             if(myGameState.winningTeam == 0) winnerText.setText("Team 1 Wins!");
             else if(myGameState.winningTeam == 1) winnerText.setText("Team 2 Wins!");
             else if(myGameState.winningTeam == 2) winnerText.setText("It's a Draw!");
+
+
         }
     }
 
@@ -464,17 +466,14 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         myCards.add(c12);
 
         for(card=0;card<13;card++) { //check each card in the player's hand
-
             if(playerHand.get(card)!=null) { //make sure it's an existing card
                 if ((leadPlayer != -1)) { //if not lead player, there are restrictions
-
                     leadCard = myGameState.getTrickCards().get(leadPlayer); //store leading card info
                     leadSuit = leadCard.getSuit();
 
                     if (!leadSuit.equals(playerHand.get(card).getSuit())) { //if can't play the chosen card
                         cardsToDisable.add(myCards.get(card));
                     }
-
                 } //if the lead player, but spades have not been broken, spades can't played
                 else if ((playerHand.get(card).getSuit().equals("S")) && ((!myGameState.spadesBroken))) {
                     if (playerHand.get(card).getSuit().equals("S"))

@@ -297,7 +297,7 @@ public class SpadesLocalGame extends LocalGame {
             spadesGameState.incrementTricks(trickWinner);
         }
 
-        //if hands are empty, round is over
+        //if hands are empty, round is over, 51 because we start cardsPlayed at -1
         if(spadesGameState.cardsPlayed == 51) {
 
             //gets winning team
