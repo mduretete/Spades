@@ -50,8 +50,8 @@ public class MainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Local Computer Player") {
             public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
 
-        playerTypes.add(new GamePlayerType("Local Computer Player") {
-            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
+        playerTypes.add(new GamePlayerType("Local Advanced Computer Player") {
+            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayerAdv(name);}});
 
         GameConfig defaultConfig = new GameConfig(playerTypes,4,4,"Spades",PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); // player 1: a human player
