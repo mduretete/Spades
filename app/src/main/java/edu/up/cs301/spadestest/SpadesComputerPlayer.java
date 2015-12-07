@@ -95,6 +95,8 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                         }
                     }
 
+                    currentState.iPlayed(playerNum);
+
                     if (currentState.cardsInTrick == 4) {
                         this.sleep(500); // let human see end of trick
                         game.sendAction(new EndTrickAction(this));
