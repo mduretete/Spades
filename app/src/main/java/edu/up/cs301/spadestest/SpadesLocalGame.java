@@ -119,16 +119,23 @@ public class SpadesLocalGame extends LocalGame {
             spadesGameState.placeBid(((SpadesBidAction) action).getBid());
         }
         else if(action instanceof EndTrickAction) {
+            if (action.getPlayer() instanceof GameHumanPlayer) {
+                //if (spadesGameState.cardsInTrick == 4) {
+                    spadesGameState.noShowCard();
+                //}
+            }
             spadesGameState.noShowCard();
+            //sendUpdatedStateTo(action.getPlayer());
+            sendAllUpdatedState();
 
         }
         else if(action instanceof SpadesPlayCardAction){
             // calling method makeMove from here takes too long and confuses the players
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
-            //if (action.getPlayer() instanceof GameHumanPlayer) {
-               // spadesGameState.noShowCard();
-               // sendUpdatedStateTo(action.getPlayer());
-           // }
+            if ((action.getPlayer() instanceof GameHumanPlayer) && (spadesGameState.cardsInTrick == 4)) {
+                this.sendAction(new EndTrickAction(action.getPlayer()));
+                sendAllUpdatedState(); //good if I play last card
+            }
 
 
         }
