@@ -69,6 +69,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     private ImageView c11;
     private ImageView c12;
 
+    private TextView p0Name;
+
     private EditText bidView;
     private Button bidConfirm;
     private boolean showCards = false;
@@ -83,6 +85,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     private GameMainActivity myActivity;
 
     private String[] cardNames;
+
+    private boolean didILead = false;
 
     /**
      * SpadesHumanPlayer():ctor for the human player
@@ -295,6 +299,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         p2card = (ImageView) activity.findViewById(R.id.p2card);
         p3card = (ImageView) activity.findViewById(R.id.p3card);
 
+        p0Name = (TextView) activity.findViewById(R.id.p0name);
+
         c0.setOnTouchListener(this);
         c1.setOnTouchListener(this);
         c2.setOnTouchListener(this);
@@ -312,6 +318,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         p0card.setOnDragListener(this);
 
         bidConfirm.setOnClickListener(this);
+
+        p0Name.setText(this.name);
     }
 
     @Override

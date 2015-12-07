@@ -48,6 +48,8 @@ public class SpadesState extends GameState{
 
     boolean spadesBroken;
 
+    boolean showP1Card;
+
     ArrayList<Card> deck = new ArrayList<>(52); //inits arrayList of size 52, a deck of cards
 
     public SpadesState() {
@@ -113,6 +115,8 @@ public class SpadesState extends GameState{
         winningTeam = -1;
 
         spadesBroken = false;
+
+        showP1Card = true;
     }
 
     public SpadesState(SpadesState copy){
@@ -183,6 +187,8 @@ public class SpadesState extends GameState{
         winningTeam = copy.winningTeam;
 
         this.spadesBroken = copy.spadesBroken;
+
+        this.showP1Card = copy.showP1Card;
     }
 
     /**
@@ -744,9 +750,13 @@ public class SpadesState extends GameState{
     }
 
     public void noShowCard() {
-        showPlayer0 = false;
-        showPlayer1 = false;
-        showPlayer2 = false;
-        showPlayer3 = false;
+        if(cardsInTrick == 4) {
+            showPlayer0 = false;
+            showPlayer1 = false;
+            showPlayer2 = false;
+            showPlayer3 = false;
+
+            showP1Card = false;
+        }
     }
 }
