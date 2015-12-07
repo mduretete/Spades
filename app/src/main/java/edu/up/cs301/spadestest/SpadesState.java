@@ -400,7 +400,7 @@ public class SpadesState extends GameState{
         deck.add(new Card(11, Card.CLUBS, R.mipmap.card_jc));
         deck.add(new Card(12, Card.CLUBS, R.mipmap.card_qc));
         deck.add(new Card(13, Card.CLUBS, R.mipmap.card_kc));
-        deck.add(new Card(1 , Card.CLUBS, R.mipmap.card_ac));
+        deck.add(new Card(14, Card.CLUBS, R.mipmap.card_ac));
 
 
         deck.add(new Card(2 , Card.DIAMONDS, R.mipmap.card_2d));
@@ -415,7 +415,7 @@ public class SpadesState extends GameState{
         deck.add(new Card(11, Card.DIAMONDS, R.mipmap.card_jd));
         deck.add(new Card(12, Card.DIAMONDS, R.mipmap.card_qd));
         deck.add(new Card(13, Card.DIAMONDS, R.mipmap.card_kd));
-        deck.add(new Card(1 , Card.DIAMONDS, R.mipmap.card_ad));
+        deck.add(new Card(14, Card.DIAMONDS, R.mipmap.card_ad));
 
 
         deck.add(new Card(2 , Card.SPADES, R.mipmap.card_2s));
@@ -430,7 +430,7 @@ public class SpadesState extends GameState{
         deck.add(new Card(11, Card.SPADES, R.mipmap.card_js));
         deck.add(new Card(12, Card.SPADES, R.mipmap.card_qs));
         deck.add(new Card(13, Card.SPADES, R.mipmap.card_ks));
-        deck.add(new Card(1 , Card.SPADES, R.mipmap.card_as));
+        deck.add(new Card(14, Card.SPADES, R.mipmap.card_as));
 
 
         deck.add(new Card(2 , Card.HEARTS, R.mipmap.card_2h));
@@ -445,7 +445,7 @@ public class SpadesState extends GameState{
         deck.add(new Card(11, Card.HEARTS, R.mipmap.card_jh));
         deck.add(new Card(12, Card.HEARTS, R.mipmap.card_qh));
         deck.add(new Card(13, Card.HEARTS, R.mipmap.card_kh));
-        deck.add(new Card(1 , Card.HEARTS, R.mipmap.card_ah));
+        deck.add(new Card(14, Card.HEARTS, R.mipmap.card_ah));
 
     }
 
