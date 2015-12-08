@@ -18,12 +18,15 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 public class SpadesComputerPlayer extends GameComputerPlayer {
 
+    int myTricks;
+
     /**
      * SpadesComputerPlayer():ctor for the computer player
      * @param name
      */
     public SpadesComputerPlayer(String name) {
         super(name);
+        myTricks = 0;
     }
 
     /**
@@ -54,6 +57,7 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
             else if (currentState.getCurrentPlayer() == playerNum) { //play a card
 
                 if (currentState.getCurrentPlayerHand(playerNum) != null) { //if we haven't dealt yet you can't play, go away
+
                     myHand = currentState.getCurrentPlayerHand(playerNum);
 
                     int card;
@@ -96,12 +100,15 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                     }
 
                     if (currentState.cardsInTrick == 4) {
-                        this.sleep(500); // let human see end of trick
-                        game.sendAction(new EndTrickAction(this));
-                        this.sleep(500);
+                        this.sleep(500); //let human see end of last trick
+                        game.sendAction(new EndTrickAction(this)); //sleep first because this is happening after last player played
+                        this.sleep(200);
+                        game.sendAction(new SpadesPlayCardAction(this, card)); //start new trick
                     }
-                    this.sleep(200);
-                    game.sendAction(new SpadesPlayCardAction(this, card));
+                    else {
+                        this.sleep(200);
+                        game.sendAction(new SpadesPlayCardAction(this, card));
+                    }
 
                 }
             }

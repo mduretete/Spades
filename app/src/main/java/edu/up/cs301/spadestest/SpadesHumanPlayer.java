@@ -205,8 +205,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
                // p0card.setImageResource(android.R.color.transparent);
 
-            if (win != myGameState.getPlayerTricks(0)) {
-                game.sendAction(new EndTrickAction(this));
+            if (win != myGameState.getPlayerTricks(0)) { //can take care of myself; I won so update
+
+  //              game.sendAction(new EndTrickAction(this));
                 win++;
             }
 
@@ -351,7 +352,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     //update played card
                     //note: playCard currently updates trickCards by adding new cards to array; think they get removed after a trick but not sure
 
-
+                    ImageView d = (ImageView) event.getLocalState();
                     if (dropped == c0) {
                         game.sendAction(new SpadesPlayCardAction(this, 0));
                     } else if (dropped == c1) {
