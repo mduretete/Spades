@@ -119,34 +119,11 @@ public class SpadesLocalGame extends LocalGame {
             spadesGameState.placeBid(((SpadesBidAction) action).getBid());
         }
         else if(action instanceof EndTrickAction) {
-            //if (action.getPlayer() instanceof GameHumanPlayer) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-                spadesGameState.noShowCard();
-
-            sendUpdatedStateTo(this.players[0]); //just notify human
-            //sendAllUpdatedState();
+            spadesGameState.noShowCard();
 
         }
         else if(action instanceof SpadesPlayCardAction){
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
-            if ((action.getPlayer() instanceof  SpadesComputerPlayer) && (spadesGameState.currentPlayer == 0)) { //if human won and didn't play last
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                this.sendAction(new EndTrickAction(action.getPlayer()));
-            }
-            if ((action.getPlayer() instanceof GameHumanPlayer) && (spadesGameState.cardsInTrick == 4)) { //human playing last card
-                this.sendAction(new EndTrickAction(action.getPlayer()));
-                sendAllUpdatedState(); //good if I play last card
-            }
-
-
         }
 
         return true;

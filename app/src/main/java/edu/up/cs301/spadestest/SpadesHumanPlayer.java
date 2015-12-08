@@ -205,20 +205,21 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
                // p0card.setImageResource(android.R.color.transparent);
 
-            if (win != myGameState.getPlayerTricks(0)) { //can take care of myself; I won so update
-
-  //              game.sendAction(new EndTrickAction(this));
-                win++;
+            if (myGameState.currentPlayer == 0 && myGameState.cardsInTrick == 4 && myGameState.cardsPlayed != -1) { //my turn and I (human) won
+                try {
+                    Thread.sleep(200); //update slowly
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (myGameState.showPlayer0) {
+                    game.sendAction(new EndTrickAction(this));
+                }
             }
 
-
-           // if (myGameState.currentPlayer == 0 && myGameState.leadTrick == -1) {
-                if (!myGameState.showPlayer0) {
-                    p0card.setImageResource(R.mipmap.card_empty); // TODO player card gets replaced with a empty slot
-                                                                  // TODO       but there are still timing bugs it seems
-                }
-                //game.sendAction(new EndTrickAction(this));
-           // }
+            if (!myGameState.showPlayer0) {
+                p0card.setImageResource(R.mipmap.card_empty); // TODO player card gets replaced with a empty slot
+                // TODO       but there are still timing bugs it seems
+            }
 
             if (!myGameState.showPlayer1) {
                 p1card.setImageResource(android.R.color.transparent);
