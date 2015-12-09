@@ -39,7 +39,8 @@ public class SpadesState extends GameState{
     ArrayList<Card> player4Hand;
     ArrayList<Card> currentPlayerHand;
 
-    int[] playerBags; //1-d array for number of bags for each player
+    int team1Bags;
+    int team2Bags;
     int[] playerBids; //1-d array for player bids for the round
 
     int userTeammate; //player number of user's teammate
@@ -108,8 +109,9 @@ public class SpadesState extends GameState{
         //deal the cards
         deal();
 
-        //new arrays to hold player Bags and Bids
-        playerBags = new int[]{0, 0, 0, 0};
+        //to hold player Bags and Bids
+        team1Bags = 0;
+        team2Bags = 0;
         playerBids = new int[]{0, -1, -1, -1};
 
         userTeammate = 2; //player across from user will always be their teammate
@@ -134,7 +136,8 @@ public class SpadesState extends GameState{
         player4Hand = new ArrayList<>(copy.getPlayer4Hand());
         currentPlayerHand = new ArrayList<>(copy.getCurrentPlayerHand(currentPlayer));
 
-        playerBags = copy.playerBags;
+        team1Bags = copy.team1Bags;
+        team2Bags = copy.team2Bags;
         playerBids = copy.playerBids;
 
         //begin the copy process
@@ -171,12 +174,6 @@ public class SpadesState extends GameState{
 
         i = 0;
         while(i<4) {
-            playerBags[i] = copy.getPlayerBags(i);
-            i++;
-        }
-
-        i = 0;
-        while(i<4) {
             playerBids[i] = copy.getPlayerBids(i);
             i++;
         }
@@ -198,7 +195,8 @@ public class SpadesState extends GameState{
     public void set(SpadesState temp){
         //values updated are the values that are needed throughout the entire game
         this.currentPlayer = temp.currentPlayer;
-        this.playerBags = temp.playerBags;
+        this.team1Bags = temp.team1Bags;
+        this.team2Bags = temp.team2Bags;
         this.playerScores = temp.playerScores;
         this.team1Score = temp.team1Score;
         this.team2Score = temp.team2Score;
@@ -288,10 +286,6 @@ public class SpadesState extends GameState{
 
     public ArrayList<Card> getDeck() {
         return deck;
-    }
-
-    public int getPlayerBags(int player){
-        return playerBags[player];
     }
 
     public int getPlayerBids(int player){
@@ -699,34 +693,97 @@ public class SpadesState extends GameState{
      * roundWin(): determines which team scored the most in a round and updates the arrays
      * @return int, 0 for team 1 (human + comp) and 1 for team 2 (comp + comp), 2 for draw, -1 for ERROR
      */
-    public int roundWin(){ //TODO verify scoring rules, def need 10 bag deduction rule
+    //TODO not sure if last trick gets counted and/or shown on GUI
+    //TODO add bags individually to score and bag count
+    //TODO what if one person makes their own bid but partnership doesn't? (tentative answer: no points)
+    public int roundWin(){
+
+        boolean team1done = false;
+        boolean team2done = false;
 
         for(int i = 0; i < 4; i++) {
-            //if nul bid is made
-            if(playerTricks[i] == playerBids[i] && playerTricks[i] == 0){
-                playerScores[i] = playerScores[i] + 50;
-                //if bid is made and not nil
-            } else if(playerTricks[i] == playerBids[i] && playerBids[i] != 0){
-                int add = (playerBids[i])*10;
-                playerScores[i] = playerScores[i] + add;
-                //if null bid not made
-            } else if(playerTricks[i] != playerBids[i] && playerBids[i] == 0){
-                playerScores[i] = playerScores[i] - 50;
-                //if overbid
-            } else if(playerTricks[i] > playerBids[i] && playerBids[i] != 0){
-                int sub = playerTricks[i] - playerBids[i];
-                int add = ((playerBids[i])*10)+sub;
-                playerScores[i] = playerScores[i] + add;
-                //if underbid
-            } else if(playerTricks[i] < playerBids[i] && playerBids[i] != 0){
-                int add = (playerBids[i])*10;
-                playerScores[i] = playerScores[i] - add;
+            if (playerBids[i] == 0) { //if nil bid is made by a player
+
+                int partner = (i + 2); //score his partner alone
+                if (partner > 3) {
+                    partner = partner - 4;
+                }
+                //ok resetting player scores between rounds because team scores are the only ones that need to carry over
+                if (playerTricks[i] == playerBids[i]) { //nil bid made
+                    playerScores[i] = 100;
+                }
+                else if (playerTricks[i] > playerBids[i]) { //nil bid not made
+                    playerScores[i] = (-100);
+                    if (i == 0 || i == 2) {
+                        team1Bags = team1Bags + playerTricks[i];
+                    }
+                    else {
+                        team2Bags = team2Bags + playerTricks[i];
+                    }
+                }
+                if (playerTricks[partner] >= playerBids[partner] && playerBids[partner] != 0) {
+                    int bags = (playerTricks[partner] - playerBids[partner]);
+                    int add = ((playerBids[partner]) * 10) + bags;
+                    playerScores[i] = add;
+
+                    if (partner == 0 || partner == 2) {
+                        team1Bags = team1Bags + bags;
+                        team1done = true;
+                    }
+                    else {
+                        team2Bags = team2Bags + bags;
+                        team2done = true;
+                    }
+                }
+                else if (playerBids[i] == 0 && playerBids[partner] == 0) {
+                    if (i == 0 || i == 2) {
+                        team1done = true;
+                    }
+                    else {
+                        team2done = true;
+                    }
+                }
             }
         }
 
-        //updates team scores
-        team1Score = playerScores[0] + playerScores[2];
-        team2Score = playerScores[1] + playerScores[3];
+        if (!team1done) {
+            if ((playerTricks[0] + playerTricks[2]) >= (playerBids[0] + playerBids[2])) {
+                int bags = ((playerTricks[0] + playerTricks[2]) - (playerBids[0] + playerBids[2]));
+                team1Score = team1Score + ((playerBids[0] + playerBids[2]) * 10) + bags;
+                team1Bags = team1Bags + bags;
+            }
+        }
+        else {
+            team1Score = playerScores[0] + playerScores[2];
+        }
+        if (!team2done) {
+            if ((playerTricks[1] + playerTricks[3]) >= (playerBids[1] + playerBids[3])) {
+                int bags = ((playerTricks[1] + playerTricks[3]) - (playerBids[1] + playerBids[3]));
+                team2Score = team2Score + ((playerBids[1] + playerBids[3]) * 10) + bags;
+                team2Bags = team2Bags + bags;
+            }
+        }
+        else {
+            team2Score = playerScores[1] + playerScores[3];
+        }
+
+        //bags penalty
+        if (team1Bags >= 10) {
+            team1Score = team1Score - 100;
+            team1Bags = team1Bags%10;
+        }
+        if (team2Bags >= 10) {
+            team2Score = team1Score - 100;
+            team2Bags = team2Bags%10;
+        }
+
+        //score too low
+        if (team1Score < 0){
+            team1Score = 0;
+        }
+        if (team2Score < 0){
+            team2Score = 0;
+        }
 
         //sets winning team
         if(team1Score > team2Score){
@@ -739,23 +796,12 @@ public class SpadesState extends GameState{
         return -1;
     }
 
-    /**
-     * incrementTricks(): ups the value in a players trick if they win a trick
-     * @param player: player who just won the trick
-     */
-    public void incrementTricks (int player) {
-        playerTricks[player]++;
-        currentPlayer = player;
-    }
-
     public void noShowCard() {
         if(cardsInTrick == 4) {
             showPlayer0 = false;
             showPlayer1 = false;
             showPlayer2 = false;
             showPlayer3 = false;
-
-            showP1Card = false;
         }
     }
 }

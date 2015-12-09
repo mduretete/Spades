@@ -73,9 +73,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
     private EditText bidView;
     private Button bidConfirm;
-    private boolean showCards = false;
-
-    private int win = 0;
 
     private TextView t1Score;
     private TextView t2Score;
@@ -158,7 +155,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
             setCardsPlayable();
 
-          //  if (showCards) { //TESTING TODO: making cards invis before bid, probably low priority
                 if (myGameState.getPlayer1Hand().get(0) != null) {
                     c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
                 }
@@ -198,7 +194,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 if (myGameState.getPlayer1Hand().get(12) != null) {
                     c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
                 }
-         //   }
 
 
             //get the trick cards for the human player to see
@@ -434,8 +429,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     bidView.setEnabled(false);
                     bidConfirm.setEnabled(false);
 
-                    this.showCards = true;
-
                     game.sendAction(new SpadesBidAction(this, bid));
                     return;
                 }
@@ -452,10 +445,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
             //if there is an error, show it, for both the Programmer and the user
             bidView.setText("ERROR: " + bidView.getText().toString());
-
-            //TODO: helps making cards invis prior to bid
-            this.showCards = true;
-
         }
     }
 
