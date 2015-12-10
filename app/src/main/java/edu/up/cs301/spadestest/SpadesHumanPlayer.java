@@ -186,7 +186,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
                // p0card.setImageResource(android.R.color.transparent);
 
-            if (myGameState.currentPlayer == 0 && myGameState.cardsInTrick == 4 && myGameState.cardsPlayed != -1) { //my turn and I (human) won
+            if (/*myGameState.currentPlayer == 0 &&*/ myGameState.cardsInTrick == 4 && myGameState.cardsPlayed != -1) { //my turn and I (human) won
                 try {
                     Thread.sleep(200); //update slowly
                 } catch (InterruptedException e) {
