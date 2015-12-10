@@ -79,12 +79,20 @@ public class SpadesLocalGame extends LocalGame {
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
         }
         else if (action instanceof NextRoundAction) {
-            spadesGameState.newRound();
+            //spadesGameState.newRound();
+            reset();
             //sendUpdatedStateTo(action.getPlayer());
         }
 
         return true;
     }//makeMove()
+
+
+    public void reset(){
+        SpadesState temp = spadesGameState; //store the current spadesState in a temp
+        spadesGameState = new SpadesState(); //overwrite current state with a new one
+        spadesGameState.set(temp); //restore the permanent values to teh current spadesState
+    }
 
 
 

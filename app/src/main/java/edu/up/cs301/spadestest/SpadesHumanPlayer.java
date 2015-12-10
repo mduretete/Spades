@@ -227,9 +227,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             t2Score.setText("T2 Score:       " + myGameState.team2Score + " ");
 
             //posts which team "wins"/is winning at the end of a round
-            if(myGameState.winningTeam == 0) winnerText.setText("Team 1 Wins!");
-            else if(myGameState.winningTeam == 1) winnerText.setText("Team 2 Wins!");
-            else if(myGameState.winningTeam == 2) winnerText.setText("It's a Draw!");
+            if(myGameState.winningTeam == 0) winnerText.setText("Team 1 Winning!");
+            else if(myGameState.winningTeam == 1) winnerText.setText("Team 2 Winning!");
+            else if(myGameState.winningTeam == 2) winnerText.setText("It's Tied!");
 
 
         }

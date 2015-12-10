@@ -582,10 +582,10 @@ public class SpadesState extends GameState{
         showPlayer2 = false;
         showPlayer3 = false;
 
-        for (int i = 1; i < 3; i++) {
+        for (int i = 1; i < 4; i++) {
             playerTricks[i] = 0;
         }
-        for (int i = 1; i < 3; i++) {
+        for (int i = 1; i < 4; i++) {
             playerBids[i] = -1;
         }
 
@@ -797,12 +797,12 @@ public class SpadesState extends GameState{
         }
 
         //score too low
-        if (team1Score < 0){
+        /*if (team1Score < 0){
             team1Score = 0;
         }
         if (team2Score < 0){
             team2Score = 0;
-        }
+        }*/
 
         //sets winning team
         if(team1Score > team2Score){
