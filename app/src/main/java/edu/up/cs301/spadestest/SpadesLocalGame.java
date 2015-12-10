@@ -1,16 +1,8 @@
 package edu.up.cs301.spadestest;
 
-import android.os.Message;
-
-import java.util.ArrayList;
-import java.util.logging.Handler;
-
-import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
 import edu.up.cs301.game.actionMsg.GameAction;
-import edu.up.cs301.game.util.GameTimer;
-import edu.up.cs301.game.util.Tickable;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
@@ -85,6 +77,10 @@ public class SpadesLocalGame extends LocalGame {
         }
         else if(action instanceof SpadesPlayCardAction){
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
+        }
+        else if (action instanceof NextRoundAction) {
+            spadesGameState.newRound();
+            //sendUpdatedStateTo(action.getPlayer());
         }
 
         return true;

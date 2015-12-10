@@ -48,8 +48,7 @@ public class SpadesState extends GameState{
     int winningTeam; //keeps track of which team is currently winning
 
     boolean spadesBroken;
-
-    boolean showP1Card;
+    boolean endOfRound;
 
     ArrayList<Card> deck = new ArrayList<>(52); //inits arrayList of size 52, a deck of cards
 
@@ -118,8 +117,7 @@ public class SpadesState extends GameState{
         winningTeam = -1; //inited to -1 b/c 0 means team 1, 1 means team 2, 2 means draw
 
         spadesBroken = false;
-
-        showP1Card = true;
+        endOfRound = false;
     }
 
     public SpadesState(SpadesState copy){
@@ -185,8 +183,6 @@ public class SpadesState extends GameState{
         winningTeam = copy.winningTeam;
 
         this.spadesBroken = copy.spadesBroken;
-
-        this.showP1Card = copy.showP1Card;
     }
 
     /**
@@ -237,6 +233,8 @@ public class SpadesState extends GameState{
     public int getTeam2Score() {
         return team2Score;
     }
+
+    public boolean getEndOfRound() { return endOfRound; }
 
     public ArrayList<Card> getTrickCards() {
         return trickCards;
@@ -314,15 +312,6 @@ public class SpadesState extends GameState{
     public void playCard(int index) {
 
         currentPlayerHand = getCurrentPlayerHand();
-
-        /*if (cardsInTrick == 4) {
-            int i;
-            for (i = 3; i >= 0; i--) {
-                deck.set(cardsPlayed, trickCards.get(i));
-                if (trickCards.get(i).getSuit().equals("S"))
-                    spadesBroken = true; //TODO idk if this is necessary or not
-                trickCards.set(i, null);
-            }*/
 
             if (cardsInTrick == 4) {
                 cardsInTrick = 0;
@@ -546,13 +535,10 @@ public class SpadesState extends GameState{
 
     }
 
-    // The fact that so much of SpadesState was being edited in SpadesLocalGame and that there was a temp version stored
-    // in local game makes me think all of this belongs here
-
     /**
      * This is where the scoring happens
      */
-    private void scoring(){
+    public void scoring(){
         //who won the trick?
         int trickWinner;
         if (cardsInTrick == 4) {
@@ -579,7 +565,35 @@ public class SpadesState extends GameState{
             //gets winning team
             winningTeam = roundWin();
 
+            endOfRound = true;
+
+
         }
+    }
+
+    /**
+     * Reset for next round
+     */
+    public void newRound() {
+        currentPlayer = 0; //player who's current turn it is
+
+        showPlayer0 = false;
+        showPlayer1 = false;
+        showPlayer2 = false;
+        showPlayer3 = false;
+
+        for (int i = 1; i < 3; i++) {
+            playerTricks[i] = 0;
+        }
+        for (int i = 1; i < 3; i++) {
+            playerBids[i] = -1;
+        }
+
+        cardsPlayed = 0;
+        spadesBroken = false;
+        endOfRound = false;
+
+        deal();
     }
 
     /**
@@ -663,14 +677,12 @@ public class SpadesState extends GameState{
         }
 
         //compares card3 and the current largest, updates largest if card3 is larger
-        if(compCards(largest, card3) == largest){
-        } else {
+        if(compCards(largest, card3) != largest){
             largest = card3;
         }
 
         //compares card4 and the current largest, updates largest if card4 is larger
-        if(compCards(largest, card4) == largest){
-        } else {
+        if(compCards(largest, card4) != largest){
             largest = card4;
         }
 
@@ -682,7 +694,7 @@ public class SpadesState extends GameState{
             result = 1; //player 1 took the trick
         } else if(largest == card3){
             result = 2; //player 2 took the trick
-        } else if(largest == card4){
+        } else {
             result = 3; //player 3 took the trick
         }
         return result; //returns "fail" = -1 if no cards largest
@@ -694,8 +706,6 @@ public class SpadesState extends GameState{
      * @return int, 0 for team 1 (human + comp) and 1 for team 2 (comp + comp), 2 for draw, -1 for ERROR
      */
     //TODO not sure if last trick gets counted and/or shown on GUI
-    //TODO add bags individually to score and bag count
-    //TODO what if one person makes their own bid but partnership doesn't? (tentative answer: no points)
     public int roundWin(){
 
         boolean team1done = false;
@@ -721,7 +731,7 @@ public class SpadesState extends GameState{
                         team2Bags = team2Bags + playerTricks[i];
                     }
                 }
-                if (playerTricks[partner] >= playerBids[partner] && playerBids[partner] != 0) {
+                if (playerTricks[partner] >= playerBids[partner] && playerBids[partner] != 0) { //partner made bid
                     int bags = (playerTricks[partner] - playerBids[partner]);
                     int add = ((playerBids[partner]) * 10) + bags;
                     playerScores[i] = add;
@@ -735,7 +745,7 @@ public class SpadesState extends GameState{
                         team2done = true;
                     }
                 }
-                else if (playerBids[i] == 0 && playerBids[partner] == 0) {
+                else if (playerBids[i] == 0 && playerBids[partner] == 0) { //partner also bid nil
                     if (i == 0 || i == 2) {
                         team1done = true;
                     }
@@ -743,14 +753,20 @@ public class SpadesState extends GameState{
                         team2done = true;
                     }
                 }
+                else { //partner did not make bid
+                    playerScores[partner] = (-10 * (playerBids[partner]));
+                }
             }
         }
 
         if (!team1done) {
-            if ((playerTricks[0] + playerTricks[2]) >= (playerBids[0] + playerBids[2])) {
+            if ((playerTricks[0] + playerTricks[2]) >= (playerBids[0] + playerBids[2])) { //partnership made bid
                 int bags = ((playerTricks[0] + playerTricks[2]) - (playerBids[0] + playerBids[2]));
                 team1Score = team1Score + ((playerBids[0] + playerBids[2]) * 10) + bags;
                 team1Bags = team1Bags + bags;
+            }
+            else { //partnership did not make bid
+                team1Score = team1Score + (-10 * (playerBids[0] + playerBids[2]));
             }
         }
         else {
@@ -761,6 +777,9 @@ public class SpadesState extends GameState{
                 int bags = ((playerTricks[1] + playerTricks[3]) - (playerBids[1] + playerBids[3]));
                 team2Score = team2Score + ((playerBids[1] + playerBids[3]) * 10) + bags;
                 team2Bags = team2Bags + bags;
+            }
+            else {
+                team2Score = team2Score + (-10 * (playerBids[1] + playerBids[3]));
             }
         }
         else {

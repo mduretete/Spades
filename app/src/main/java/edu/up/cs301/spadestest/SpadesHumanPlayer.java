@@ -1,36 +1,21 @@
 package edu.up.cs301.spadestest;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ClipData;
-import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Build;
-import android.os.Bundle;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Handler;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Space;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
-import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.infoMsg.GameInfo;
-import edu.up.cs301.game.infoMsg.GameState;
-import edu.up.cs301.game.util.MessageBox;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
@@ -69,10 +54,9 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     private ImageView c11;
     private ImageView c12;
 
-    private TextView p0Name;
-
     private EditText bidView;
     private Button bidConfirm;
+    private Button nextRound;
 
     private TextView t1Score;
     private TextView t2Score;
@@ -82,8 +66,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     private GameMainActivity myActivity;
 
     private String[] cardNames;
-
-    private boolean didILead = false;
 
     /**
      * SpadesHumanPlayer():ctor for the human player
@@ -120,6 +102,10 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
             partnerTrickTextView.setText("" + myGameState.getPlayerTricks(2));
             RTrickTextView.setText("" + myGameState.getPlayerTricks(3));
+
+            if (myGameState.cardsPlayed == 51) {
+                nextRound.setEnabled(true);
+            }
 
             //if not our turn, we can't play
             if (myGameState.getCurrentPlayer() > 0) {
@@ -212,8 +198,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             }
 
             if (!myGameState.showPlayer0) {
-                p0card.setImageResource(R.mipmap.card_empty); // TODO player card gets replaced with a empty slot
-                // TODO       but there are still timing bugs it seems
+                p0card.setImageResource(R.mipmap.card_empty);
             }
 
             if (!myGameState.showPlayer1) {
@@ -273,6 +258,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
         bidView = (EditText) activity.findViewById(R.id.bidview);
         bidConfirm = (Button) activity.findViewById(R.id.bidconfirm);
+        nextRound = (Button) activity.findViewById(R.id.nextRound);
 
         t1Score = (TextView) activity.findViewById(R.id.team1score);
         t2Score = (TextView) activity.findViewById(R.id.team2score);
@@ -297,7 +283,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         p2card = (ImageView) activity.findViewById(R.id.p2card);
         p3card = (ImageView) activity.findViewById(R.id.p3card);
 
-        p0Name = (TextView) activity.findViewById(R.id.p0name);
+        TextView p0Name = (TextView) activity.findViewById(R.id.p0name);
 
         c0.setOnTouchListener(this);
         c1.setOnTouchListener(this);
@@ -316,6 +302,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         p0card.setOnDragListener(this);
 
         bidConfirm.setOnClickListener(this);
+        nextRound.setOnClickListener(this);
+        nextRound.setEnabled(false);
 
         p0Name.setText(this.name);
     }
@@ -345,10 +333,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     //drop the card
                     dropped.setDrawingCacheEnabled(true);
                     dropSpace.setImageBitmap(dropped.getDrawingCache());
-                    //update played card
-                    //note: playCard currently updates trickCards by adding new cards to array; think they get removed after a trick but not sure
 
-                    ImageView d = (ImageView) event.getLocalState();
+                    //update played card
                     if (dropped == c0) {
                         game.sendAction(new SpadesPlayCardAction(this, 0));
                     } else if (dropped == c1) {
@@ -444,7 +430,31 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             bidConfirm.setEnabled(false);
 
             //if there is an error, show it, for both the Programmer and the user
-            bidView.setText("ERROR: " + bidView.getText().toString());
+            bidView.setText("ERROR. " + bidView.getText().toString());
+        }
+        else if (v == nextRound) {
+
+            nextRound.setEnabled(false);
+
+            bidView.setEnabled(true);
+            bidConfirm.setEnabled(true);
+
+            c0.setVisibility(View.VISIBLE);
+            c1.setVisibility(View.VISIBLE);
+            c2.setVisibility(View.VISIBLE);
+            c3.setVisibility(View.VISIBLE);
+            c4.setVisibility(View.VISIBLE);
+            c5.setVisibility(View.VISIBLE);
+            c6.setVisibility(View.VISIBLE);
+            c7.setVisibility(View.VISIBLE);
+            c8.setVisibility(View.VISIBLE);
+            c9.setVisibility(View.VISIBLE);
+            c10.setVisibility(View.VISIBLE);
+            c11.setVisibility(View.VISIBLE);
+            c12.setVisibility(View.VISIBLE);
+
+            game.sendAction(new NextRoundAction(this));
+
         }
     }
 

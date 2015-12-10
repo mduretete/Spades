@@ -234,7 +234,7 @@ public abstract class LocalGame implements Game, Tickable {
 					this.checkAndHandleAction(action);
 				}
 			}
-			else if (action instanceof GameAction && gameStage == GameStage.DURING_GAME) {
+			else if (gameStage == GameStage.DURING_GAME) {
 				
 				// CASE 4: it's during the game, and we get an action from a player
 				this.checkAndHandleAction(action);
@@ -259,7 +259,7 @@ public abstract class LocalGame implements Game, Tickable {
 	 * @param action
 	 * 			the action that was sent
 	 */
-	private final void checkAndHandleAction(GameAction action) {
+	private void checkAndHandleAction(GameAction action) {
 		
 		// get the player and player ID
 		GamePlayer player = action.getPlayer();

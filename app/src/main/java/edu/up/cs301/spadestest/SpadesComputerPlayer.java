@@ -30,7 +30,8 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
     }
 
     /**
-     * recieveInfo(): Callback method, called as a formality (it's a computer -_-)
+     * receiveInfo()
+     * respond to updated game state
      * @param info
      */
 
@@ -44,13 +45,15 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
             currentState = (SpadesState) info;
 
             Random rand = new Random();
-            int ctrlRand = rand.nextInt(10);
-            int randBid;
-            if(ctrlRand != 0) { //just basic dumb AI, random bid and play
-                randBid = rand.nextInt(7)+1; //if ctrlRand != 0 make a bid 1-7
-            }else { randBid = 0;} //else bid nil
 
             if (currentState.getPlayerBids(playerNum) == -1) { //if a bid has not been made yet
+
+                int ctrlRand = rand.nextInt(10);
+                int randBid;
+
+                if(ctrlRand != 0) { //just basic dumb AI, random bid and play
+                    randBid = rand.nextInt(6)+1; //if ctrlRand != 0 make a bid 1-7
+                }else { randBid = 0;} //else bid nil
                 game.sendAction(new SpadesBidAction(this, randBid));
             }
 
@@ -99,7 +102,7 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
                         }
                     }
 
-                    if (currentState.cardsInTrick == 4) { //my turn and I (computer) won (?)
+                    if (currentState.cardsInTrick == 4) { //my turn and I (computer) won
                         this.sleep(500); //let human see end of last trick
                         game.sendAction(new EndTrickAction(this)); //sleep first because this is happening after last player played
                     }
