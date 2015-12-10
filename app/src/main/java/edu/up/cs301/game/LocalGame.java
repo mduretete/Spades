@@ -128,7 +128,6 @@ public abstract class LocalGame implements Game, Tickable {
 	 * 			the player to notify
 	 */
 
-	//TODO remove extra info???
 	protected abstract void sendUpdatedStateTo(GamePlayer p);
 	
 	/**

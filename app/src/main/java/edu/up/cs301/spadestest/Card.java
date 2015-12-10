@@ -71,6 +71,8 @@ public class Card {
         return this.suit;
     }
 
+    public int getImageId() { return imageId; }
+
     /**
      * setRank(): setter for the rank of a Card object, checks for validity
      * @param r int that sets the rank for a Card object

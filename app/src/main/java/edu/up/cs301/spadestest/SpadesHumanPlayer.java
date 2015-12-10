@@ -186,7 +186,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
                // p0card.setImageResource(android.R.color.transparent);
 
-            if (/*myGameState.currentPlayer == 0 &&*/ myGameState.cardsInTrick == 4 && myGameState.cardsPlayed != -1) { //my turn and I (human) won
+            if (myGameState.currentPlayer == 0 && myGameState.cardsInTrick == 4 && myGameState.cardsPlayed != -1) { //my turn and I (human) won
                 try {
                     Thread.sleep(200); //update slowly
                 } catch (InterruptedException e) {
@@ -331,35 +331,48 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     //cast active button being dragged
                     ImageView dropped = (ImageView) view;
                     //drop the card
-                    dropped.setDrawingCacheEnabled(true);
-                    dropSpace.setImageBitmap(dropped.getDrawingCache());
+                    //dropped.setDrawingCacheEnabled(true);
+                    //dropSpace.setImageBitmap(dropped.getDrawingCache());
 
                     //update played card
                     if (dropped == c0) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 0));
                     } else if (dropped == c1) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(1).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 1));
                     } else if (dropped == c2) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(2).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 2));
                     } else if (dropped == c3) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(3).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 3));
                     } else if (dropped == c4) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(4).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 4));
                     } else if (dropped == c5) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(5).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 5));
                     } else if (dropped == c6) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(6).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 6));
                     } else if (dropped == c7) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(7).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 7));
                     } else if (dropped == c8) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(8).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 8));
                     } else if (dropped == c9) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(9).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 9));
                     } else if (dropped == c10) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(10).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 10));
                     } else if (dropped == c11) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 11));
                     } else if (dropped == c12) {
+                        dropSpace.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
                         game.sendAction(new SpadesPlayCardAction(this, 12));
                     }
                     dropped = null;
@@ -436,6 +449,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
 
             nextRound.setEnabled(false);
 
+            bidView.setText("");
             bidView.setEnabled(true);
             bidConfirm.setEnabled(true);
 

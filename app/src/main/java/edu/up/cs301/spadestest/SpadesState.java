@@ -191,6 +191,7 @@ public class SpadesState extends GameState{
     public void set(SpadesState temp){
         //values updated are the values that are needed throughout the entire game
         this.currentPlayer = temp.currentPlayer;
+        if (this.currentPlayer != 0 ) { }
         this.team1Bags = temp.team1Bags;
         this.team2Bags = temp.team2Bags;
         this.playerScores = temp.playerScores;
