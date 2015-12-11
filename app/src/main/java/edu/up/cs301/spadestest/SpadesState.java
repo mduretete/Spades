@@ -564,7 +564,7 @@ public class SpadesState extends GameState{
 
             //gets winning team
             winningTeam = roundWin();
-
+            currentPlayer = 0;
             endOfRound = true;
 
 
