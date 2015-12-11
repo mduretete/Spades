@@ -190,8 +190,7 @@ public class SpadesState extends GameState{
      */
     public void set(SpadesState temp){
         //values updated are the values that are needed throughout the entire game
-        this.currentPlayer = temp.currentPlayer;
-        if (this.currentPlayer != 0 ) { }
+        this.currentPlayer = 0;
         this.team1Bags = temp.team1Bags;
         this.team2Bags = temp.team2Bags;
         this.playerScores = temp.playerScores;
@@ -709,8 +708,10 @@ public class SpadesState extends GameState{
     //TODO not sure if last trick gets counted and/or shown on GUI
     public int roundWin(){
 
-        boolean team1done = false;
-        boolean team2done = false;
+        boolean p0done = false;
+        boolean p1done = false;
+        boolean p2done = false;
+        boolean p3done = false;
 
         for(int i = 0; i < 4; i++) {
             if (playerBids[i] == 0) { //if nil bid is made by a player
@@ -724,7 +725,7 @@ public class SpadesState extends GameState{
                     playerScores[i] = 100;
                 }
                 else if (playerTricks[i] > playerBids[i]) { //nil bid not made
-                    playerScores[i] = (-100);
+                    playerScores[i] = (-100) - playerTricks[i] ;
                     if (i == 0 || i == 2) {
                         team1Bags = team1Bags + playerTricks[i];
                     }
@@ -732,59 +733,68 @@ public class SpadesState extends GameState{
                         team2Bags = team2Bags + playerTricks[i];
                     }
                 }
+                switch (i) {
+                    case 0:
+                        p0done = true;
+                        break;
+                    case 1:
+                        p1done = true;
+                        break;
+                    case 2:
+                        p2done = true;
+                        break;
+                    case 3:
+                        p3done = true;
+                }
                 if (playerTricks[partner] >= playerBids[partner] && playerBids[partner] != 0) { //partner made bid
                     int bags = (playerTricks[partner] - playerBids[partner]);
                     int add = ((playerBids[partner]) * 10) + bags;
                     playerScores[i] = add;
-
-                    if (partner == 0 || partner == 2) {
-                        team1Bags = team1Bags + bags;
-                        team1done = true;
-                    }
-                    else {
-                        team2Bags = team2Bags + bags;
-                        team2done = true;
-                    }
-                }
-                else if (playerBids[i] == 0 && playerBids[partner] == 0) { //partner also bid nil
-                    if (i == 0 || i == 2) {
-                        team1done = true;
-                    }
-                    else {
-                        team2done = true;
-                    }
                 }
                 else { //partner did not make bid
-                    playerScores[partner] = (-10 * (playerBids[partner]));
+                    playerScores[partner] = ((-10) * (playerBids[partner]));
+                }
+                switch (partner) {
+                    case 0:
+                        p0done = true;
+                        break;
+                    case 1:
+                        p1done = true;
+                        break;
+                    case 2:
+                        p2done = true;
+                        break;
+                    case 3:
+                        p3done = true;
                 }
             }
         }
 
-        if (!team1done) {
+        if (!p0done && !p2done) {
             if ((playerTricks[0] + playerTricks[2]) >= (playerBids[0] + playerBids[2])) { //partnership made bid
                 int bags = ((playerTricks[0] + playerTricks[2]) - (playerBids[0] + playerBids[2]));
                 team1Score = team1Score + ((playerBids[0] + playerBids[2]) * 10) + bags;
                 team1Bags = team1Bags + bags;
             }
             else { //partnership did not make bid
-                team1Score = team1Score + (-10 * (playerBids[0] + playerBids[2]));
+                team1Score = team1Score + ((-10) * (playerBids[0] + playerBids[2]));
             }
         }
         else {
-            team1Score = playerScores[0] + playerScores[2];
+            team1Score = team1Score + playerScores[0] + playerScores[2];
         }
-        if (!team2done) {
+        if (!p1done && !p3done) {
             if ((playerTricks[1] + playerTricks[3]) >= (playerBids[1] + playerBids[3])) {
                 int bags = ((playerTricks[1] + playerTricks[3]) - (playerBids[1] + playerBids[3]));
                 team2Score = team2Score + ((playerBids[1] + playerBids[3]) * 10) + bags;
                 team2Bags = team2Bags + bags;
             }
             else {
-                team2Score = team2Score + (-10 * (playerBids[1] + playerBids[3]));
+                team2Score = team2Score + ((-10) * (playerBids[1] + playerBids[3]));
             }
         }
         else {
-            team2Score = playerScores[1] + playerScores[3];
+            team2Score = team2Score + playerScores[1] + playerScores[3];
         }
 
         //bags penalty
