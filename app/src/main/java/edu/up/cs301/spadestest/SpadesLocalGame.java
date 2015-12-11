@@ -54,6 +54,10 @@ public class SpadesLocalGame extends LocalGame {
             return "TEAM 1 WINS";
         } else if (spadesGameState.getTeam2Score() >= 200) {
             return "TEAM 2 WINS";
+        } else if (spadesGameState.getTeam1Score() <= -200){
+            return "TEAM 2 WINS";
+        } else if (spadesGameState.getTeam2Score() <= -200){
+            return "TEAM 1 WINS";
         }
         return null;
     }//checkIfGameOver()
