@@ -16,6 +16,10 @@ public class SpadesState extends GameState{
     int currentPlayer; //player who's current turn it is
     int leadTrick; //player who led the trick
 
+    //update values in state so that each player doesn't have to calculate them independently
+    int highCard; //to be updated to store the highest card currently in the trick
+    boolean spadeIn; //whether spade has been played in the trick
+
     boolean showPlayer0;
     boolean showPlayer1;
     boolean showPlayer2;
@@ -480,31 +484,24 @@ public class SpadesState extends GameState{
             } while (player4Hand.get(i) == null);
         }
 
-        //order human hand
-        int[] hearts = new int[10];
-        int h = 0;
-        int[] clubs = new int[10];
-        int c = 0;
-        int[] diamonds = new int[10];
-        int d = 0;
-        int[] spades = new int[10];
-        int s = 0;
+        //order hands
+
+        int[] hearts = new int[13];
+        int[] clubs = new int[13];
+        int[] diamonds = new int[13];
+        int[] spades = new int[13];
         for (int j = 0; j < 13; j++) { //pick out cards of each suit
             if (player1Hand.get(j).getSuit().equals(Card.HEARTS)) {
-                hearts[h] = j;
-                h++;
+                hearts[player1Hand.get(j).getRank() - 2] = j + 1; //store in array based on rank; cards unique
             }
             else if (player1Hand.get(j).getSuit().equals(Card.CLUBS)) {
-                clubs[c] = j;
-                c++;
+                clubs[player1Hand.get(j).getRank() - 2] = j + 1;
             }
             else if (player1Hand.get(j).getSuit().equals(Card.DIAMONDS)) {
-                diamonds[d] = j;
-                d++;
+                diamonds[player1Hand.get(j).getRank() - 2] = j + 1;
             }
             else if (player1Hand.get(j).getSuit().equals(Card.SPADES)) {
-                spades[s] = j;
-                s++;
+                spades[player1Hand.get(j).getRank() - 2] = j + 1;
             }
         }
 
@@ -515,22 +512,30 @@ public class SpadesState extends GameState{
 
         Collections.copy(temp, player1Hand);
 
-        int a = 0;
-        for (int j = 0; j < h; j++) {
-            player1Hand.set(a, temp.get(hearts[j]));
-            a++;
+        int idx = 0;
+        for (int k = 0; k < 13; k++) {
+            if (hearts[k] != 0) {
+                player1Hand.set(idx, temp.get(hearts[k] - 1));
+                idx++;
+            }
         }
-        for (int j = 0; j < c; j++) {
-            player1Hand.set(a, temp.get(clubs[j]));
-            a++;
+        for (int k = 0; k < 13; k++) {
+            if (clubs[k] != 0) {
+                player1Hand.set(idx, temp.get(clubs[k] - 1));
+                idx++;
+            }
         }
-        for (int j = 0; j < d; j++) {
-            player1Hand.set(a, temp.get(diamonds[j]));
-            a++;
+        for (int k = 0; k < 13; k++) {
+            if (diamonds[k] != 0) {
+                player1Hand.set(idx, temp.get(diamonds[k] - 1));
+                idx++;
+            }
         }
-        for (int j = 0; j < s; j++) {
-            player1Hand.set(a, temp.get(spades[j]));
-            a++;
+        for (int k = 0; k < 13; k++) {
+            if (spades[k] != 0) {
+                player1Hand.set(idx, temp.get(spades[k] - 1));
+                idx++;
+            }
         }
 
     }
