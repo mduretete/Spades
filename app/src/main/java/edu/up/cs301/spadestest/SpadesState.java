@@ -18,7 +18,6 @@ public class SpadesState extends GameState{
 
     //update values in state so that each player doesn't have to calculate them independently
     int highCard; //to be updated to store the highest card currently in the trick
-    boolean spadeIn; //whether spade has been played in the trick
 
     boolean showPlayer0;
     boolean showPlayer1;
@@ -35,7 +34,7 @@ public class SpadesState extends GameState{
     int team2Score;
 
     ArrayList<Card> trickCards; //arrayList for cards played in current trick
-    Card firstCard;
+    String firstCardSuit;
 
     ArrayList<Card> player1Hand; //arrayList for cards left in each player's hand
     ArrayList<Card> player2Hand;
@@ -59,7 +58,8 @@ public class SpadesState extends GameState{
     public SpadesState() {
         currentPlayer = 0;
         leadTrick = -1;
-        firstCard = null;
+        firstCardSuit = "";
+        highCard = 0;
 
         //booleans whether or not to show a players cards (in trick)
         showPlayer0 = false;
@@ -145,7 +145,7 @@ public class SpadesState extends GameState{
         //begin the copy process
         currentPlayer = copy.getCurrentPlayer();
         leadTrick = copy.getLeadTrick();
-        firstCard = copy.getFirstCard();
+        firstCardSuit = copy.getFirstCardSuit();
         cardsPlayed = copy.getCardsPlayed();
         cardsInTrick = copy.getCardsInTrick();
         showPlayer0 = copy.showPlayer0;
@@ -216,8 +216,8 @@ public class SpadesState extends GameState{
         return cardsPlayed;
     }
 
-    public Card getFirstCard(){
-        return firstCard;
+    public String getFirstCardSuit(){
+        return firstCardSuit;
     }
 
     public int getCardsInTrick() { return cardsInTrick; }
@@ -323,13 +323,14 @@ public class SpadesState extends GameState{
 
             if (cardsInTrick == 0) {
                 leadTrick = currentPlayer;
-                firstCard = currentPlayerHand.get(index);
+                firstCardSuit = currentPlayerHand.get(index).getSuit();
             }
 
             //if player1's turn
             if (currentPlayer == 0) {
                 if (player1Hand.get(index) != null) { //can only play cards from hand
                     trickCards.set(currentPlayer, player1Hand.get(index));
+                    updateHighest(player1Hand.get(index));
                     player1Hand.set(index, null);
                     currentPlayer++;
                     showPlayer0 = true;
@@ -341,6 +342,7 @@ public class SpadesState extends GameState{
             else if (currentPlayer == 1) {
                 if (player2Hand.get(index) != null) { //can only play cards from hand
                     trickCards.set(currentPlayer, player2Hand.get(index));
+                    updateHighest(player2Hand.get(index));
                     player2Hand.set(index, null);
                     currentPlayer++;
                     showPlayer1 = true;
@@ -352,6 +354,7 @@ public class SpadesState extends GameState{
             else if (currentPlayer == 2) {
                 if (player3Hand.get(index) != null) { //can only play cards from hand
                     trickCards.set(currentPlayer, player3Hand.get(index));
+                    updateHighest(player3Hand.get(index));
                     player3Hand.set(index, null);
                     currentPlayer++;
                     showPlayer2 = true;
@@ -363,6 +366,7 @@ public class SpadesState extends GameState{
             else if (currentPlayer == 3) {
                 if (player4Hand.get(index) != null) { //can only play cards from hand
                     trickCards.set(currentPlayer, player4Hand.get(index));
+                    updateHighest(player4Hand.get(index));
                     player4Hand.set(index, null);
                     currentPlayer = 0;
                     showPlayer3 = true;
@@ -484,63 +488,11 @@ public class SpadesState extends GameState{
             } while (player4Hand.get(i) == null);
         }
 
-        //order hands
+        orderHand(player1Hand);
+        orderHand(player2Hand);
+        orderHand(player3Hand);
+        orderHand(player4Hand);
 
-        int[] hearts = new int[13];
-        int[] clubs = new int[13];
-        int[] diamonds = new int[13];
-        int[] spades = new int[13];
-        for (int j = 0; j < 13; j++) { //pick out cards of each suit
-            if (player1Hand.get(j).getSuit().equals(Card.HEARTS)) {
-                hearts[player1Hand.get(j).getRank() - 2] = j + 1; //store in array based on rank; cards unique
-            }
-            else if (player1Hand.get(j).getSuit().equals(Card.CLUBS)) {
-                clubs[player1Hand.get(j).getRank() - 2] = j + 1;
-            }
-            else if (player1Hand.get(j).getSuit().equals(Card.DIAMONDS)) {
-                diamonds[player1Hand.get(j).getRank() - 2] = j + 1;
-            }
-            else if (player1Hand.get(j).getSuit().equals(Card.SPADES)) {
-                spades[player1Hand.get(j).getRank() - 2] = j + 1;
-            }
-        }
-
-        ArrayList<Card> temp = new ArrayList<>(13);
-        for (int j = 0; j < 13; j++) {
-            temp.add(j, null);
-        }
-
-        Collections.copy(temp, player1Hand);
-
-        int idx = 0;
-        for (int k = 0; k < 13; k++) {
-            if (hearts[k] != 0) {
-                player1Hand.set(idx, temp.get(hearts[k] - 1));
-                idx++;
-            }
-        }
-        for (int k = 0; k < 13; k++) {
-            if (clubs[k] != 0) {
-                player1Hand.set(idx, temp.get(clubs[k] - 1));
-                idx++;
-            }
-        }
-        for (int k = 0; k < 13; k++) {
-            if (diamonds[k] != 0) {
-                player1Hand.set(idx, temp.get(diamonds[k] - 1));
-                idx++;
-            }
-        }
-        for (int k = 0; k < 13; k++) {
-            if (spades[k] != 0) {
-                player1Hand.set(idx, temp.get(spades[k] - 1));
-                idx++;
-            }
-        }
-
-        /**
-         * arbitrary change
-         */
     }
 
     /**
@@ -553,7 +505,7 @@ public class SpadesState extends GameState{
             trickWinner = compTrickCards(getTrickCards());
             playerTricks[trickWinner]++;
             currentPlayer = trickWinner;
-            firstCard = null;
+            firstCardSuit = "";
             leadTrick = -1;
 
             int i;
@@ -635,7 +587,7 @@ public class SpadesState extends GameState{
             //if both cards are not spades
         } else if (!c1.getSuit().equals(Card.SPADES) && !c2.getSuit().equals(Card.SPADES)){
             //whichever is the leading suit would win, if both leading suit
-            if(c1.getSuit().equals(firstCard.getSuit()) && c2.getSuit().equals(firstCard.getSuit())){
+            if(c1.getSuit().equals(firstCardSuit) && c2.getSuit().equals(firstCardSuit)){
                 //compare ranks, same suit so cannot have same rank
                 if(c1.getRank() > c2.getRank()){
                     return c1;
@@ -643,10 +595,10 @@ public class SpadesState extends GameState{
                     return c2;
                 }
                 //if c1 is leading suit it's a higher value
-            } else if (c1.getSuit().equals(firstCard.getSuit()) && !c2.getSuit().equals(firstCard.getSuit())){
+            } else if (c1.getSuit().equals(firstCardSuit) && !c2.getSuit().equals(firstCardSuit)){
                 return c1;
                 //if c2 is leading suit it's a higher value
-            } else if (!c1.getSuit().equals(firstCard.getSuit()) && c2.getSuit().equals(firstCard.getSuit())){
+            } else if (!c1.getSuit().equals(firstCardSuit) && c2.getSuit().equals(firstCardSuit)){
                 return c2;
             }
         }
@@ -832,6 +784,82 @@ public class SpadesState extends GameState{
             return 2; //draw
         }
         return -1;
+    }
+
+    private void orderHand(ArrayList<Card> toOrder) {
+        int[] hearts = new int[13];
+        int[] clubs = new int[13];
+        int[] diamonds = new int[13];
+        int[] spades = new int[13];
+        for (int j = 0; j < 13; j++) { //pick out cards of each suit
+            if (toOrder.get(j).getSuit().equals(Card.HEARTS)) {
+                hearts[toOrder.get(j).getRank() - 2] = j + 1; //store in array based on rank; cards unique...
+            }
+            else if (toOrder.get(j).getSuit().equals(Card.CLUBS)) {//...each suit array is updated at the entry corresponding to card rank...
+                clubs[toOrder.get(j).getRank() - 2] = j + 1;
+            }
+            else if (toOrder.get(j).getSuit().equals(Card.DIAMONDS)) {//...and those entries contain the location of the card...
+                diamonds[toOrder.get(j).getRank() - 2] = j + 1;
+            }
+            else if (toOrder.get(j).getSuit().equals(Card.SPADES)) {//...in player's hand
+                spades[toOrder.get(j).getRank() - 2] = j + 1;
+            }
+        }
+
+        ArrayList<Card> temp = new ArrayList<>(13);
+        for (int j = 0; j < 13; j++) {
+            temp.add(j, null);
+        }
+
+        Collections.copy(temp, toOrder); //hold the cards so we can find them
+
+        int idx = 0;
+        for (int k = 0; k < 13; k++) { //find the cards and rewrite the player's ArrayList of cards
+            if (hearts[k] != 0) {
+                toOrder.set(idx, temp.get(hearts[k] - 1));
+                idx++;
+            }
+        }
+        for (int k = 0; k < 13; k++) {
+            if (clubs[k] != 0) {
+                toOrder.set(idx, temp.get(clubs[k] - 1));
+                idx++;
+            }
+        }
+        for (int k = 0; k < 13; k++) {
+            if (diamonds[k] != 0) {
+                toOrder.set(idx, temp.get(diamonds[k] - 1));
+                idx++;
+            }
+        }
+        for (int k = 0; k < 13; k++) {
+            if (spades[k] != 0) {
+                toOrder.set(idx, temp.get(spades[k] - 1));
+                idx++;
+            }
+        }
+    }
+
+    public void updateHighest(Card played) { // 2 spade = value 15, 3 spade val 16, etc
+        int realRank = played.getRank();
+        if (played.getSuit().equals(Card.SPADES)) { //if spade
+            realRank = realRank + 13;
+            if (realRank > highCard) {
+                highCard = realRank;
+            }
+        }
+        else if (cardsInTrick != 0) { //if not first card
+            if (firstCardSuit.equals(played.getSuit())) { //if follow suit
+                if (played.getRank() > highCard) { //if beats
+                    highCard = played.getRank();
+                }
+            }
+        }
+        else { //else first card
+            highCard = played.getRank();
+        }
+
+
     }
 
     public void noShowCard() {

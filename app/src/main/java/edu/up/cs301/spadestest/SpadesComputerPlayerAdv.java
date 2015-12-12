@@ -34,12 +34,10 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
 
         SpadesState currentState;
-        ArrayList<Card> myHand;
 
         if(info instanceof SpadesState) {
 
             currentState = (SpadesState) info;
-            Random rand = new Random(); //random init
             int randBid = partnerBid(currentState); //bid based on partners bid
 
             if (currentState.getPlayerBids(playerNum) == -1) { //if a bid has not been made yet
@@ -47,47 +45,122 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
             }
             else if (currentState.getCurrentPlayer() == playerNum) { //play a card
                 if (currentState.getCurrentPlayerHand(playerNum) != null) { //if we haven't dealt yet you can't play, go away
-                    myHand = currentState.getCurrentPlayerHand(playerNum);
 
-                    int card;
+                    int card = 0; //what I'm going to play
 
                     Card leadCard; // if card has been led with, this is it
                     int leadPlayer = currentState.getLeadTrick(); // who led
                     String leadSuit; // if card has been led with, this is its suit
+                    int highCard;
+                    int partner = playerNum + 2;
+                    if (partner > 3) partner = partner - 4;
+                    boolean wantTricks;
+                    if ((currentState.getPlayerTricks(playerNum) + currentState.getPlayerTricks(partner)) <
+                            (currentState.getPlayerBids(playerNum) + currentState.getPlayerBids(partner)) &&
+                                    ((currentState.getPlayerBids(playerNum) != 0) && (currentState.getPlayerBids(partner) != 0))) {
+                        wantTricks = true;
+                    }
+                    else if (currentState.getPlayerBids(partner) != 0) { //help partner
+                        wantTricks = true;
+                    }
+                    else {
+                        wantTricks = false;
+                    }
+
                     ArrayList<Card> playerHand = currentState.getCurrentPlayerHand(); // player's current hand
 
-                    do {
-                        card = rand.nextInt(13); //choose a random ish card
-                    } while (playerHand.get(card) == null);
-
-                    //TODO: bid logic IS updated, playing card logic NEEDS TO BE updated
+                    //TODO Computer may or may not completely be following the rules
+                    //TODO Bid logic should definitely take into consideration which cards he has (eg ace of spades)
+                    //TODO and if partner bids nil he shouldn't do the same
                     if ((leadPlayer != -1)) { //make the player follow the rules if he can't play first
 
                         leadCard = currentState.getTrickCards().get(leadPlayer); //store leading card info
                         leadSuit = leadCard.getSuit();
+                        highCard = currentState.highCard;
 
-                        if (!leadSuit.equals(myHand.get(card).getSuit())) { //if can't play the chosen card
-
-                            for (int i = 0; i < playerHand.size(); i++) { //try to find a card that works
-                                if (playerHand.get(i) != null) { //existent card
-                                    if (leadSuit.equals(playerHand.get(i).getSuit())) { //see if we can use this card
+                        if (wantTricks) {
+                            if (highCard > 14) { //have to beat a spade
+                                highCard = highCard - 13; //bring it down to real value
+                                for (int i = 0; i < playerHand.size(); i++) { //see if I can beat
+                                    if (playerHand.get(i) != null) { //existent card
+                                        //find lowest winning card
+                                        if (Card.SPADES.equals(playerHand.get(i).getSuit()) && playerHand.get(i).getRank() > highCard) {
+                                            card = i;
+                                            break; //go use this card
+                                        }
+                                    }
+                                }
+                            }//want tricks
+                            else { //have to beat same suit
+                                for (int i = 0; i < playerHand.size(); i++) { //see if I can beat
+                                    if (playerHand.get(i) != null) { //existent card
+                                        //find lowest winning card
+                                        if (leadSuit.equals(playerHand.get(i).getSuit()) && playerHand.get(i).getRank() > highCard) {
+                                            card = i;
+                                            break; //go use this card
+                                        }
+                                    }
+                                }
+                            }//have to beat same suit
+                        }//if want tricks
+                        if (!wantTricks || card == 0) { //if we don't want tricks or still haven't played
+                            int lowest = 100; //find low
+                            for (int i = 0; i < playerHand.size(); i++) { //try to follow suit with lowest possible. If not, play lowest other card
+                                if (playerHand.get(i) != null) {
+                                    if (leadSuit.equals(playerHand.get(i).getSuit())) {
                                         card = i;
                                         break; //go use this card
+                                    }
+                                    else if (playerHand.get(i).getRank() < lowest) {
+                                        card = i;
                                     }
                                 }
                             }
                         }
-                    }
-                    else if ((playerHand.get(card).getSuit().equals("S")) && ((!currentState.spadesBroken))) {
-                        for (int i = 0; i < playerHand.size(); i++) { //try to find a card that works
-                            if (playerHand.get(i) != null) { //existent card
-                                if (!playerHand.get(i).getSuit().equals("S")) { //see if we can use this card
-                                    card = i;
-                                    break; //go use this card
+                    }//lead player
+                    else { //not lead
+                        if (wantTricks) { //want to win
+                            int i;
+                            if (currentState.spadesBroken) { //want to play high spade (greater than 10)
+                                for (i = playerHand.size() - 1; i >= 0; i--) {
+                                    if (playerHand.get(i) != null) { //existent card
+                                        //find lowest winning card
+                                        if (Card.SPADES.equals(playerHand.get(i).getSuit()) && playerHand.get(i).getRank() > 9) {
+                                            card = i;
+                                            break; //go use this card
+                                        }
+                                        else { //ran over
+                                            break;
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
+                            if (card == 0) { //no spades or want a better card
+                                for (int j = 14; j > 1; j--) { //find next highest card
+                                    for (int k = 0; k < playerHand.size(); k++) {
+                                        if (playerHand.get(k) != null && playerHand.get(k).getRank() == j) {
+                                            card = k;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }//if want to win
+                        else { //if not want to win
+                            //find low card (would be nice if we could exclude spades, but if spades are all that's left we won't play
+                            for (int j =2; j < 15; j++) {
+                                for (int k = 0; k < playerHand.size(); k++) {
+                                    if (playerHand.get(k) != null && playerHand.get(k).getRank() == j) {
+                                        card = k;
+                                        break;
+                                    }
+                                }
+                            }
+                        }//if not want to win
+                    }//not lead
+
+
+
 
                     if (currentState.cardsInTrick == 4) {
                         this.sleep(500); // let human see end of trick
