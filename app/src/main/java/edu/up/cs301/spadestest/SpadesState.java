@@ -537,6 +537,10 @@ public class SpadesState extends GameState{
                 idx++;
             }
         }
+
+        /**
+         * arbitrary change
+         */
     }
 
     /**
