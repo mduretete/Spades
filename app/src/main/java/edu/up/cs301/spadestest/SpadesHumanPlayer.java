@@ -2,6 +2,9 @@ package edu.up.cs301.spadestest;
 
 import android.annotation.TargetApi;
 import android.content.ClipData;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -11,7 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vstechlab.easyfonts.EasyFonts;
+
 import java.util.ArrayList;
+import java.util.Locale;
 
 import edu.up.cs301.game.GameHumanPlayer;
 import edu.up.cs301.game.GameMainActivity;
@@ -36,6 +42,17 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     private TextView partnerTrickTextView;
     private TextView LTrickTextView;
     private TextView RTrickTextView;
+    private TextView p1name;
+    private TextView p2name;
+    private TextView p3name;
+    private TextView p0bid;
+    private TextView p1bid;
+    private TextView p2bid;
+    private TextView p3bid;
+    private TextView p0tricks;
+    private TextView p1tricks;
+    private TextView p2tricks;
+    private TextView p3tricks;
     private ImageView p0card;
     private ImageView p1card;
     private ImageView p2card;
@@ -65,8 +82,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     SpadesState myGameState;
     private GameMainActivity myActivity;
 
-    private String[] cardNames;
-
     /**
      * SpadesHumanPlayer():ctor for the human player
      *
@@ -92,11 +107,20 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
      */
     public void receiveInfo(GameInfo info) {
         if (info instanceof SpadesState) {
+
             myGameState = (SpadesState) info;
-            playerBidTextView.setText("" + myGameState.getPlayerBids(0));
-            LBidTextView.setText("" + myGameState.getPlayerBids(1));
-            partnerBidTextView.setText("" + myGameState.getPlayerBids(2));
-            RBidTextView.setText("" + myGameState.getPlayerBids(3));
+            if (myGameState.getPlayerBids(0) != -1) {
+                playerBidTextView.setText("" + myGameState.getPlayerBids(0));
+            }
+            if (myGameState.getPlayerBids(1) != -1) {
+                LBidTextView.setText("" + myGameState.getPlayerBids(1));
+            }
+            if (myGameState.getPlayerBids(2) != -1) {
+                partnerBidTextView.setText("" + myGameState.getPlayerBids(2));
+            }
+            if (myGameState.getPlayerBids(3) != -1) {
+                RBidTextView.setText("" + myGameState.getPlayerBids(3));
+            }
 
             playerTrickTextView.setText("" + myGameState.getPlayerTricks(0));
             LTrickTextView.setText("" + myGameState.getPlayerTricks(1));
@@ -198,7 +222,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             }
 
             if (!myGameState.showPlayer0) {
-                p0card.setImageResource(R.mipmap.card_empty);
+                p0card.setImageResource(R.mipmap.blank);
             }
 
             if (!myGameState.showPlayer1) {
@@ -247,6 +271,11 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         myActivity = activity;
         activity.setContentView(R.layout.activity_main);
 
+        AssetManager am = activity.getApplicationContext().getAssets();
+
+        Typeface typeface = Typeface.createFromAsset(am,
+                String.format(Locale.US, "fonts/%s", "Adequate-ExtraLight.ttf"));
+
         playerBidTextView = (TextView) activity.findViewById(R.id.p0bid);
         partnerBidTextView = (TextView) activity.findViewById(R.id.p2bid);
         LBidTextView = (TextView) activity.findViewById(R.id.p1bid);
@@ -256,6 +285,30 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         LTrickTextView = (TextView) activity.findViewById(R.id.p1trick);
         RTrickTextView = (TextView) activity.findViewById(R.id.p3trick);
 
+        //unedited views
+        p1name = (TextView) activity.findViewById(R.id.p1name);
+        p2name = (TextView) activity.findViewById(R.id.p2name);
+        p3name = (TextView) activity.findViewById(R.id.p3name);
+        p0bid = (TextView) activity.findViewById(R.id.p0bidfield);
+        p1bid = (TextView) activity.findViewById(R.id.p1bidfield);
+        p2bid = (TextView) activity.findViewById(R.id.p2bidfield);
+        p3bid = (TextView) activity.findViewById(R.id.p3bidfield);
+        p0tricks = (TextView) activity.findViewById(R.id.p0trickfield);
+        p1tricks = (TextView) activity.findViewById(R.id.p1trickfield);
+        p2tricks = (TextView) activity.findViewById(R.id.p2trickfield);
+        p3tricks = (TextView) activity.findViewById(R.id.p3trickfield);
+        p1name.setTypeface(typeface);
+        p2name.setTypeface(typeface);
+        p3name.setTypeface(typeface);
+        p0bid.setTypeface(typeface);
+        p1bid.setTypeface(typeface);
+        p2bid.setTypeface(typeface);
+        p3bid.setTypeface(typeface);
+        p0tricks.setTypeface(typeface);
+        p1tricks.setTypeface(typeface);
+        p2tricks.setTypeface(typeface);
+        p3tricks.setTypeface(typeface);
+
         bidView = (EditText) activity.findViewById(R.id.bidview);
         bidConfirm = (Button) activity.findViewById(R.id.bidconfirm);
         nextRound = (Button) activity.findViewById(R.id.nextRound);
@@ -263,6 +316,20 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         t1Score = (TextView) activity.findViewById(R.id.team1score);
         t2Score = (TextView) activity.findViewById(R.id.team2score);
         winnerText = (TextView) activity.findViewById(R.id.winnertext);
+
+        playerBidTextView.setTypeface(typeface);
+        partnerBidTextView.setTypeface(typeface);
+        LBidTextView.setTypeface(typeface);
+        RBidTextView.setTypeface(typeface);
+        playerTrickTextView.setTypeface(typeface);
+        partnerTrickTextView.setTypeface(typeface);
+        LTrickTextView.setTypeface(typeface);
+        RTrickTextView.setTypeface(typeface);
+
+        bidView.setTypeface(typeface);
+        t1Score.setTypeface(typeface);
+        t2Score.setTypeface(typeface);
+        winnerText.setTypeface(typeface);
 
         c0 = (ImageView) activity.findViewById(R.id.c0);
         c1 = (ImageView) activity.findViewById(R.id.c1);
@@ -284,6 +351,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         p3card = (ImageView) activity.findViewById(R.id.p3card);
 
         TextView p0Name = (TextView) activity.findViewById(R.id.p0name);
+        p0Name.setTypeface(typeface);
 
         c0.setOnTouchListener(this);
         c1.setOnTouchListener(this);

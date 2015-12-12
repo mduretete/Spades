@@ -115,7 +115,7 @@ public class SpadesState extends GameState{
         //to hold player Bags and Bids
         team1Bags = 0;
         team2Bags = 0;
-        playerBids = new int[]{0, -1, -1, -1};
+        playerBids = new int[]{-1, -1, -1, -1};
 
         userTeammate = 2; //player across from user will always be their teammate
         winningTeam = -1; //inited to -1 b/c 0 means team 1, 1 means team 2, 2 means draw
