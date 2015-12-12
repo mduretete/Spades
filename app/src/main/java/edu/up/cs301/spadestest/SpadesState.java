@@ -323,6 +323,7 @@ public class SpadesState extends GameState{
 
             if (cardsInTrick == 0) {
                 leadTrick = currentPlayer;
+                //TODO game crashed at this line... not sure why
                 firstCardSuit = currentPlayerHand.get(index).getSuit();
             }
 
