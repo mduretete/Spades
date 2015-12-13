@@ -34,19 +34,21 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
 
         SpadesState currentState;
+        ArrayList<Card> myHand;
 
         if(info instanceof SpadesState) {
 
             currentState = (SpadesState) info;
-            int randBid = partnerBid(currentState); //bid based on partners bid
 
             if (currentState.getPlayerBids(playerNum) == -1) { //if a bid has not been made yet
+                int randBid = partnerBid(currentState); //bid based on partners bid
                 game.sendAction(new SpadesBidAction(this, randBid));
             }
             else if (currentState.getCurrentPlayer() == playerNum) { //play a card
                 if (currentState.getCurrentPlayerHand(playerNum) != null) { //if we haven't dealt yet you can't play, go away
 
-                    int card = 0; //what I'm going to play
+                    myHand = currentState.getCurrentPlayerHand(playerNum);
+                    int card = -1; //what I'm going to play
 
                     Card leadCard; // if card has been led with, this is it
                     int leadPlayer = currentState.getLeadTrick(); // who led
@@ -60,7 +62,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                     ((currentState.getPlayerBids(playerNum) != 0) && (currentState.getPlayerBids(partner) != 0))) {
                         wantTricks = true;
                     }
-                    else if (currentState.getPlayerBids(partner) != 0) { //help partner
+                    else if (currentState.getPlayerBids(partner) == 0) { //help partner
                         wantTricks = true;
                     }
                     else {
@@ -103,7 +105,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                 }
                             }//have to beat same suit
                         }//if want tricks
-                        if (!wantTricks || card == 0) { //if we don't want tricks or still haven't played
+                        if (!wantTricks || card == -1) { //if we don't want tricks or still haven't played
                             int lowest = 100; //find low
                             for (int i = 0; i < playerHand.size(); i++) { //try to follow suit with lowest possible. If not, play lowest other card
                                 if (playerHand.get(i) != null) {
@@ -117,25 +119,27 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                 }
                             }
                         }
-                    }//lead player
-                    else { //not lead
+                    }//not lead player
+                    else { //lead
                         if (wantTricks) { //want to win
                             int i;
                             if (currentState.spadesBroken) { //want to play high spade (greater than 10)
                                 for (i = playerHand.size() - 1; i >= 0; i--) {
                                     if (playerHand.get(i) != null) { //existent card
-                                        //find lowest winning card
-                                        if (Card.SPADES.equals(playerHand.get(i).getSuit()) && playerHand.get(i).getRank() > 9) {
-                                            card = i;
-                                            break; //go use this card
-                                        }
-                                        else { //ran over
-                                            break;
+                                        //find high spade
+                                        if (Card.SPADES.equals(playerHand.get(i).getSuit())) {
+                                            if (playerHand.get(i).getRank() > 9) {
+                                                card = i;
+                                                break; //go use this card
+                                            }
+                                            else { //ran over
+                                                break;
+                                            }
                                         }
                                     }
                                 }
                             }
-                            if (card == 0) { //no spades or want a better card
+                            if (card == -1) { //no spades or want a better card
                                 for (int j = 14; j > 1; j--) { //find next highest card
                                     for (int k = 0; k < playerHand.size(); k++) {
                                         if (playerHand.get(k) != null && playerHand.get(k).getRank() == j) {

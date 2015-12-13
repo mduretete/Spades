@@ -48,8 +48,8 @@ public class MainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Local Computer Player") {
             public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
 
-        playerTypes.add(new GamePlayerType("Local Computer Player") {
-            public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
+        //playerTypes.add(new GamePlayerType("Local Computer Player") {
+          //  public GamePlayer createPlayer(String name) { return new SpadesComputerPlayer(name);}});
 
         playerTypes.add(new GamePlayerType("Local Advanced Computer Player") {
             public GamePlayer createPlayer(String name) { return new SpadesComputerPlayerAdv(name);}});
