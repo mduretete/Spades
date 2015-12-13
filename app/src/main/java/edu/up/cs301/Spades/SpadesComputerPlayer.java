@@ -1,6 +1,4 @@
-package edu.up.cs301.spadestest;
-
-import android.widget.ImageView;
+package edu.up.cs301.Spades;
 
 import java.util.ArrayList;
 import java.util.Random;

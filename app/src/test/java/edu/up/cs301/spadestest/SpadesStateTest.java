@@ -1,8 +1,6 @@
-package edu.up.cs301.spadestest;
+package edu.up.cs301.Spades;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 

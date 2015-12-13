@@ -1,4 +1,4 @@
-package edu.up.cs301.spadestest;
+package edu.up.cs301.Spades;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;

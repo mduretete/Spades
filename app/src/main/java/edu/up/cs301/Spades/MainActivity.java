@@ -1,11 +1,4 @@
-package edu.up.cs301.spadestest;
-
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
+package edu.up.cs301.Spades;
 
 import java.util.ArrayList;
 
@@ -32,7 +25,7 @@ public class MainActivity extends GameMainActivity {
 
     /**
      * Create the default configuration for this game:
-     * - one human player vs. thtee computer players
+     * - one human player vs. three computer players
      *
      * @return the new configuration object, representing the default configuration
      */

@@ -23,13 +23,12 @@ import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
 import edu.up.cs301.game.util.IPCoder;
 import edu.up.cs301.game.util.MessageBox;
-import edu.up.cs301.spadestest.R;
+import edu.up.cs301.Spades.R;
 
 /**
  * class GameMainActivity
@@ -386,17 +385,25 @@ View.OnClickListener {
 			GamePlayerType[] availTypes = config.getAvailTypes(); // the available player types
 			Spinner typeSpinner = (Spinner) row
 					.findViewById(R.id.playerTypeSpinner); // the spinner for the current player
+			if (i == 0) {
+				typeSpinner.setEnabled(false);
+			}
 			// search through to find the one whose label matches; set it as the selection
 			for (int j = 0; j < availTypes.length; ++j) {
 				if (selTypes[i].getTypeName().equals(availTypes[j].getTypeName())) {
-					typeSpinner.setSelection(j);
-					break;
+					if (i == 0) {
+						typeSpinner.setSelection(i);
+					}
+					else {
+						typeSpinner.setSelection(1);
+						break;
+					}
 				}
 			}
 
 			// set up our spinner so that when its last element ("Network Player") is selected,
 			// the corresponding EditText (the player name) is disabled.
-			typeSpinner.setOnItemSelectedListener(new SpinnerListListener(playerName, availTypes.length-1));
+			typeSpinner.setOnItemSelectedListener(new SpinnerListListener(playerName, availTypes.length - 1));
 			
 		}// for
 		

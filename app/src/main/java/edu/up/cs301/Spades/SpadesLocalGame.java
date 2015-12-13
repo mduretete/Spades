@@ -1,4 +1,4 @@
-package edu.up.cs301.spadestest;
+package edu.up.cs301.Spades;
 
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;

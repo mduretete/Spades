@@ -1,9 +1,4 @@
-package edu.up.cs301.spadestest;
-
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.util.Log;
-import android.widget.ImageView;
+package edu.up.cs301.Spades;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete

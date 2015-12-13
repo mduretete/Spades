@@ -1,8 +1,7 @@
-package edu.up.cs301.spadestest;
+package edu.up.cs301.Spades;
 
 import android.annotation.TargetApi;
 import android.content.ClipData;
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -13,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.vstechlab.easyfonts.EasyFonts;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -247,13 +244,13 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             }
 
             //update team score
-            t1Score.setText("T1 Score:       " + myGameState.team1Score + " ");
-            t2Score.setText("T2 Score:       " + myGameState.team2Score + " ");
+            t1Score.setText("T1 Score:       " + myGameState.team1Score);
+            t2Score.setText("T2 Score:       " + myGameState.team2Score);
 
             //posts which team "wins"/is winning at the end of a round
-            if(myGameState.winningTeam == 0) winnerText.setText("Team 1 Winning!");
-            else if(myGameState.winningTeam == 1) winnerText.setText("Team 2 Winning!");
-            else if(myGameState.winningTeam == 2) winnerText.setText("It's Tied!");
+            if(myGameState.winningTeam == 0) winnerText.setText("Team 1 winning!");
+            else if(myGameState.winningTeam == 1) winnerText.setText("Team 2 winning!");
+            else if(myGameState.winningTeam == 2) winnerText.setText("It's tied!");
 
 
         }
