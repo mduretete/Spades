@@ -16,7 +16,7 @@ import edu.up.cs301.game.config.GamePlayerType;
  *
  * KNOWN BUG: Sometimes the game will start up without any cards on screen; the app must be
  *  restarted. Waiting for a few seconds before hitting "start game" seems to make it less
- *  likely.
+ *  likely, possibly a problem with interaction with the game framework.
  */
 
 public class MainActivity extends GameMainActivity {

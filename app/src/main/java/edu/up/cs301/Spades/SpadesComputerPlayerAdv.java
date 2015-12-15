@@ -47,7 +47,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
             else if (currentState.getCurrentPlayer() == playerNum) { //play a card
                 if (currentState.getCurrentPlayerHand(playerNum) != null) { //if we haven't dealt yet you can't play, go away
 
-                    Log.i("CompPlayer", "Player " + playerNum + " wants to play");
+                    //Log.i("CompPlayer", "Player " + playerNum + " wants to play");
 
                     myHand = currentState.getCurrentPlayerHand(playerNum);
                     int card = -1; //what I'm going to play
@@ -92,7 +92,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                         }
                                     }
                                 }
-                                Log.i("CompPlayer","Want trick and no lead, spade");
+                                //Log.i("CompPlayer","Want trick and no lead, spade");
 
                             }//want tricks
                             else { //have to beat same suit
@@ -105,7 +105,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                         }
                                     }
                                 }
-                                Log.i("CompPlayer","Want trick and not lead");
+                                //Log.i("CompPlayer","Want trick and not lead");
                             }//have to beat same suit
                         }//if want tricks
                         if (!wantTricks || card == -1) { //if we don't want tricks or still haven't played
@@ -122,7 +122,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                     }
                                 }
                             }
-                            Log.i("CompPlayer","Don't want/not picked");
+                            //Log.i("CompPlayer","Don't want/not picked");
                         }
                     }//not lead player
                     else { //lead
@@ -144,7 +144,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                     }
                                 }
                             }
-                            Log.i("CompPlayer","Trying to lead spade");
+                            //Log.i("CompPlayer","Trying to lead spade");
                             if (card == -1) { //no spades or want a better card
                                 for (int j = 14; j > 1; j--) { //find next highest card
                                     for (int k = 0; k < playerHand.size(); k++) {
@@ -155,7 +155,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                     }
                                 }
                             }
-                            Log.i("CompPlayer","Couldn't pick spade");
+                            //Log.i("CompPlayer","Couldn't pick spade");
                         }//if want to win
                         else { //if not want to win
                             //find low card (would be nice if we could exclude spades, but if spades are all that's left we won't play
@@ -167,18 +167,17 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                     }
                                 }
                             }
-                            Log.i("CompPlayer","Not want to win");
+                            //Log.i("CompPlayer","Not want to win");
                         }//if not want to win
                     }//not lead
-
-
-
 
                     if (currentState.cardsInTrick == 4) {
                         this.sleep(500); // let human see end of trick
                         game.sendAction(new EndTrickAction(this));
                         this.sleep(1000);
                     }
+                    this.sleep(200);
+                    //Log.i("CompPlayer", "Player " + playerNum + " wants to play card no: " + card);
                     this.sleep(150);
                     Log.i("CompPlayer", "Player " + playerNum + " wants to play card no: " + card);
                     if(currentState.getCurrentPlayerHand().get(card)!=null)
