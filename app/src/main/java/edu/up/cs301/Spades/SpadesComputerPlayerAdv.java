@@ -179,7 +179,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                         game.sendAction(new EndTrickAction(this));
                         this.sleep(1000);
                     }
-                    this.sleep(200);
+                    this.sleep(150);
                     Log.i("CompPlayer", "Player " + playerNum + " wants to play card no: " + card);
                     if(currentState.getCurrentPlayerHand().get(card)!=null)
                     game.sendAction(new SpadesPlayCardAction(this, card));
