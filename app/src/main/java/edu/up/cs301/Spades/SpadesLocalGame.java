@@ -1,5 +1,7 @@
 package edu.up.cs301.Spades;
 
+import android.util.Log;
+
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.LocalGame;
 import edu.up.cs301.game.actionMsg.GameAction;
@@ -85,6 +87,7 @@ public class SpadesLocalGame extends LocalGame {
         }
         if(action instanceof SpadesBidAction){
             spadesGameState.placeBid(((SpadesBidAction) action).getBid());
+            Log.i("Send bid", "Bid");
         }
         else if(action instanceof EndTrickAction) {
             spadesGameState.noShowCard();
@@ -108,5 +111,6 @@ public class SpadesLocalGame extends LocalGame {
         SpadesState temp = spadesGameState; //store the current spadesState in a temp
         spadesGameState = new SpadesState(); //overwrite current state with a new one
         spadesGameState.set(temp); //restore the permanent values to teh current spadesState
+        Log.i("Send bid", "Reset");
     }
 }//SpadesLocalGame.java

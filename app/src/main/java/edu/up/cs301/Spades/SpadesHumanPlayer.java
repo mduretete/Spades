@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -200,6 +201,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     c11.setImageResource(myGameState.getPlayer1Hand().get(11).imageId);
                 }
                 if (myGameState.getPlayer1Hand().get(12) != null) {
+                    Log.i("Human","Drawing last card");
                     c12.setImageResource(myGameState.getPlayer1Hand().get(12).imageId);
                 }
 
@@ -494,6 +496,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                     bidConfirm.setEnabled(false);
 
                     game.sendAction(new SpadesBidAction(this, bid));
+                    Log.i("Send bid","Sent bid");
                     return;
                 }
             }catch(Exception e){}
@@ -514,7 +517,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         }
         else if (v == nextRound) {
             nextRound.setEnabled(false);
-            if(!gameHasBeenWon){
                 bidView.setText("");
                 bidView.setEnabled(true);
                 bidConfirm.setEnabled(true);
@@ -534,7 +536,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 c12.setVisibility(View.VISIBLE);
 
                 game.sendAction(new NextRoundAction(this));
-            }
+                Log.i("Send bid", "Sent new round");
 
         }
     }
