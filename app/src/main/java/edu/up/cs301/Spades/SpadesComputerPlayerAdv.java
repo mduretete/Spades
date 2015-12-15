@@ -94,6 +94,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                     }
                                 }
                                 Log.i("CompPlayer","Want trick and no lead, spade");
+
                             }//want tricks
                             else { //have to beat same suit
                                 for (int i = 0; i < playerHand.size(); i++) { //see if I can beat
