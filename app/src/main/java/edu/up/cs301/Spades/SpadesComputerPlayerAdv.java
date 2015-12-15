@@ -171,11 +171,9 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                     }
                     this.sleep(200);
                     game.sendAction(new SpadesPlayCardAction(this, card));
-
                 }
             }
         }
-
     }
 
     //old getter
@@ -190,7 +188,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
      * @return int, which is inputted to the computers bid
      */
     public int partnerBid(SpadesState state){
-        int toBid = -1; //default uninited bid
+        int toBid = -1; //default uninitted bid
         Random rand2 = new Random(); //random init
         int idx = 0;
 
@@ -207,17 +205,18 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
         if(state.playerBids[idx] == -1){ //if partner hasn't bid yet
             int myRand = rand2.nextInt(10);
             if(myRand != 0) {
-                toBid = rand2.nextInt(6)+1; //if myRand != 0 make a bid 1-6
-            }else { toBid = 0;} //else bid nil
-        }else if(state.playerBids[idx] >= 4){ //if partner bid >= 4
+                toBid = rand2.nextInt(5)+1; //if myRand != 0 make a bid 1-5
+            }else {toBid = 0;} //else bid nil
+        }else if(state.playerBids[idx] == 0){ //if partner bid nil
+            toBid = rand2.nextInt(4)+1;
+        }else if(state.playerBids[idx] >= 3){ //if partner bid >= 3
             int myRand = rand2.nextInt(10);
             if(myRand != 0) {
                 toBid = rand2.nextInt(3)+1; //if myRand != 0 make a bid 1-3
-            }else { toBid = 0;} //else bid nil
-        }else if(state.playerBids[idx] < 4){ //if partner bid < 4
-                toBid = rand2.nextInt(3)+3; //bid 3-6, no chance for null in this case
+            }else {toBid = 0;} //else bid nil
+        }else if(state.playerBids[idx] < 3){ //if partner bid < 3 & not nil (above case for nil)
+                toBid = rand2.nextInt(3)+2; //bid 2-5, no chance for nil in this case
         }
         return toBid;
     }
-
 }

@@ -164,7 +164,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TRICKS: "
+                    android:text="tricks:"
                     android:id="@+id/p2trickfield"
                     android:textSize="30dp" />
 
@@ -283,7 +283,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TRICKS: "
+                    android:text="tricks:"
                     android:id="@+id/p0trickfield"
                     android:textSize="30dp" />
 

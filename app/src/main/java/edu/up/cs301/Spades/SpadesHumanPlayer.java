@@ -225,21 +225,21 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             }
 
             if (!myGameState.showPlayer1) {
-                p1card.setImageResource(android.R.color.transparent);
+                p1card.setImageResource(R.mipmap.blank2);
             }
             else if (myGameState.getTrickCards().get(1) != null) {
                 p1card.setImageResource(myGameState.getTrickCards().get(1).imageId);
             }
 
             if (!myGameState.showPlayer2) {
-                p2card.setImageResource(android.R.color.transparent);
+                p2card.setImageResource(R.mipmap.blank3);
             }
             else if (myGameState.getTrickCards().get(2) != null) {
                 p2card.setImageResource(myGameState.getTrickCards().get(2).imageId);
             }
 
             if (!myGameState.showPlayer3) {
-                p3card.setImageResource(android.R.color.transparent);
+                p3card.setImageResource(R.mipmap.blank4);
             }
             else if (myGameState.getTrickCards().get(3) != null) {
                 p3card.setImageResource(myGameState.getTrickCards().get(3).imageId);
