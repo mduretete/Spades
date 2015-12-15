@@ -94,11 +94,8 @@ public class SpadesLocalGame extends LocalGame {
             spadesGameState.playCard(((SpadesPlayCardAction) action).getCardIndex());
         }
         else if (action instanceof NextRoundAction) {
-            //spadesGameState.newRound();
             reset();
-            //sendUpdatedStateTo(action.getPlayer());
         }
-
         return true;
     }//makeMove()
 

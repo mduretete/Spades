@@ -473,7 +473,6 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             }
         }
         return false;
-
     }
 
     /**

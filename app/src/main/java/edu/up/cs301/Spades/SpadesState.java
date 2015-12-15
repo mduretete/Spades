@@ -705,7 +705,7 @@ public class SpadesState extends GameState{
                 if (playerTricks[partner] >= playerBids[partner] && playerBids[partner] != 0) { //partner made bid
                     int bags = (playerTricks[partner] - playerBids[partner]);
                     int add = ((playerBids[partner]) * 10) + bags;
-                    playerScores[i] = add;
+                    playerScores[i] += add;
                 }
                 else { //partner did not make bid
                     playerScores[partner] = ((-10) * (playerBids[partner]));
