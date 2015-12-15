@@ -79,6 +79,8 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     SpadesState myGameState;
     private GameMainActivity myActivity;
 
+    static boolean gameHasBeenWon = false;
+
     /**
      * SpadesHumanPlayer():ctor for the human player
      *
@@ -511,28 +513,28 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             bidView.setText("ERROR. " + bidView.getText().toString());
         }
         else if (v == nextRound) {
-
             nextRound.setEnabled(false);
+            if(!gameHasBeenWon){
+                bidView.setText("");
+                bidView.setEnabled(true);
+                bidConfirm.setEnabled(true);
 
-            bidView.setText("");
-            bidView.setEnabled(true);
-            bidConfirm.setEnabled(true);
+                c0.setVisibility(View.VISIBLE);
+                c1.setVisibility(View.VISIBLE);
+                c2.setVisibility(View.VISIBLE);
+                c3.setVisibility(View.VISIBLE);
+                c4.setVisibility(View.VISIBLE);
+                c5.setVisibility(View.VISIBLE);
+                c6.setVisibility(View.VISIBLE);
+                c7.setVisibility(View.VISIBLE);
+                c8.setVisibility(View.VISIBLE);
+                c9.setVisibility(View.VISIBLE);
+                c10.setVisibility(View.VISIBLE);
+                c11.setVisibility(View.VISIBLE);
+                c12.setVisibility(View.VISIBLE);
 
-            c0.setVisibility(View.VISIBLE);
-            c1.setVisibility(View.VISIBLE);
-            c2.setVisibility(View.VISIBLE);
-            c3.setVisibility(View.VISIBLE);
-            c4.setVisibility(View.VISIBLE);
-            c5.setVisibility(View.VISIBLE);
-            c6.setVisibility(View.VISIBLE);
-            c7.setVisibility(View.VISIBLE);
-            c8.setVisibility(View.VISIBLE);
-            c9.setVisibility(View.VISIBLE);
-            c10.setVisibility(View.VISIBLE);
-            c11.setVisibility(View.VISIBLE);
-            c12.setVisibility(View.VISIBLE);
-
-            game.sendAction(new NextRoundAction(this));
+                game.sendAction(new NextRoundAction(this));
+            }
 
         }
     }
