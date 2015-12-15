@@ -51,17 +51,23 @@ public class SpadesLocalGame extends LocalGame {
     @Override
     public String checkIfGameOver() {
         if(spadesGameState.getTeam1Score() >= 200){
+            SpadesHumanPlayer.gameHasBeenWon = true;
             return "TEAM 1 WINS";
         } else if (spadesGameState.getTeam2Score() >= 200) {
+            SpadesHumanPlayer.gameHasBeenWon = true;
             return "TEAM 2 WINS";
         } else if (spadesGameState.getTeam1Score() <= -200){
+            SpadesHumanPlayer.gameHasBeenWon = true;
             return "TEAM 2 WINS";
         } else if (spadesGameState.getTeam2Score() <= -200){
+            SpadesHumanPlayer.gameHasBeenWon = true;
             return "TEAM 1 WINS";
         }
         else if (spadesGameState.getTeam1Score() <= -200){
+            SpadesHumanPlayer.gameHasBeenWon = true;
             return "TEAM 2 WINS";
         } else if (spadesGameState.getTeam2Score() <= -200) {
+            SpadesHumanPlayer.gameHasBeenWon = true;
             return "TEAM 1 WINS";
         }
         return null;
