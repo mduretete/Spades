@@ -12,7 +12,7 @@
         android:layout_marginRight="@dimen/table_row_horiz_pad"
         android:ems="15"
         android:inputType="text"
-        android:maxLength="20">
+        android:maxLength="10">
     </EditText>
 
     <Spinner
