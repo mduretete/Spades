@@ -6,10 +6,10 @@ import edu.up.cs301.game.actionMsg.GameAction;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Dec. 2015 ALPHA
+ * @version Dec. 2015 RELEASE
  *
  * Class that extends LocalGame and handles the in-game conditions, such as turns,
- *      winning, and valid moves.
+ *      winning, and moveActions
  */
 public class SpadesLocalGame extends LocalGame {
 
@@ -102,16 +102,14 @@ public class SpadesLocalGame extends LocalGame {
         return true;
     }//makeMove()
 
-
+    /**
+     * reset(): method to update the gameState with an all new gameState, but
+     *          still retains important information, used to restart rounds after
+     *          all tricks are taken
+     */
     public void reset(){
         SpadesState temp = spadesGameState; //store the current spadesState in a temp
         spadesGameState = new SpadesState(); //overwrite current state with a new one
         spadesGameState.set(temp); //restore the permanent values to teh current spadesState
     }
-
-
-
-
-
-
 }//SpadesLocalGame.java

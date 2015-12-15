@@ -10,7 +10,7 @@ import edu.up.cs301.game.config.GamePlayerType;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Dec. 2015 ALPHA
+ * @version Dec. 2015 RELEASE
  *
  * Main Activity, primarily to handle the menu screen
  *
@@ -49,7 +49,7 @@ public class MainActivity extends GameMainActivity {
         defaultConfig.addPlayer("Computer", 1); // player 2: a computer player
         defaultConfig.addPlayer("Computer", 2); // player 3: a computer player
         defaultConfig.addPlayer("Computer", 3); // player 4: a computer player
-        defaultConfig.setRemoteData("Remote Player", "", 0);
+        defaultConfig.setRemoteData("Remote Player", "", 0); // WE DO NOT SUPPORT NETWORK PLAY
 
         return defaultConfig;
     }
@@ -57,5 +57,4 @@ public class MainActivity extends GameMainActivity {
     public LocalGame createLocalGame() {
         return new SpadesLocalGame();
     }
-
 }

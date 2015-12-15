@@ -22,7 +22,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Dec. 2015 ALPHA
+ * @version Dec. 2015 RELEASE
  *
  * Class that extends GameHumanPlayer and specifies the actions
  *      the player can make and values that the player object
@@ -100,13 +100,14 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
     }
 
     /**
-     * recieveInfo(): Callback method, called when player gets a message
+     * recieveInfo(): recieve info from the local game, set the GUI
      *
      * @param info
      */
     public void receiveInfo(GameInfo info) {
         if (info instanceof SpadesState) {
 
+            //make the GUI
             myGameState = (SpadesState) info;
             if (myGameState.getPlayerBids(0) != -1) {
                 playerBidTextView.setText("" + myGameState.getPlayerBids(0));
@@ -146,7 +147,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 c11.setEnabled(false);
                 c12.setEnabled(false);
             }
-            else {
+            else { //we can play our cards
                 c0.setEnabled(true);
                 c1.setEnabled(true);
                 c2.setEnabled(true);
@@ -161,9 +162,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
                 c11.setEnabled(true);
                 c12.setEnabled(true);
             }
-
             setCardsPlayable();
-
                 if (myGameState.getPlayer1Hand().get(0) != null) {
                     c0.setImageResource(myGameState.getPlayer1Hand().get(0).imageId);
                 }
@@ -501,16 +500,18 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             }catch(Exception e){}
 
             //in correspondence with default
-            //myGameState.playerBids[0] = 0;
             game.sendAction(new SpadesBidAction(this, 1));
-            playerBidTextView.setText("0");
 
             //disables bidView and bidConfirm so players can't change their bids
             bidView.setEnabled(false);
             bidConfirm.setEnabled(false);
 
             //if there is an error, show it, for both the Programmer and the user
-            bidView.setText("not a valid bid. " + bidView.getText().toString());
+            if(bidView.getText().toString().equals("")){
+                bidView.setText("ERROR: No Entry");
+            } else{
+                bidView.setText("ERROR: " + bidView.getText().toString());
+            }
         }
         else if (v == nextRound) {
             nextRound.setEnabled(false);
