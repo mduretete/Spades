@@ -315,7 +315,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:ems="10"
-                android:id="@+id/bidview" />
+                android:id="@+id/bidview"
+                android:hint="Enter Bid Here" />
 
             <TextView
                 android:layout_width="wrap_content"
