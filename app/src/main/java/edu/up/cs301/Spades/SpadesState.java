@@ -315,8 +315,6 @@ public class SpadesState extends GameState{
      */
     public void playCard(int index) {
 
-        currentPlayerHand = getCurrentPlayerHand();
-
             if (cardsInTrick == 4) {
                 cardsInTrick = 0;
             }
@@ -324,6 +322,7 @@ public class SpadesState extends GameState{
             if (cardsInTrick == 0) {
                 leadTrick = currentPlayer;
                 //TODO game crashed at this line... not sure why
+                currentPlayerHand = getCurrentPlayerHand(leadTrick);
                 firstCardSuit = currentPlayerHand.get(index).getSuit();
             }
 
@@ -686,7 +685,7 @@ public class SpadesState extends GameState{
                     playerScores[i] = 100;
                 }
                 else if (playerTricks[i] > playerBids[i]) { //nil bid not made
-                    playerScores[i] = (-100) - playerTricks[i] ;
+                    playerScores[i] = (-100) + playerTricks[i] ;
                     if (i == 0 || i == 2) {
                         team1Bags = team1Bags + playerTricks[i];
                     }
