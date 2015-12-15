@@ -116,7 +116,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                                         card = i;
                                         break; //go use this card
                                     }
-                                    else if (playerHand.get(i).getRank() < lowest) {
+                                    else if (playerHand.get(i).getRank() < lowest && !playerHand.get(i).getSuit().equals(Card.SPADES)) {
                                         lowest = playerHand.get(i).getRank();
                                         card = i;
                                     }
