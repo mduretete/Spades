@@ -10,11 +10,11 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Dec. 2015 ALPHA
+ * @version Dec. 2015 RELEASE
  *
  * Class that extends GameComputerPlayer and specifies the actions
  *      the player can make and values that the player object
- *      holds
+ *      holds, PLAYS BETTER
  */
 public class SpadesComputerPlayerAdv extends GameComputerPlayer {
 
@@ -73,8 +73,8 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
 
                     ArrayList<Card> playerHand = currentState.getCurrentPlayerHand(); // player's current hand
 
+
                     //TODO Bid logic should definitely take into consideration which cards he has (eg ace of spades)
-                    //TODO and if partner bids nil he shouldn't do the same
                     if ((leadPlayer != -1)) { //make the player follow the rules if he can't play first
 
                         leadCard = currentState.getTrickCards().get(leadPlayer); //store leading card info
@@ -227,6 +227,11 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
             }else {toBid = 0;} //else bid nil
         }else if(state.playerBids[idx] < 3){ //if partner bid < 3 & not nil (above case for nil)
                 toBid = rand2.nextInt(3)+2; //bid 2-5, no chance for nil in this case
+        }
+        if(state.currentPlayerHand.get(12).getRank() == 12 &&
+                state.currentPlayerHand.get(12).getSuit().equals('S') &&
+                toBid == 0){ //if computer has the Ace of Spades
+            toBid = rand2.nextInt(3)+1; //make a bid 1-3
         }
         return toBid;
     }

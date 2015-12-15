@@ -8,7 +8,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Dec. 2015 ALPHA
+ * @version Dec. 2015 RELEASE
  *
  * Class that extends GameComputerPlayer and specifies the actions
  *      the player can make and values that the player object
@@ -113,6 +113,7 @@ public class SpadesComputerPlayer extends GameComputerPlayer {
 
     }
 
+    //getter
     public int getPlayerNo() {
         return this.playerNum;
     }

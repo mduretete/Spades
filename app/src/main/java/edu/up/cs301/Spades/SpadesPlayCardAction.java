@@ -5,7 +5,7 @@ import edu.up.cs301.game.actionMsg.GameAction;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Dec. 2015 ALPHA
+ * @version Dec. 2015 RELEASE
  *
  * Class that allows the playCard action to be recognized
  */

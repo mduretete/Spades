@@ -7,9 +7,10 @@ import edu.up.cs301.game.infoMsg.GameState;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Dec. 2015 ALPHA
+ * @version Dec. 2015 RELEASE
  *
- * Holds all the values contingent with the current gameState
+ * Holds all the values contingent with the current gameState as well as scoring
+ *      logic
  */
 public class SpadesState extends GameState{
 
@@ -308,7 +309,6 @@ public class SpadesState extends GameState{
         else currentPlayer = 0;
     }
 
-
     /**
      * Select a card to be played in the current trick
      * @param index index of card in the player's hand
@@ -378,7 +378,6 @@ public class SpadesState extends GameState{
             cardsPlayed++;
             cardsInTrick++;
             scoring();
-
     }
 
     /**
@@ -492,7 +491,6 @@ public class SpadesState extends GameState{
         orderHand(player2Hand);
         orderHand(player3Hand);
         orderHand(player4Hand);
-
     }
 
     /**
@@ -526,8 +524,6 @@ public class SpadesState extends GameState{
             winningTeam = roundWin();
             currentPlayer = 0;
             endOfRound = true;
-
-
         }
     }
 
@@ -665,7 +661,6 @@ public class SpadesState extends GameState{
      * roundWin(): determines which team scored the most in a round and updates the arrays
      * @return int, 0 for team 1 (human + comp) and 1 for team 2 (comp + comp), 2 for draw, -1 for ERROR
      */
-    //TODO not sure if last trick gets counted and/or shown on GUI
     public int roundWin(){
 
         boolean p0done = false;
@@ -767,25 +762,21 @@ public class SpadesState extends GameState{
             team2Bags = team2Bags%10;
         }
 
-        //score too low
-        /*if (team1Score < 0){
-            team1Score = 0;
-        }
-        if (team2Score < 0){
-            team2Score = 0;
-        }*/
-
         //sets winning team
         if(team1Score > team2Score){
-            return 0;
+            return 0; //team 1 winning
         } else if(team2Score > team1Score){
-            return 1;
+            return 1; //team 2 winning
         } else if(team1Score == team2Score){
             return 2; //draw
         }
         return -1;
     }
 
+    /**
+     * orderHand(): orders player hand in suit and rank
+     * @param toOrder
+     */
     private void orderHand(ArrayList<Card> toOrder) {
         int[] hearts = new int[13];
         int[] clubs = new int[13];
@@ -862,6 +853,9 @@ public class SpadesState extends GameState{
 
     }
 
+    /**
+     * noShowCard(): makes trick cards invisible after a trick has concluded
+     */
     public void noShowCard() {
         if(cardsInTrick == 4) {
             showPlayer0 = false;

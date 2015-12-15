@@ -2,7 +2,7 @@ package edu.up.cs301.Spades;
 
 /**
  * @author Ryan Morrison, Jin Mok, Nick Wagner, Maddy Duretete
- * @version Dec. 2015 ALPHA
+ * @version Dec. 2015 RELEASE
  *
  * Class defines a Card object
  */
