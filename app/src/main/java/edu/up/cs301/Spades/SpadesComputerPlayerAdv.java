@@ -74,7 +74,6 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                     ArrayList<Card> playerHand = currentState.getCurrentPlayerHand(); // player's current hand
 
 
-                    //TODO Bid logic should definitely take into consideration which cards he has (eg ace of spades)
                     if ((leadPlayer != -1)) { //make the player follow the rules if he can't play first
 
                         leadCard = currentState.getTrickCards().get(leadPlayer); //store leading card info
@@ -182,6 +181,7 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
                     }
                     this.sleep(200);
                     Log.i("CompPlayer", "Player " + playerNum + " wants to play card no: " + card);
+                    if(currentState.getCurrentPlayerHand().get(card)!=null)
                     game.sendAction(new SpadesPlayCardAction(this, card));
                 }
             }

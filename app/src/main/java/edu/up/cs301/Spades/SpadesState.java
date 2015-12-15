@@ -315,14 +315,14 @@ public class SpadesState extends GameState{
      */
     public void playCard(int index) {
 
+        currentPlayerHand = getCurrentPlayerHand();
+        if(currentPlayerHand.get(index) != null){
             if (cardsInTrick == 4) {
                 cardsInTrick = 0;
             }
 
             if (cardsInTrick == 0) {
                 leadTrick = currentPlayer;
-                //TODO game crashed at this line... not sure why
-                currentPlayerHand = getCurrentPlayerHand(leadTrick);
                 firstCardSuit = currentPlayerHand.get(index).getSuit();
             }
 
@@ -378,6 +378,7 @@ public class SpadesState extends GameState{
             cardsPlayed++;
             cardsInTrick++;
             scoring();
+        }
     }
 
     /**
