@@ -395,7 +395,7 @@ View.OnClickListener {
 						typeSpinner.setSelection(i);
 					}
 					else {
-						typeSpinner.setSelection(1);
+						typeSpinner.setSelection(2);
 						break;
 					}
 				}

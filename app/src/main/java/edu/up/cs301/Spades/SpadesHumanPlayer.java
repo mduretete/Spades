@@ -370,7 +370,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
         nextRound.setOnClickListener(this);
         nextRound.setEnabled(false);
 
-        p0Name.setText(this.name);
+        p0Name.setText(this.name.toUpperCase());
     }
 
     @Override
@@ -508,7 +508,7 @@ public class SpadesHumanPlayer extends GameHumanPlayer implements View.OnDragLis
             bidConfirm.setEnabled(false);
 
             //if there is an error, show it, for both the Programmer and the user
-            bidView.setText("ERROR. " + bidView.getText().toString());
+            bidView.setText("not a valid bid. " + bidView.getText().toString());
         }
         else if (v == nextRound) {
 

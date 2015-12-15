@@ -69,7 +69,6 @@ public class SpadesComputerPlayerAdv extends GameComputerPlayer {
 
                     ArrayList<Card> playerHand = currentState.getCurrentPlayerHand(); // player's current hand
 
-                    //TODO Computer may or may not completely be following the rules
                     //TODO Bid logic should definitely take into consideration which cards he has (eg ace of spades)
                     //TODO and if partner bids nil he shouldn't do the same
                     if ((leadPlayer != -1)) { //make the player follow the rules if he can't play first
